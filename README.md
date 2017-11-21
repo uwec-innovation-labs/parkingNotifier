@@ -5,3 +5,5 @@ The Parking Notifier alerts UW-Eau Claire students when there is a snow emergenc
 This functions as an API for the status of the roads in Eau Claire.
 
 ## How it works
+
+## Funding
