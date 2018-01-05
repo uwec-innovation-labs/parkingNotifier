@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 10000"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,10 @@
     "mongodb": "^3.0.1"
   },
   "devDependencies": {
-    "nodemon": "^1.14.7"
+    "nodemon": "^1.14.7",
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^2.4.5",
+    "supertest": "^1.2.0"
   }
 }

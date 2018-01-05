@@ -30,5 +30,9 @@ app.use(function(error, req, res, next) {
     res.json({ status: "500" });
 })
 
-app.listen(port);
-console.log('Listening on port ' + port);
+app.listen(port, function() {
+    console.log('API listening on port ', port);
+});
+
+// exporting the app module
+module.exports = app;
