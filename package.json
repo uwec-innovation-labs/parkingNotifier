@@ -4,6 +4,7 @@
   "description": "The Parking Notifier alerts UW-Eau Claire students when there is a snow emergency and alternate side parking is in effect.",
   "main": "server.js",
   "scripts": {
+    "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/UWEC-ITC/parkingNotifier-API/issues"
   },
-  "homepage": "https://github.com/UWEC-ITC/parkingNotifier-API#readme"
+  "homepage": "https://github.com/UWEC-ITC/parkingNotifier-API#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongodb": "^3.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.7"
+  }
 }
