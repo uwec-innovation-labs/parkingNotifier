@@ -12,10 +12,13 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080;
 
-// ========= API ROUTES ======= //
 var apiRouter = express.Router();
 apiRouter.get('/', function(req, res) {
-    res.json({ message: 'Welcome to the api!' });
+    time = Date.now;
+    res.json({
+        apiDocumentation: 'https://github.com/UWEC-ITC/parkingNotifier-API',
+        timestamp: new Date().valueOf()
+        });
 });
 
 
