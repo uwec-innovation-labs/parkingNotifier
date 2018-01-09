@@ -1,9 +1,6 @@
-# parkingNotifier
-[![Build Status](https://travis-ci.org/UWEC-ITC/parkingNotifier-API.svg?branch=master)](https://travis-ci.org/UWEC-ITC/parkingNotifier-API)
-The Parking Notifier alerts UW-Eau Claire students when there is a snow emergency and alternate side parking is in effect.
+<h1 align="center">Parking Notifier API<img src="https://travis-ci.org/UWEC-ITC/parkingNotifier-API.svg?branch=master"></h1>
 
-## API
-This functions as an API for the status of the roads in Eau Claire.
+The Parking Notifier alerts UW-Eau Claire students when there is a snow emergency and alternate side parking is in effect.
 
 ## Versioning
 Parking Notifier API will be maintained under the [Semantic Versioning guidelines](http://semver.org) guidelines as much as possible. Releases will be numbered with the following format:
