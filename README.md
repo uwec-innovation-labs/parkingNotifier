@@ -7,7 +7,7 @@ This functions as an API for the status of the roads in Eau Claire.
 ## Versioning
 Parking Notifier API will be maintained under the [Semantic Versioning guidelines](http://semver.org) guidelines as much as possible. Releases will be numbered with the following format:
 
-<major>.<minor>.<patch>
+`<major>.<minor>.<patch>`
 
 And constructed with the following guidelines:
 
