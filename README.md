@@ -10,7 +10,7 @@ In neighborhoods heavily populated by students, it's very common for students to
 ### City Policy
 In Eau Claire, the [city policy](http://www.ci.eau-claire.wi.us/departments/public-works/alternate-side-parking) is as follows:
 - **Odd numbered days**: vehicles shall only be parked, stopped or left standing on that side of the street having odd-numbered addresses.
-- **Even numbered days**: vehicles shall only be parked, stopped or left standing on that side of the street having odd-numbered addresses.
+- **Even numbered days**: vehicles shall only be parked, stopped or left standing on that side of the street having even-numbered addresses.
 
 These rules are in effect for a full **72 hours (3 days)** after the snow emergency is declared. These rules affect all roads within the City of Eau Claire.
 
@@ -35,4 +35,4 @@ Breaking backward compatibility bumps the major (and resets the minor and patch)
 New additions, including new icons, without breaking backward compatibility bumps the minor (and resets the patch).
 Bug fixes, changes to brand logos, and misc changes bumps the patch.
 
-<div align="center"><sub align="center">Hosted and funded by [UWEC Information Technology Commission](http://www.uwec.edu/StudentSenate/commissions/itc/)</sub></div>
+<div align="center"><sup><sub align="center">Hosted and funded by [UWEC Information Technology Commission](http://www.uwec.edu/StudentSenate/commissions/itc/)</sub></sup></div>
