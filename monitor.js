@@ -29,13 +29,15 @@ rp(cityHomepage)
                     // and "is in effect", then the status will be changed
                     if ($('.detail-title').text().includes("Alternate Side Parking in Effect")) {
                         console.log("Alternate side parking is in effect");
+                        // get the announcement contents
                         var announcmentInfo = $('.detail-content').text();
                         console.log(announcmentInfo);
+                        /***** TO-DO: DATABASE INTEGRATION *****/
                     }
-
                 })
         } else {
             console.log("Alt parking not in effect");
+            /***** TO-DO: DATABASE INTEGRATION *****/
         }
     })
     .catch((err) => {
