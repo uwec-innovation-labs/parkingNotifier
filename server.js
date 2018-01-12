@@ -2,6 +2,7 @@
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
+const mongo = require('mongodb');
 
 // create an instance of express
 const app = express();
