@@ -26,7 +26,7 @@ apiRouter.get('/', function(req, res) {
 app.use('/', apiRouter);
 // added 404 error
 app.use(function(req, res) {
-    res.status(400);
+    res.status(404);
     res.json({ status: "404" });
 })
 app.use(function(error, req, res, next) {
