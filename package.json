@@ -27,10 +27,10 @@
     "request-promise": "^4.2.2"
   },
   "devDependencies": {
-    "nodemon": "^1.14.7",
     "chai": "^3.5.0",
     "chai-http": "^2.0.1",
     "mocha": "^2.4.5",
+    "nodemon": "^1.14.9",
     "supertest": "^1.2.0"
   }
 }
