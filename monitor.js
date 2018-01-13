@@ -66,7 +66,6 @@ rp(cityHomepage)
                 if (err) throw err;
                 console.log('Status updated successfully');
             });
-
         }
     })
     .catch((err) => {

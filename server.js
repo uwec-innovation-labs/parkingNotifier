@@ -31,11 +31,8 @@ apiRouter.get('/', function(req, res) {
 });
 
 apiRouter.get('/status', function(req, res) {
-    Status.findOne({}, {}, {
-        sort: {
-            'created_at': -1
-        }
-    }, function(err, status) {
+    // get most recent record in the list of records
+    Status.findOne().sort({'timestamp': 'desc'}).exec(function(err, status) {
         res.json({
             alternateSideParking: status.alternateSideParking,
             message: status.message,
