@@ -17,7 +17,7 @@ var apiRouter = express.Router();
 apiRouter.get('/', function(req, res) {
     time = Date.now;
     res.json({
-        //apiDocumentation: 'https://github.com/UWEC-ITC/parkingNotifier-API',
+        apiDocumentation: 'https://github.com/UWEC-ITC/parkingNotifier-API',
         timestamp: new Date().valueOf()
         });
 });
