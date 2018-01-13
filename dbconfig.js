@@ -1,0 +1,5 @@
+module.exports = {
+    'secret': 'this is for the verification of tokens',
+    'database': 'mongodb://admin:924D32D56930B1853533A422153760FDB8CA1464EA9901E497DE035C2FE9D26FB8912AD4B5165644C6D6D2993F7BE44629D5AA80EDD499AF916D59578BA7EFC6@ds147711.mlab.com:47711/parking'
+}
+

@@ -23,6 +23,7 @@
     "express": "^4.16.2",
     "get-hrefs": "^2.0.0",
     "mongodb": "^3.0.1",
+    "mongoose": "^4.13.9",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
   },

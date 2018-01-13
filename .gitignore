@@ -61,4 +61,4 @@ typings/
 .next
 
 # database config file
-dbconfig.js
+config.js
