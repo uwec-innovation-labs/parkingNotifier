@@ -24,18 +24,13 @@ app.use(bodyParser.json());
 
 var apiRouter = express.Router();
 apiRouter.get('/', function(req, res) {
-    time = Date.now;
     res.json({
         apiDocumentation: 'https://github.com/UWEC-ITC/parkingNotifier-API',
     });
 });
 
 apiRouter.get('/status', function(req, res) {
-    Status.findOne({}, {}, {
-        sort: {
-            'created_at': -1
-        }
-    }, function(err, status) {
+    Status.findOne().sort({'timestamp': 'desc'}).exec(function(err, status) {
         res.json({
             alternateSideParking: status.alternateSideParking,
             message: status.message,
