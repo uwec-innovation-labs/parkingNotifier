@@ -24,7 +24,7 @@ describe('Root API Route', function() {
         it('valid timestamp', function(done) {
             request.get('/')
                 .end(function(err, res) {
-                    expect(res.body.timestamp).to.be.below();
+                    expect(res.body.timestamp).to.be.below(new Date().valueOf());
                     done(err);
                 });
         });
