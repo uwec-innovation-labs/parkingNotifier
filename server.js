@@ -37,7 +37,6 @@ apiRouter.get('/status', function(req, res) {
             'created_at': -1
         }
     }, function(err, status) {
-        console.log(status);
         res.json({
             alternateSideParking: status.alternateSideParking,
             message: status.message,

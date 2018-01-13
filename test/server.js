@@ -34,7 +34,7 @@ describe("status route tests", function() {
     it('response 200 status code', function(done) {
         request.get('/')
             .expect(200)
-            .end(function(err, res) {
+            .end(function (err, res) {
                 done(err);
             });
     });
@@ -52,6 +52,17 @@ describe("status route tests", function() {
                 setTimeout(function() {
                     expect(res.body.timestamp).to.be.below(new Date().valueOf());
                 }, 1000);
+                done(err);
+            });
+    });
+    it('message null if inactive', function(done) {
+        request.get('/status')
+            .end(function(err, res) {
+                if (res.body.alternateSideParking === 'active') {
+                    expect(res.body.message).to.be.a('string');
+                } else {
+                    expect(res.body.message).to.be.null;
+                }
                 done(err);
             });
     });
