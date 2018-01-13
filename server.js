@@ -14,7 +14,7 @@ var User = require('./models/user'); // get our mongoose model
 var Status = require('./models/status'); // get our mongoose model
 
 // connect to the database
-mongoose.connect(config.database);
+mongoose.connect(config.database, { useMongoClient: true });
 
 // configure app to use bodyParser
 app.use(bodyParser.urlencoded({

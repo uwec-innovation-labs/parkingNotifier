@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 var config = require('./config'); // get our config file
 var Status = require('./models/status'); // get our mongoose model
 
-mongoose.connect(config.database); // connect to database
+mongoose.connect(config.database, { useMongoClient: true }); // connect to database
 
 // options for the request to the city home page
 const cityHomepage = {
