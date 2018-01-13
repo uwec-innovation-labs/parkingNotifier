@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 // set up a mongoose model and pass it using module.exports
 module.exports = mongoose.model('Status', new Schema({
-    alternateSideParking: String,
+    alternateSideParking: Boolean,
     message: String,
     timestamp: String,
 }));

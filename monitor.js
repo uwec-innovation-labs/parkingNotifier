@@ -41,7 +41,7 @@ rp(cityHomepage)
                         console.log(announcmentInfo);
                         // create a sample user
                         var status = new Status({
-                            alternateSideParking: "active",
+                            alternateSideParking: true,
                             message: announcmentInfo,
                             timestamp: new Date().valueOf()
                         });
@@ -57,7 +57,7 @@ rp(cityHomepage)
 
             // update the database to have inactive status
             var status = new Status({
-                alternateSideParking: "active",
+                alternateSideParking: false,
                 message: null,
                 timestamp: new Date().valueOf()
             });

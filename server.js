@@ -30,7 +30,6 @@ apiRouter.get('/', function(req, res) {
     });
 });
 
-
 apiRouter.get('/status', function(req, res) {
     Status.findOne({}, {}, {
         sort: {
