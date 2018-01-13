@@ -62,3 +62,6 @@ typings/
 
 # database config file
 config.js
+
+# macOS crap
+.DS_Store
