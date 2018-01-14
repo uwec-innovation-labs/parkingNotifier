@@ -1,6 +1,15 @@
 const rp = require('request-promise');
 const cheerio = require('cheerio');
 const getHrefs = require('get-hrefs');
+const mongoose = require('mongoose');
+
+// import environment variables from .env file
+require('dotenv').config()
+var Status = require('./models/status'); // get our mongoose model
+
+// connect to database
+var databaseURI = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@' + process.env.DB_HOST;
+mongoose.connect(databaseURI, { useMongoClient: true });
 
 // options for the request to the city home page
 const cityHomepage = {
@@ -19,11 +28,11 @@ rp(cityHomepage)
             var announcementLink = getHrefs($('p').has('a').html());
             // make a request to the page of the announcement
             rp({
-                uri: announcementLink[0],
-                transform: function(body) {
-                    return cheerio.load(body);
-                }
-            })
+                    uri: announcementLink[0],
+                    transform: function(body) {
+                        return cheerio.load(body);
+                    }
+                })
                 .then(($) => {
                     // if the announcement title contains "alternate side parking"
                     // and "is in effect", then the status will be changed
@@ -32,12 +41,33 @@ rp(cityHomepage)
                         // get the announcement contents
                         var announcmentInfo = $('.detail-content').text();
                         console.log(announcmentInfo);
-                        /***** TO-DO: DATABASE INTEGRATION *****/
+                        // create a sample user
+                        var status = new Status({
+                            alternateSideParking: true,
+                            message: announcmentInfo,
+                            timestamp: new Date().valueOf()
+                        });
+
+                        status.save(function(err) {
+                            if (err) throw err;
+                            console.log('Status updated successfully');
+                        });
                     }
                 })
         } else {
             console.log("Alt parking not in effect");
-            /***** TO-DO: DATABASE INTEGRATION *****/
+
+            // update the database to have inactive status
+            var status = new Status({
+                alternateSideParking: false,
+                message: null,
+                timestamp: new Date().valueOf()
+            });
+
+            status.save(function(err) {
+                if (err) throw err;
+                console.log('Status updated successfully');
+            });
         }
     })
     .catch((err) => {

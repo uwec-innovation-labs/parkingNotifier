@@ -61,4 +61,7 @@ typings/
 .next
 
 # database config file
-dbconfig.json
+config.js
+
+# macOS crap
+.DS_Store
