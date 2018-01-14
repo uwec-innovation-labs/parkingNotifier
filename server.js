@@ -2,7 +2,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-var validator = require('validator');
 
 // import environment variables from .env file
 require('dotenv').config()
