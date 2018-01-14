@@ -1,4 +1,4 @@
-describe('root route tests', function() {
+describe('/ tests', function() {
     it('response 200 status code', function(done) {
         request.get('/')
             .expect(200)
@@ -24,13 +24,13 @@ describe('root route tests', function() {
         request.get('/')
             .end(function(err, res) {
                 setTimeout(function() {
-                    expect(res.body.timestamp).to.be.below(new Date().valueOf());
+                    expect(res.body.updated).to.be.below(new Date().valueOf());
                 }, 1000);
                 done(err);
             });
     });
 });
-describe("status route tests", function() {
+describe("/status tests", function() {
     it('response 200 status code', function(done) {
         request.get('/')
             .expect(200)

@@ -67,6 +67,8 @@ rp(cityHomepage)
             status.save(function(err) {
                 if (err) throw err;
                 console.log('Status updated successfully');
+                // exit the script
+                process.exit();
             });
         }
     })
