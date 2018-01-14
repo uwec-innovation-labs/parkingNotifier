@@ -3,18 +3,20 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+// import environment variables from .env file
+require('dotenv').config()
+
 // create an instance of express
 const app = express();
 var port = process.env.PORT || 8080;
-
-var config = require('./config'); // get our config file
 
 // import data models
 var User = require('./models/user'); // get our mongoose model
 var Status = require('./models/status'); // get our mongoose model
 
 // connect to the database
-mongoose.connect(config.database, { useMongoClient: true });
+var databaseURI = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@' + process.env.DB_HOST;
+mongoose.connect(databaseURI, { useMongoClient: true });
 
 // configure app to use bodyParser
 app.use(bodyParser.urlencoded({

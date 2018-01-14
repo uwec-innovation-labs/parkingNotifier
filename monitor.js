@@ -3,11 +3,13 @@ const cheerio = require('cheerio');
 const getHrefs = require('get-hrefs');
 const mongoose = require('mongoose');
 
-// import db config file and user model
-var config = require('./config'); // get our config file
+// import environment variables from .env file
+require('dotenv').config()
 var Status = require('./models/status'); // get our mongoose model
 
-mongoose.connect(config.database, { useMongoClient: true }); // connect to database
+// connect to database
+var databaseURI = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@' + process.env.DB_HOST;
+mongoose.connect(databaseURI, { useMongoClient: true });
 
 // options for the request to the city home page
 const cityHomepage = {
