@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 // import environment variables from .env file
 require('dotenv').config()
-var Status = require('./models/status'); // get our mongoose model
+var Status = require('../models/status'); // get our mongoose model
 
 // connect to database
 var databaseURI = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@' + process.env.DB_HOST;
@@ -51,6 +51,7 @@ rp(cityHomepage)
                         status.save(function(err) {
                             if (err) throw err;
                             console.log('Status updated successfully');
+                            process.exit();
                         });
                     }
                 })

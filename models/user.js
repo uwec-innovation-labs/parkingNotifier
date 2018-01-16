@@ -2,9 +2,33 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// set up a mongoose model and pass it using module.exports
-module.exports = mongoose.model('User', new Schema({
-    name: String,
-    email: String,
-    phone: String
-}));
+var User = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        lowercase: true,
+        unique: true,
+        required: true, message: "test"
+    },
+    phone: {
+        type: String,
+        unique: true,
+        maxlength: 11,
+        minlength: 11
+    },
+    role: {
+        type: String,
+        enum: ['Student', 'Developer'],
+        default: 'Student',
+        required: true
+    },
+    token: {
+        type: String
+    }
+});
+
+// export the user schema
+module.exports = mongoose.model('User', User);

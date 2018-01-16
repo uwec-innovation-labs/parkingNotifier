@@ -1,4 +1,4 @@
-describe('/ tests', function() {
+describe('ROUTE: GET /', function() {
     it('response 200 status code', function(done) {
         request.get('/')
             .expect(200)
@@ -30,16 +30,16 @@ describe('/ tests', function() {
             });
     });
 });
-describe("/status tests", function() {
+describe("ROUTE: GET /status", function() {
     it('response 200 status code', function(done) {
-        request.get('/')
+        request.get('/status')
             .expect(200)
             .end(function (err, res) {
                 done(err);
             });
     });
     it('json response', function(done) {
-        request.get('/')
+        request.get('/status')
             .end(function(err, res) {
                 expect(res).to.be.json;
                 done(err);
@@ -47,7 +47,7 @@ describe("/status tests", function() {
     });
 
     it('valid timestamp', function(done) {
-        request.get('/')
+        request.get('/status')
             .end(function(err, res) {
                 setTimeout(function() {
                     expect(res.body.timestamp).to.be.below(new Date().valueOf());
@@ -67,6 +67,7 @@ describe("/status tests", function() {
             });
     });
 });
+
 describe('HTTP ERROR TEST', function() {
     describe("GET /invalidPath", function() {
         it('sends 404 status', function(done) {

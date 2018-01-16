@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
+    "check-status": "node helpers/monitor.js",
     "test": "mocha --timeout 10000"
   },
   "repository": {
@@ -24,6 +25,7 @@
     "express": "^4.16.2",
     "get-hrefs": "^2.0.0",
     "mongoose": "^4.13.9",
+    "mongoose-delete": "^0.4.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
   },

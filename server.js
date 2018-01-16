@@ -25,8 +25,11 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 var apiRouter = express.Router();
+
 apiRouter.get('/', function(req, res) {
+    res.status(200);
     res.json({
+        success: true,
         apiDocumentation: 'https://github.com/UWEC-ITC/parkingNotifier-API',
     });
 });
@@ -35,6 +38,7 @@ apiRouter.route('/status')
     .get(function(req, res) {
         // get most recent record in the list of records
         Status.findOne().sort({'timestamp': 'desc'}).exec(function(err, status) {
+            res.status(200);
             res.json({
                 alternateSideParking: status.alternateSideParking,
                 message: status.message,
@@ -42,45 +46,73 @@ apiRouter.route('/status')
             });
         });
     });
+apiRouter.route('/developer')
+    // subscribe a user
+    .post(function(req, res) {
+        if (!req.body.name || !req.body.email || !req.body.phone || !req.body.token) {
+            res.send({
+                success: false,
+                message: "Please include a name, UWEC email address, and phone number to generate a token",
+                apiDocumentation: 'https://github.com/UWEC-ITC/parkingNotifier-API',
+            });
+            return;
+        } else if (req.body.email.replace(/.*@/, "") == 0 || req.body.email.replace(/.*@/, "") !== 'uwec.edu') {
+            res.status(400);
+            res.send({ message: "Email must be a UWEC email"});
+            return;
+        } else {
+            console.log("Creating user");
+            var newUser = new User({
+                name: req.body.name,
+                email: req.body.email,
+                phone: req.body.phone,
+                token: req.body.token
+            });
+
+            console.log("attempting to save user");
+            // attempt to save the user
+            newUser.save(function(err) {
+                console.log("waiting...")
+                if (err) {
+                    return res.json({ success: false, message: err });
+                }
+                return res.json({ success: true, message: 'Successfully created new user' });
+            });
+        }
+    });
+
 
 apiRouter.route('/users')
     // subscribe a user
     .post(function(req, res) {
-        if (!req.body.email) {
-            res.send({ message: "must include an email address to create a user"});
+        if (!req.body.name || !req.body.email || !req.body.phone) {
+            res.status(400);
+            res.send({
+                success: false,
+                message: "Please include a name, UWEC email address, and phone number to create a user",
+                apiDocumentation: 'https://github.com/UWEC-ITC/parkingNotifier-API',
+            });
             return;
-        }
-        var domain = req.body.email.replace(/.*@/, "");
-        if (domain.length == 0 || domain !== 'uwec.edu') {
-
-            res.send({ message: "email must be a UWEC email"});
+        } else if (req.body.email.replace(/.*@/, "") == 0 || req.body.email.replace(/.*@/, "") !== 'uwec.edu') {
+            res.status(400);
+            res.send({ message: "Email must be a UWEC email"});
             return;
+        } else {
+            var newUser = new User({
+                name: req.body.name,
+                email: req.body.email,
+                phone: req.body.phone
+            });
+
+            // attempt to save the user
+            newUser.save(function(err) {
+                if (err) {
+                    return res.json({ success: false, message: err.errmsg });
+                }
+                res.json({ success: true, message: 'Successfully created new user' });
+            });
         }
-        // create a new user object
-        var user = new User();
-
-        /**** TODO: Check to see if records exist *****/
-        User.count({ email: req.body.email}, function (err, count){
-            // make sure that the user exists
-            if (count > 0) {
-                console.log(count);
-                // let the user know that the record already exists
-                res.json({ message: 'This email is already in use' });
-
-            } else {
-                user.name = req.body.name;
-                user.email = req.body.email;
-                user.phone = req.body.phone;
-
-                user.save(function(err) {
-                    if (err)
-                        res.send({ status: "failed" });
-
-                    res.json({ message: 'User created!' });
-                });
-            }
-        });
-    })
+    });
 
 // unsubscribe a user
 apiRouter.route('/users/:email')
@@ -88,15 +120,15 @@ apiRouter.route('/users/:email')
         User.count({email: req.params.email}, function (err, count){
             // make sure that the user exists
             if (count > 0) {
-                // remove the user that matches the email
+                // remove the user that matches the email number
                 User.remove({ email: req.params.email }, function(err, bear) {
                     if (err)
                         res.send(err);
-
-                    res.json({ message: 'Successfully unsubscribed' });
+                    res.json({ success: true, message: 'Successfully unsubscribed' });
                 });
             } else {
-                res.json({ message: 'User with that email does not exist'});
+                res.status(400);
+                res.json({ success: false, message: 'User with that email does not exist'});
             }
         });
     })
@@ -110,10 +142,11 @@ apiRouter.route('/users/:phone')
                 User.remove({ phone: req.params.phone }, function(err, bear) {
                     if (err)
                         res.send(err);
-                    res.json({ message: 'Successfully unsubscribed' });
+                    res.json({ success: true, message: 'Successfully unsubscribed' });
                 });
             } else {
-                res.json({ message: 'User with that phone number does not exist'});
+                res.status(400);
+                res.json({ success: false, message: 'User with that phone number does not exist'});
             }
         });
     })
@@ -124,7 +157,7 @@ app.use('/', apiRouter);
 app.use(function(req, res) {
     res.status(404);
     res.json({
-        status: "404",
+        status: "failed",
         apiDocumentation: 'https://github.com/UWEC-ITC/parkingNotifier-API'
     });
 })
@@ -133,7 +166,7 @@ app.use(function(error, req, res, next) {
     res.status(500);
     console.log(error);
     res.json({
-        status: "500",
+        status: "failed",
         apiDocumentation: 'https://github.com/UWEC-ITC/parkingNotifier-API'
     });
 })
