@@ -23,7 +23,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "get-hrefs": "^2.0.0",
-    "mongoose": "^4.13.9",
+    "mongoose": "^5.0.18",
     "npm": "^6.0.0",
     "passport-jwt": "^4.0.0",
     "request": "^2.83.0",
@@ -33,7 +33,7 @@
     "chai": "^3.5.0",
     "chai-http": "^2.0.1",
     "mocha": "^2.4.5",
-    "nodemon": "^1.14.9",
+    "nodemon": "^1.17.4",
     "supertest": "^1.2.0"
   }
 }
