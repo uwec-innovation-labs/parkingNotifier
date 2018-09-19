@@ -27,7 +27,11 @@
     "get-hrefs": "^2.0.0",
     "mongoose": "^4.13.9",
     "mongoose-delete": "^0.4.0",
+<<<<<<< HEAD
     "request": "^2.88.0",
+=======
+    "request": "^2.83.0",
+>>>>>>> 57bb404ead39638f853c6e582d8868610e08df6d
     "request-promise": "^4.2.2"
   },
   "devDependencies": {
