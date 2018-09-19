@@ -15,8 +15,13 @@ var User = require('./models/user'); // get our mongoose model
 var Status = require('./models/status'); // get our mongoose model
 
 // connect to the database
-var databaseURI = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@' + process.env.DB_HOST;
-mongoose.connect(databaseURI, { useMongoClient: true });
+mongoose.connect('mongodb://' + process.env.DB_HOST, {
+  auth: {
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD
+  }
+})
+.catch((err) => console.error(err));
 
 // configure app to use bodyParser
 app.use(bodyParser.urlencoded({

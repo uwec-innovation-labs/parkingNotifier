@@ -1,4 +1,4 @@
-<h1 align="center">Parking Notifier API<br><a href="https://travis-ci.org/UWEC-ITC/parkingNotifier-API"><img src="https://travis-ci.org/UWEC-ITC/parkingNotifier-API.svg?branch=master"></a></h1>
+<h1 align="center">Parking Notifier API</h1>
 
 The Parking Notifier API alerts UW-Eau Claire students when there is a snow emergency and alternate side parking is in effect. This API has endpoints that are public facing so that community members of Eau Claire can also utilize the monitoring that is built into this system. For more information [read the docs].
 
@@ -33,4 +33,4 @@ Breaking backward compatibility bumps the major (and resets the minor and patch)
 New additions, including new icons, without breaking backward compatibility bumps the minor (and resets the patch).
 Bug fixes, changes to brand logos, and misc changes bumps the patch.
 
-<div align="center"><sup><sub align="center">Hosted and funded by [UWEC Information Technology Commission](http://www.uwec.edu/StudentSenate/commissions/itc/)</sub></sup></div>
+<div align="center"><sup><sub align="center">Hosted and funded by <a href="http://www.uwec.edu/StudentSenate/commissions/itc/">UWEC Information Technology Commission</a></sub></sup></div>
