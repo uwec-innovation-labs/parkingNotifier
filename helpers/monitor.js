@@ -6,6 +6,6 @@ axios.get('http://www.ci.eau-claire.wi.us/')
         if (response.status === 200) {
             const html = response.data
             const $ = cheerio.load(html)
-            console.log($.text())
+            console.log($("#home_link_shield"))
         }
     }, (error) => console.log(err))
