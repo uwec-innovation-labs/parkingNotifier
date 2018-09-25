@@ -18,13 +18,15 @@ class App extends Component {
   }
 
   handleChange = event => {
-    console.log(event.target.value)
+    console.log(this.state)
+    console.log(event.target)
     this.setState({
       [event.target.id]: event.target.value
     });
   }
 
   handleSubmit = event => {
+    console.log(this.state)
      event.preventDefault();
   }
 
@@ -44,16 +46,16 @@ class App extends Component {
           <FormGroup controlID="name" bsSize="large">
             <ControlLabel> Name </ControlLabel>
             <FormControl
+              id="name"
               autoFocus
               type="text"
-              //value={this.state.name}
               onChange={this.handleChange}
               />
             </FormGroup>
             <FormGroup controlID="phoneNumber" bsSize="large">
             <ControlLabel>Phone Number</ControlLabel>
             <FormControl
-              //value={this.state.phoneNumber}
+              id="phoneNumber"
               onChange={this.handleChange}
               type="text"
             />
