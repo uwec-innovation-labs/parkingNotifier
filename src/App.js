@@ -11,13 +11,14 @@ class App extends Component {
         name: "",
         phoneNumber: ""
       };
-    }
+  }
 
-    validateForm() {
-      return this.state.name.length > 0 && this.state.phoneNumber.length > 0;
-    }
+  validateForm() {
+    return this.state.name.length > 0 && this.state.phoneNumber.length > 0;
+  }
 
   handleChange = event => {
+    console.log(event.target.value)
     this.setState({
       [event.target.id]: event.target.value
     });
@@ -25,7 +26,7 @@ class App extends Component {
 
   handleSubmit = event => {
      event.preventDefault();
-   }
+  }
 
   render() {
     return (
@@ -45,14 +46,14 @@ class App extends Component {
             <FormControl
               autoFocus
               type="text"
-              value={this.state.name}
+              //value={this.state.name}
               onChange={this.handleChange}
               />
             </FormGroup>
             <FormGroup controlID="phoneNumber" bsSize="large">
             <ControlLabel>Phone Number</ControlLabel>
             <FormControl
-              value={this.state.phoneNumber}
+              //value={this.state.phoneNumber}
               onChange={this.handleChange}
               type="text"
             />
