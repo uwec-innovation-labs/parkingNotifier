@@ -7,8 +7,8 @@ axios.get("http://www.ci.eau-claire.wi.us/").then(
     if (response.status === 200) {
       const html = response.data;
       const $ = cheerio.load(html);
-      const topNav = $("#top_nav");
-      const topNavText = topNav.text();
+      var topNav = $("#top_nav");
+      var topNavText = topNav.text();
       if (topNavText.includes("Contact Us")) {
         success = true;
         console.log("TRUE");
