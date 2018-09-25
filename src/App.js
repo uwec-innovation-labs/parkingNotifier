@@ -9,7 +9,8 @@ class App extends Component {
 
       this.state = {
         name: "",
-        phoneNumber: ""
+        phoneNumber: "",
+        email: ""
       };
   }
 
@@ -57,7 +58,15 @@ class App extends Component {
             <FormControl
               id="phoneNumber"
               onChange={this.handleChange}
-              type="text"
+              type="tel"
+            />
+          </FormGroup>
+          <FormGroup controlID="email" bsSize="large">
+            <ControlLabel>UWEC Email</ControlLabel>
+            <FormControl
+              id="email"
+              onChange={this.handleChange}
+              type="email"
             />
           </FormGroup>
           <Button
