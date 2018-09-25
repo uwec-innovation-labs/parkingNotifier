@@ -1,4 +1,4 @@
-# parkingNotifier-FrontEnd
+# parkingNotifier-FrontEnd [![Build Status](https://travis-ci.com/UWEC-ITC/parkingNotifier-FrontEnd.svg?branch=master)](https://travis-ci.com/UWEC-ITC/parkingNotifier-FrontEnd)
 
 This is the front end for the UWEC Parking Notifier System. This page will be public facing so that community members of Eau Claire can also utilize the monitoring that is built into this system.
 
