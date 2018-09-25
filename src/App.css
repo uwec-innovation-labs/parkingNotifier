@@ -1,16 +1,41 @@
-@media all and (min-width: 480px) {
-  .Signup {
-    padding: 60px 0;
-  }
-
-  .Signup form {
+  .container form {
     margin: 0 auto;
     max-width: 320px;
+    text-align: left;
+
   }
 
-  .studentSenateLogo {
-    display: block;
-    height: 50px;
-    width: 50px;
+  .container {
+    text-align: center;
+    background-color: inherit;
+
   }
-}
+
+  .content {
+  text-align: center;
+  }
+
+  .img-responsive {
+    margin: 30px;
+    width: 100%;
+    max-width: 100px;
+  }
+
+  .h3 {
+    margin-bottom: 10px;
+  }
+
+  footer {
+    margin: 20px;
+    text-align: center;
+  }
+
+  p {
+    margin: 0 auto;
+    max-width: 550px;
+    text-overflow: ellipsis;
+  }
+  html {
+    background-color: #f8f9fa;
+    height: 100%;
+  }

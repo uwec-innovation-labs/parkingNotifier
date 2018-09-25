@@ -8,7 +8,9 @@
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.5.2",
     "react-input-mask": "^2.0.4",
-    "react-scripts": "1.1.5"
+    "react-scripts": "1.1.5",
+    "reactstrap": "^6.4.0",
+    "set-default-browser": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

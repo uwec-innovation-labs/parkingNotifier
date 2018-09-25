@@ -3,6 +3,7 @@ import './App.css';
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import studentSenateLogo from './studentsenate_logo.jpg';
 import InputMask from 'react-input-mask';
+import 'reactstrap';
 
 class App extends Component {
   constructor(props) {
@@ -30,9 +31,16 @@ class App extends Component {
 
   render() {
     return (
-
-
-      <div className="Signup">
+    <div className="App p-3 mb-2 bg-light text-dark">
+    <div className="content">
+    <img src={require('./studentsenate_logo.png')} class="img-responsive" id="StudentSenateLogo" alt="StudentSenateLogo"/>
+    </div>
+      <div className="container">
+        <h3> UWEC Parking Notifier Sign-up </h3>
+        <p> During a snow emergency, the City of Eau Claire
+        will activate alternate side parking rules. Complete
+        the form below to sign up for text alerts when alternate
+        side parking is in effect. </p>
         <form onSubmit={this.handleSubmit}>
           <FormGroup controlID="name" bsSize="large">
             <ControlLabel> Name </ControlLabel>
@@ -59,6 +67,14 @@ class App extends Component {
           > Sign Up
           </Button>
           </form>
+          </div>
+
+          <footer>
+
+          <small> This page is brought to you by the UWEC Student
+          Student Senate and Information Technology Commission </small>
+          </footer>
+
           </div>
     );
   }
