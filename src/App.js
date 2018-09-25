@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import studentSenateLogo from './studentsenate_logo.jpg';
-import InputMask from 'react-input-mask';
 import 'reactstrap';
 
 class App extends Component {
