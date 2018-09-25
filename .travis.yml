@@ -10,9 +10,9 @@ deploy:
     access_key_id: $AWS_KEY_ID
     secret_access_key: $AWS_KEY_SECRET
     bucket: "dev-parkingnotifier"
-    region: "us-west-1"
+    region: "us-west-2"
     local_dir: build
     skip_cleanup: true
     acl: public_read
     on:
-      branch: dev
+      branch: master
