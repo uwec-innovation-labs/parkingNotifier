@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import 'reactstrap';
+import InputMask from 'react-input-mask';
 
 class App extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class App extends Component {
 
   render() {
     return (
-    <div className="App p-3 mb-2 bg-light text-dark">
+    <div className="App">
     <div className="content">
     <img src={require('./studentsenate_logo.png')} class="img-responsive" id="StudentSenateLogo" alt="StudentSenateLogo"/>
     </div>
@@ -81,7 +82,7 @@ class App extends Component {
 
           <footer>
 
-          <small> This page is brought to you by the UWEC Student
+          <small> This page is brought to you by the UWEC
           Student Senate and Information Technology Commission </small>
           </footer>
 
