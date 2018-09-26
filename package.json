@@ -2,7 +2,7 @@
   "name": "parkingnotifier-api",
   "version": "1.0.0",
   "description": "The Parking Notifier alerts UW-Eau Claire students when there is a snow emergency and alternate side parking is in effect.",
-  "main": "server.js",
+  "main": "dev-server.js",
   "scripts": {
     "dev": "nodemon dev-server.js",
     "check-status": "node helpers/monitor.js",
