@@ -33,7 +33,7 @@ class App extends Component {
     return (
     <div className="App">
     <div className="content">
-    <img src={require('./studentsenate_logo.png')} class="img-responsive" id="StudentSenateLogo" alt="StudentSenateLogo"/>
+    <img src={require('./studentsenate_logo.png')} className="img-responsive" id="StudentSenateLogo" alt="StudentSenateLogo"/>
     </div>
       <div className="container">
         <h3> UWEC Parking Notifier Sign-up </h3>
