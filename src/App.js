@@ -20,15 +20,12 @@ class App extends Component {
   }
 
   handleChange = event => {
-    console.log(this.state)
-    console.log(event.target)
     this.setState({
       [event.target.id]: event.target.value
     });
   }
 
   handleSubmit = event => {
-    console.log(this.state)
      event.preventDefault();
   }
 
