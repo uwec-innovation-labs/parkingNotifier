@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import 'reactstrap';
-import InputMask from 'react-input-mask';
+
 
 class App extends Component {
   constructor(props) {
