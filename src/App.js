@@ -64,9 +64,9 @@ class App extends Component {
         </ul>
       </div>);
     return (
-    <div className="App p-3 mb-2 bg-light text-dark">
+    <div className="App">
     <div className="content">
-    <img src={require('./studentsenate_logo.png')} class="img-responsive" id="StudentSenateLogo" alt="StudentSenateLogo"/>
+    <img src={require('./studentsenate_logo.png')} className="img-responsive" id="StudentSenateLogo" alt="StudentSenateLogo"/>
     </div>
       <div className="container">
         <h3> UWEC Parking Notifier Sign-up </h3>
@@ -75,7 +75,7 @@ class App extends Component {
         the form below to sign up for text alerts when alternate
         side parking is in effect. </p>
         <form onSubmit={this.handleSubmit}>
-          <FormGroup controlID="name" bsSize="large">
+          <FormGroup controlid="name" bsSize="large">
             <ControlLabel> Name </ControlLabel>
             <FormControl
               id="name"
@@ -84,7 +84,7 @@ class App extends Component {
               onChange={this.handleChange}
               />
             </FormGroup>
-            <FormGroup controlID="phoneNumber" bsSize="large">
+            <FormGroup controlid="phoneNumber" bsSize="large">
             <ControlLabel>Phone Number</ControlLabel>
             <FormControl
               id="phoneNumber"
@@ -92,7 +92,7 @@ class App extends Component {
               type="tel"
             />
           </FormGroup>
-          <FormGroup controlID="email" bsSize="large">
+          <FormGroup controlid="email" bsSize="large">
             <ControlLabel>UWEC Email</ControlLabel>
             <FormControl
               id="email"
@@ -102,7 +102,7 @@ class App extends Component {
           </FormGroup>
           <Button
             block
-            bsSize='medium'
+            bsSize='large'
             disabled={!this.validateForm()}
             type='submit'
           > Sign Up
@@ -112,7 +112,7 @@ class App extends Component {
 
           <footer>
 
-          <small> This page is brought to you by the UWEC Student
+          <small> This page is brought to you by the UWEC
           Student Senate and Information Technology Commission </small>
           </footer>
 
