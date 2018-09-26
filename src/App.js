@@ -69,7 +69,7 @@ class App extends Component {
           </FormGroup>
           <Button
             block
-            bsSize='medium'
+            bsSize='large'
             disabled={!this.validateForm()}
             type='submit'
           > Sign Up
