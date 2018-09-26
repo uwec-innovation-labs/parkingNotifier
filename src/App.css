@@ -1,14 +1,27 @@
   .container form {
     margin: 0 auto;
-    max-width: 320px;
+    max-width: 355px;
     text-align: left;
+
+  }
+
+  #firstName {
+    margin-right: 3px;
+  }
+
+  #lastName {
+    margin-left: 3px;
+  }
+
+  #firstAndLastName {
+    display: flex;
+    flex-direction: row;
 
   }
 
   .container {
     text-align: center;
     background-color: inherit;
-
   }
 
   .content {
@@ -32,8 +45,9 @@
 
   p {
     margin: 0 auto;
-    max-width: 550px;
+    max-width: 600px;
     text-overflow: ellipsis;
+    margin-bottom: 10px;
   }
   html {
     background-color: #f8f9fa;
