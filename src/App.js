@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import 'reactstrap';
+const axios = require('axios')
 
 class App extends Component {
   constructor(props) {
@@ -10,8 +11,22 @@ class App extends Component {
       this.state = {
         name: "",
         phoneNumber: "",
-        email: ""
+        username: "",
+        data: []
       };
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:9000/users')
+    .then(res => {
+      console.log(res.data)
+      console.log(res.data[0])
+      this.setState({
+        data: [...res.data]
+      })
+      console.log(this.state)
+    })
+    
   }
 
   validateForm() {
@@ -25,10 +40,29 @@ class App extends Component {
   }
 
   handleSubmit = event => {
-     event.preventDefault();
+     axios.post(`http://localhost:9000/users/${this.state.username}`, {
+       params: {
+         firstName: this.state.name,
+         phoneNumber: this.state.phoneNumber,
+         username: this.state.username
+       }
+     })
+     .then(res => {
+       console.log(res)
+     })
+     .catch(err => {
+       console.log(err)
+     })
   }
 
   render() {
+    const listData = this.state.data.map(item => <div>
+        <ul>
+          <li>{item.firstName + " " + item.lastName}</li>
+          <li>{item.phone}</li>
+          <li>{item.username}</li>
+        </ul>
+      </div>);
     return (
     <div className="App p-3 mb-2 bg-light text-dark">
     <div className="content">
@@ -81,6 +115,8 @@ class App extends Component {
           <small> This page is brought to you by the UWEC Student
           Student Senate and Information Technology Commission </small>
           </footer>
+
+          {listData}
 
           </div>
     );
