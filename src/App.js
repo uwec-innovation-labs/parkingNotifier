@@ -43,11 +43,10 @@ class App extends Component {
         side parking is in effect. </p>
 
         <form onSubmit={this.handleSubmit}>
-        <label for="name"> Name </label>
+        <label for="name" id="nameLabel"> Name </label>
     <div className="form-group" id="firstAndLastName">
-
 		  <input type="name" class="form-control" autoFocus id="firstName" placeHolder="First" onChange={this.handleChange}/>
-		  <input type="name" class="form-control" autoFocus id="lastName" placeHolder="Last" onChange={this.handleChange}/>
+		  <input type="name" class="form-control" id="lastName" placeHolder="Last" onChange={this.handleChange}/>
 		</div>
 		<div class="form-group">
 			<label for="phoneNumber"> Phone Number </label>
