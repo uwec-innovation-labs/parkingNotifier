@@ -42,7 +42,7 @@ class App extends Component {
         the form below to sign up for text alerts when alternate
         side parking is in effect. </p>
         <form onSubmit={this.handleSubmit}>
-          <FormGroup controlID="name" bsSize="large">
+          <FormGroup controlid="name" bsSize="large">
             <ControlLabel> Name </ControlLabel>
             <FormControl
               id="name"
@@ -51,7 +51,7 @@ class App extends Component {
               onChange={this.handleChange}
               />
             </FormGroup>
-            <FormGroup controlID="phoneNumber" bsSize="large">
+            <FormGroup controlid="phoneNumber" bsSize="large">
             <ControlLabel>Phone Number</ControlLabel>
             <FormControl
               id="phoneNumber"
@@ -59,7 +59,7 @@ class App extends Component {
               type="tel"
             />
           </FormGroup>
-          <FormGroup controlID="email" bsSize="large">
+          <FormGroup controlid="email" bsSize="large">
             <ControlLabel>UWEC Email</ControlLabel>
             <FormControl
               id="email"
