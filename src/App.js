@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
+import InputMask from 'react-input-mask';
 import { Button } from "react-bootstrap";
 import 'reactstrap';
 const axios = require('axios')
-import InputMask from 'react-input-mask';
+
 
 
 
