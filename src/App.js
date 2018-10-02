@@ -51,7 +51,7 @@ class App extends Component {
 		</div>
 		<div class="form-group">
 			<label for="phoneNumber"> Phone Number </label>
-			<input type="tel" class="form-control" id="phoneNumber"/>
+			<InputMask mask="999-999-9999" type="tel" class="form-control" id="phoneNumber"/>
 		</div>
 		<div class="form-group">
 			<label for="email"> UWEC Email </label>
