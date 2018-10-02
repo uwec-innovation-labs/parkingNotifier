@@ -1,5 +1,27 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const mongoose = require("mongoose");
+
+// mongoose.connect(
+//   "mongodb://proto:T97NrRJnp5d95MPvQvcpWZ60TGFhPuzS@ds113703.mlab.com:13703/parking-notifier",
+//   { useMongoClient: true }
+// );
+
+mongoose.connect(
+  "mongodb://localhost/nodekb",
+  { useNewUrlParser: true }
+);
+let db = mongoose.connection;
+
+//Check for connections
+db.once("open", function() {
+  console.log("Connected to MongoDB");
+});
+
+//Check for errors
+db.on("error", function(err) {
+  console.log(err);
+});
 
 axios.get("http://www.ci.eau-claire.wi.us/").then(
   response => {
@@ -11,7 +33,7 @@ axios.get("http://www.ci.eau-claire.wi.us/").then(
       var topNavText = topNav.text();
       if (topNavText.includes("Contact Us")) {
         success = true;
-        console.log("TRUE");
+        console.log("Webscrape of Eau Claire Website Result: True");
       }
     }
   },
