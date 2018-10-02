@@ -1,7 +1,7 @@
 let mongoose = require("mongoose");
 
 //Subscriber Schema
-let subscriberSchema = mongoose.Schema({
+let userSchema = mongoose.Schema({
   firstName: {
     type: String,
     required: true
@@ -20,7 +20,4 @@ let subscriberSchema = mongoose.Schema({
   }
 });
 
-let Subscriber = (module.exports = mongoose.model(
-  "Subscriber",
-  subscriberSchema
-));
+let User = (module.exports = mongoose.model("User", userSchema));

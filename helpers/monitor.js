@@ -1,29 +1,22 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-const mongoose = require("mongoose");
-
-mongoose.connect(
-  "mongodb://proto:T97NrRJnp5d95MPvQvcpWZ60TGFhPuzS@ds113703.mlab.com:13703/parking-notifier",
-  { useNewUrlParser: true }
-);
+// const mongoose = require("mongoose");
 
 // mongoose.connect(
-//   "mongodb://localhost/nodekb",
+//   "mongodb://proto:T97NrRJnp5d95MPvQvcpWZ60TGFhPuzS@ds113703.mlab.com:13703/parking-notifier",
 //   { useNewUrlParser: true }
 // );
-let db = mongoose.connection;
+// let db = mongoose.connection;
 
-//Check for connections
-db.once("open", function() {
-  console.log("Connected to MongoDB");
-});
+// //Check for connections
+// db.once("open", function() {
+//   console.log("Connected to MongoDB");
+// });
 
-//Check for DB errors
-db.on("error", function(err) {
-  console.log(err);
-});
-
-let Subscriber = require("../models/subscriber");
+// //Check for DB errors
+// db.on("error", function(err) {
+//   console.log(err);
+// });
 
 axios.get("http://www.ci.eau-claire.wi.us/").then(
   response => {
