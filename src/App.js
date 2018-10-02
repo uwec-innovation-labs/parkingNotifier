@@ -3,7 +3,11 @@ import './App.css';
 import { Button } from "react-bootstrap";
 import 'reactstrap';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import InputMask from 'react-input-mask';
+=======
+const axios = require('axios')
+>>>>>>> 0c227a7e6870732f1d05dc0f63137aafb5b6f741
 =======
 const axios = require('axios')
 >>>>>>> 0c227a7e6870732f1d05dc0f63137aafb5b6f741
