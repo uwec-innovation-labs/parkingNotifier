@@ -29,6 +29,8 @@ axios.get("http://www.ci.eau-claire.wi.us/").then(
       if (topNavText.includes("Contact Us")) {
         success = true;
         console.log("Webscrape of Eau Claire Website Result: True");
+      } else {
+        success = false;
       }
     }
   },
