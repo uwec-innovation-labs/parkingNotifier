@@ -3,7 +3,7 @@ const cheerio = require("cheerio");
 // const mongoose = require("mongoose");
 
 // mongoose.connect(
-//   "mongodb://proto:T97NrRJnp5d95MPvQvcpWZ60TGFhPuzS@ds113703.mlab.com:13703/parking-notifier",
+//   "mongodb://user:password@ds113703.mlab.com:13703/parking-notifier",
 //   { useNewUrlParser: true }
 // );
 // let db = mongoose.connection;
