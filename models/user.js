@@ -21,3 +21,5 @@ let userSchema = mongoose.Schema({
 });
 
 let User = (module.exports = mongoose.model("User", userSchema));
+
+//user name which can be parsed out of UW email address

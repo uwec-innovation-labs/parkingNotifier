@@ -14,6 +14,7 @@ axios.get("http://www.ci.eau-claire.wi.us/").then(
 
       if (topNavText.includes("Contact Us")) {
         // False-Positive test. Sucess. Alternate-side parking is in effect.
+        console.log("True");
         process.env.DB_STATUS = true;
       } else {
         // False-Positive test. Failure. Alternate-side parking not in effect.

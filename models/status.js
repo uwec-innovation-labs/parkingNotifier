@@ -8,3 +8,5 @@ let statusSchema = mongoose.Schema({
 });
 
 let Status = (module.exports = mongoose.model("Status", statusSchema));
+
+//consider adding a timestamp to check for changes
