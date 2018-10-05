@@ -9,3 +9,6 @@
 
 ## Task Tracking
 Visit [here](https://trello.com/b/2UBXPQ4H/parking-notifier) to see the current status of tasks and backlog.
+
+## Docker Info
+Docker is used to containerize the project. More info about Docker can be found here: https://docs.docker.com/get-started/#docker-concepts
