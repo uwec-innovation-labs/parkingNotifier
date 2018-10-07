@@ -6,8 +6,6 @@ import 'reactstrap';
 const axios = require('axios')
 
 
-
-
 class App extends Component {
   constructor(props) {
       super(props);
@@ -30,7 +28,7 @@ class App extends Component {
       })
       console.log(this.state)
     })
-    
+
   }
 
   validateForm() {
@@ -87,11 +85,11 @@ class App extends Component {
 		</div>
 		<div class="form-group">
 			<label for="phoneNumber"> Phone Number </label>
-			<InputMask mask="999-999-9999" type="tel" class="form-control" id="phoneNumber"/>
+			<InputMask mask="999-999-9999" type="tel" class="form-control" id="phoneNumber" placeHolder="Phone Number"/>
 		</div>
 		<div class="form-group">
 			<label for="email"> UWEC Email </label>
-			<input type="email" class="form-control" id="email"/>
+			<input type="email" class="form-control" id="email" placeHolder="UWEC Email"/>
     </div>
       <Button block type="submit" bsSize="large" disabled={!this.validateForm()}> Submit </Button>
 
