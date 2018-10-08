@@ -57,11 +57,11 @@ class App extends Component {
 
   render() {
     const listData = this.state.data.map(item => (
-      <div>
+      <div className="users">
         <ul>
-          <li>{item.firstName + " " + item.lastName}</li>
-          <li>{item.phone}</li>
-          <li>{item.username}</li>
+          <li>Name: {item.firstName + " " + item.lastName}</li>
+          <li>Phone: {item.phone}</li>
+          <li>Email: {item.username}@uwec.edu</li>
         </ul>
       </div>
     ));

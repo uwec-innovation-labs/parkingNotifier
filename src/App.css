@@ -56,3 +56,19 @@
     background-color: #f8f9fa;
     height: 100%;
   }
+
+  .users {
+    display: inline-block;
+    border: solid 1px #007bff;
+    border-radius: 10px;
+    width: 15%;
+    margin: 10px 10px;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    float: left
+  }
