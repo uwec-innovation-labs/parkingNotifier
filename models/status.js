@@ -4,9 +4,11 @@ let statusSchema = mongoose.Schema({
   alternateParking: {
     type: Boolean,
     required: true
+  },
+  timestamp: {
+    type: Date,
+    required: true
   }
 });
 
 let Status = (module.exports = mongoose.model("Status", statusSchema));
-
-//consider adding a timestamp to check for changes
