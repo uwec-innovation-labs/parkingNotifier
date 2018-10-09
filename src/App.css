@@ -1,0 +1,74 @@
+  .container form {
+    margin: 0 auto;
+    max-width: 355px;
+    text-align: left;
+
+  }
+
+  #firstName {
+    margin-right: 3px;
+  }
+
+  #lastName {
+    margin-left: 3px;
+  }
+
+  #firstAndLastName {
+    display: flex;
+    flex-direction: row;
+
+  }
+
+  .container {
+    text-align: center;
+    background-color: inherit;
+  }
+
+  .content {
+  text-align: center;
+  }
+
+  .img-responsive {
+    margin: 30px;
+    width: 100%;
+    max-width: 100px;
+  }
+
+  .h3 {
+    margin-bottom: 10px;
+  }
+
+  footer {
+    margin: 20px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  p {
+    margin: 0 auto;
+    max-width: 600px;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+  }
+  html {
+    background-color: #f8f9fa;
+    height: 100%;
+  }
+
+  .users {
+    display: inline-block;
+    border: solid 1px #007bff;
+    border-radius: 10px;
+    width: 15%;
+    margin: 10px 10px;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    float: left
+  }
