@@ -39,6 +39,20 @@ apiRouter.get('/', function(req, res) {
     });
 });
 
+
+apiRouter.route('/status/')
+    .get(function(req, res) {
+        // get the status of the parking
+        Status.findOne().sort({'timestamp': 'desc'}).exec(function(err, status) {
+            res.status(200);
+            res.json({
+                alternateSideParking: status.alternateSideParking,
+                message: status.message,
+                updated: status.timestamp
+            });
+        });
+    });
+
 apiRouter.route('/status')
     .get(function(req, res) {
         // get most recent record in the list of records
