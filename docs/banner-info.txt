@@ -1,0 +1,18 @@
+// banner from the city website on january 23rd
+<!--stopindex-->
+<div class="alert_container">
+    <a class="hide" id="alert_controls" data-action="/Home/SetTopTipCookie">Show/Hide</a>
+    <div class="important_alert_wrapper ">
+        <div class="alert_right">
+            <div class="important_alert"><p style="text-align: center;"><a href="https://web.archive.org/web/20180123200011/http://www.ci.eau-claire.wi.us/Home/Components/News/News/5345/90?backlist=%2f" target="_blank" style="color:#5a460a !important;"><strong><span style="text-decoration: underline;">***Alternate Side Parking in Effect - More Info***</span></strong></a></p></div>
+        </div>
+    </div>
+</div>
+<!--startindex-->
+
+//wayback machine link to the banner on January 23rd 2018 (alternate parking in effect)
+https://web.archive.org/web/20180123200011/http://www.ci.eau-claire.wi.us/
+
+
+//source code for the wayback machine and the banner
+view-source:https://web.archive.org/web/20180123200011/http://www.ci.eau-claire.wi.us/
