@@ -7,7 +7,7 @@ const taylorNumber = '+16083230141';
 
 var numbers = [katieNumber, taylorNumber];
 
-numbers.forEach(function(number){
+numbers.forEach((number) => {
   var message = client.messages.create({
     body: 'Hello, World!',
     from: '+18564315302',

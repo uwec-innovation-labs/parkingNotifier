@@ -34,6 +34,7 @@ const app = express()
 var port = process.env.PORT || 9000
 
 // configure app to use body-parser
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }))
@@ -88,6 +89,11 @@ apiRouter.get('/users/:username', (req, res) => {
 
 apiRouter.post('/users/:username', (req, res) => {
     console.log(req.body)
+    var newUser = req.body
+    data.push(newUser)
+    res.json({
+        wow: true
+    })
 })
 
 app.use('/', apiRouter)
