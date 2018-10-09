@@ -1,8 +1,8 @@
 language: node_js
 node_js:
-    - "8"
+  - "8"
 cache:
-  directories:
+  - directories
     - node_modules
   - "stable"
 script:
@@ -16,7 +16,7 @@ deploy:
     secret_access_key: $AWS_KEY_SECRET
     bucket: "dev-parkingnotifier"
     region: "us-west-2"
-    local_dir: build
+    local_dir: frontend/build
     skip_cleanup: true
     acl: public_read
     on:
