@@ -6,6 +6,7 @@ cache:
     - node_modules
   - "stable"
 script:
+  - cd frontend
   - npm install
   - npm test
   - npm run build
