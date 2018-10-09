@@ -1,5 +1,15 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const mongoose = require("mongoose");
+const express = require("express");
+const router = express.Router();
+
+let Status = require("../models/status");
+
+router.post('/add', function(req, res)){ 
+  //adding a new status
+
+}
 
 axios.get("http://www.ci.eau-claire.wi.us/").then(
   response => {
@@ -25,3 +35,5 @@ axios.get("http://www.ci.eau-claire.wi.us/").then(
   // unsuccessful response. Log error.
   error => console.log(err)
 );
+
+
