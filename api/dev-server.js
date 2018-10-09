@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const port = process.env.PORT || 9000;
 
 var data = [
   {
