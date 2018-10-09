@@ -16,6 +16,19 @@ var data = [
     }
 ]
 
+var data1 = [
+    {
+        alternateSideParking: true,
+        message: 'Park on the right side',
+        updated: '12-3-18 at 10:24pm'
+    },
+    {
+        alternateSideParking: true,
+        message: 'Park on the left side',
+        updated: '12-4-18 at 10:24pm'
+    }
+]
+
 // initialize the express framework
 const app = express()
 var port = process.env.PORT || 9000
@@ -33,6 +46,13 @@ app.use(function (req, res, next) {
 
 // create the router for the routes
 var apiRouter = express.Router()
+
+apiRouter.get('/status/', (req, res) => {
+    res.status(200)
+    res.json([
+           ...data1
+        ])
+})
 
 apiRouter.get('/', (req, res) => {
     res.status(200)
