@@ -12,5 +12,6 @@ For more information [read the docs](docs/README.md).
 1. Run `docker-compose build`
 2. Run `docker-compose up`
 3. Open a web browser and go to `localhost:3000`
+4. To stop the service run `docker-compose down`
 
 <div align="center"><sup><sub align="center">Hosted and funded by <a href="http://www.uwec.edu/StudentSenate/commissions/itc/">UWEC Information Technology Commission</a></sub></sup></div>
