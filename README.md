@@ -8,4 +8,9 @@ The Parking Notifier API alerts UW-Eau Claire students when there is a snow emer
 
 For more information [read the docs](docs/README.md).
 
+### Instructions
+1. Run `docker-compose build`
+2. Run `docker-compose up`
+3. Open a web browser and go to `localhost:3000`
+
 <div align="center"><sup><sub align="center">Hosted and funded by <a href="http://www.uwec.edu/StudentSenate/commissions/itc/">UWEC Information Technology Commission</a></sub></sup></div>
