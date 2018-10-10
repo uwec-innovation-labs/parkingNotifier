@@ -1,5 +1,15 @@
 version: '3.5'
 services:
+  db:
+    container_name: parking-db
+    image: 'bitnami/mongodb:latest'
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGODB_USERNAME=root
+      - MONGODB_PASSWORD=password1234
+      - MONGODB_DATABASE=parkingnotifier
   api:
     container_name: parking-api
     build:
@@ -9,10 +19,8 @@ services:
       - /parkingNotifier/api/node_modules
     ports:
       - "9000:9000"
-    deploy:
-      resources:
-        limits:
-          memory: 300M
+    depends_on:
+      - db
   frontend:
     container_name: parking-frontend
     build:
@@ -24,7 +32,3 @@ services:
       - '3000:3000'
     environment:
       - NODE_ENV=development
-    deploy:
-      resources:
-        limits:
-          memory: 300M
