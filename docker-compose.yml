@@ -9,6 +9,10 @@ services:
       - /parkingNotifier/api/node_modules
     ports:
       - "9000:9000"
+    deploy:
+      resources:
+        limits:
+          memory: 300M
   frontend:
     container_name: parking-frontend
     build:
@@ -20,3 +24,7 @@ services:
       - '3000:3000'
     environment:
       - NODE_ENV=development
+    deploy:
+      resources:
+        limits:
+          memory: 300M
