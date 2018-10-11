@@ -7,8 +7,8 @@ services:
     ports:
       - "27017:27017"
     environment:
-      - MONGODB_USERNAME=root
-      - MONGODB_PASSWORD=password1234
+      - MONGODB_USERNAME=proto
+      - MONGODB_PASSWORD=password123
       - MONGODB_DATABASE=parkingnotifier
   api:
     container_name: parking-api
