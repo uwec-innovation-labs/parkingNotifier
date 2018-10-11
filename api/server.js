@@ -16,23 +16,25 @@ var User = require("./models/user"); // get our mongoose model
 var Status = require("./models/status"); // get our mongoose model
 
 // connect to the database
-mongoose
-  .connect(
-    "mongodb://" + process.env.DB_HOST,
-    {
-      auth: {
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD
-      },
-      server: {
-        auto_reconnect: true,
-        reconnectTries: 30
+setTimeout(function() {
+  console.log("Trying to connect");
+  mongoose
+    .connect(
+      "mongodb://" + process.env.DB_HOST,
+      {
+        auth: {
+          user: "proto",
+          password: "password123"
+        }
       }
-    }
-  )
-  .catch(err => {
-    console.error(err);
-  });
+    )
+    .then(() => {
+      console.log("mongodb is connected");
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}, 20000);
 
 // request logging
 app.use(morgan("tiny"));
