@@ -1,7 +1,12 @@
-# API Configuration
+# Running the project locally
 
-## Starting the API locally
-1. Pull down the latest version of the repo
-2. Install all dependencies by running `npm install`
-3. Start the server using nodemon: `nodemon dev-server.js`
-4. The service will start on localhost:9000
+### Prerequisites:
+
+- Docker & docker-compose installed
+- Node and npm installed
+
+### Steps
+
+1. At the root of the project run `docker-compose build`
+2. Then run `docker-compose up`
+3. With no errors, this will start the API on port 9000 and the front-end on port 3000.
