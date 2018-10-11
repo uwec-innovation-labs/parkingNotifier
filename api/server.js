@@ -9,7 +9,7 @@ require('dotenv').config()
 
 // create an instance of express
 const app = express()
-var port = process.env.PORT || 8080
+var port = process.env.PORT || 9000
 
 // import data models
 var User = require('./models/user') // get our mongoose model
@@ -23,6 +23,9 @@ mongoose.connect('mongodb://' + process.env.DB_HOST, {
   }
 })
 .catch((err) => console.error(err))
+
+// request logging
+app.use(morgan('tiny'))
 
 // configure app to use bodyParser
 app.use(bodyParser.urlencoded({
