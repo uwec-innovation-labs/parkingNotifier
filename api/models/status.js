@@ -8,6 +8,10 @@ let statusSchema = mongoose.Schema({
   timestamp: {
     type: Date,
     required: true
+  },
+  streetSide: {
+    type: String,
+    required: true
   }
 });
 

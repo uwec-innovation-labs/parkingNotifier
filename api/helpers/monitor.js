@@ -1,5 +1,6 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+let Status = require("../models/status");
 
 axios.get("http://www.ci.eau-claire.wi.us/").then(
   response => {
@@ -13,12 +14,19 @@ axios.get("http://www.ci.eau-claire.wi.us/").then(
       var topNavText = topNav.text(); // parse the html into a readable form
 
       if (topNavText.includes("Contact Us")) {
-        // False-Positive test. Sucess. Alternate-side parking is in effect.
-        console.log("True");
-        process.env.DB_STATUS = true;
+        let status = new Status({
+          alternateParking: true,
+          timestamp: new Date().getTime(),
+          streetSide: "Odd"
+        });
+
+        console.log(status);
+
+        status.save().then(function() {
+          console.log("done");
+        });
       } else {
-        // False-Positive test. Failure. Alternate-side parking not in effect.
-        process.env.DB_STATUS = false;
+        console.log("Failed");
       }
     }
   },
