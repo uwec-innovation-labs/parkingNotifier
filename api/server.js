@@ -53,54 +53,6 @@ apiRouter.route('/status/')
         });
     });
 
-apiRouter.route('/status')
-    .get(function(req, res) {
-        // get most recent record in the list of records
-        Status.findOne().sort({'timestamp': 'desc'}).exec(function(err, status) {
-            res.status(200);
-            res.json({
-                alternateSideParking: status.alternateSideParking,
-                message: status.message,
-                updated: status.timestamp
-            });
-        });
-    });
-apiRouter.route('/developer')
-    // subscribe a user
-    .post(function(req, res) {
-        if (!req.body.name || !req.body.email || !req.body.phone || !req.body.token) {
-            res.send({
-                success: false,
-                message: "Please include a name, UWEC email address, and phone number to generate a token",
-                apiDocumentation: 'https://github.com/UWEC-ITC/parkingNotifier-API',
-            });
-            return;
-        } else if (req.body.email.replace(/.*@/, "") == 0 || req.body.email.replace(/.*@/, "") !== 'uwec.edu') {
-            res.status(400);
-            res.send({ message: "Email must be a UWEC email"});
-            return;
-        } else {
-            console.log("Creating user");
-            var newUser = new User({
-                name: req.body.name,
-                email: req.body.email,
-                phone: req.body.phone,
-                token: req.body.token
-            });
-
-            console.log("attempting to save user");
-            // attempt to save the user
-            newUser.save(function(err) {
-                console.log("waiting...")
-                if (err) {
-                    return res.json({ success: false, message: err });
-                }
-                return res.json({ success: true, message: 'Successfully created new user' });
-            });
-        }
-    });
-
-
 apiRouter.route('/users')
     // subscribe a user
     .post(function(req, res) {
