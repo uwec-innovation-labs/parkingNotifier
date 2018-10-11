@@ -101,18 +101,12 @@ apiRouter
         apiDocumentation: "https://github.com/UWEC-ITC/parkingNotifier-API"
       });
       return;
-    } else if (
-      req.body.email.replace(/.*@/, "") == 0 ||
-      req.body.email.replace(/.*@/, "") !== "uwec.edu"
-    ) {
-      res.status(400);
-      res.send({ message: "Email must be a UWEC email" });
-      return;
     } else {
       var newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        phone: req.body.phone
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        phoneNumber: req.body.phoneNumber,
+        username: username
       });
 
       // attempt to save the user
