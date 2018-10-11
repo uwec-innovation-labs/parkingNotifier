@@ -16,5 +16,3 @@ let statusSchema = mongoose.Schema({
 });
 
 let Status = (module.exports = mongoose.model("Status", statusSchema));
-
-//need to make an analytics model at some point
