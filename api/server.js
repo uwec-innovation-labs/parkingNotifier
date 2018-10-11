@@ -23,10 +23,16 @@ mongoose
       auth: {
         user: process.env.DB_USER,
         password: process.env.DB_PASSWORD
+      },
+      server: {
+        auto_reconnect: true,
+        reconnectTries: 30
       }
     }
   )
-  .catch(err => console.error(err));
+  .catch(err => {
+    console.error(err);
+  });
 
 // request logging
 app.use(morgan("tiny"));
@@ -49,13 +55,10 @@ apiRouter.get("/", function(req, res) {
   });
 });
 
-apiRouter.route("/status/").get(function(req, res) {
-  var test = test;
+apiRouter.route("/status").get(function(req, res) {
   res.status(200);
   res.json({
-    alternateSideParking: status.alternateSideParking,
-    message: status.message,
-    updated: status.timestamp
+    connectionStatus: mongoose.connection.readyState
   });
 });
 

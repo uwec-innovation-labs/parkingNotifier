@@ -1,8 +1,8 @@
-version: '3.5'
+version: "3.5"
 services:
   db:
     container_name: parking-db
-    image: 'bitnami/mongodb:latest'
+    image: "bitnami/mongodb:latest"
     restart: always
     ports:
       - "27017:27017"
@@ -29,6 +29,11 @@ services:
       - .:/parkingNotifier
       - /parkingNotifier/frontend/node_modules
     ports:
-      - '3000:3000'
+      - "3000:3000"
     environment:
       - NODE_ENV=development
+  start_dependencies:
+    image: dadarek/wait-for-dependencies
+    depends_on:
+      - api
+    command: db:27017
