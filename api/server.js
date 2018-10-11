@@ -76,9 +76,23 @@ apiRouter.route("/status").get(function(req, res) {
 
 apiRouter
   .route("/users")
+  .get((req, res) => {
+    User.find((err, users) => {
+      if (err) return console.error(err);
+      res.status(200);
+      res.send({
+        users
+      });
+    });
+  })
   // subscribe a user
   .post(function(req, res) {
-    if (!req.body.name || !req.body.email || !req.body.phone) {
+    if (
+      !req.body.firstName ||
+      !req.body.lastName ||
+      !req.body.phoneNumber ||
+      !req.body.username
+    ) {
       res.status(400);
       res.send({
         success: false,
@@ -106,7 +120,10 @@ apiRouter
         if (err) {
           return res.json({ success: false, message: err.errmsg });
         }
-        res.json({ success: true, message: "Successfully created new user" });
+        res.json({
+          success: true,
+          message: "Successfully created new user"
+        });
       });
     }
   });
