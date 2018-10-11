@@ -14,3 +14,5 @@ let analyticsSchema = mongoose.Schema({
     required: true
   }
 });
+
+let Analytics = (module.exports = mongoose.model("Analytics", analyticsSchema));
