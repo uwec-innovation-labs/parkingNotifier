@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
+const monitor = require("./helpers/monitor");
 
 // import environment variables from .env file
 require("dotenv").config();
