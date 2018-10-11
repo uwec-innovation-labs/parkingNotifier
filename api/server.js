@@ -52,7 +52,7 @@ app.use(morgan("tiny"));
 // configure app to use bodyParser
 app.use(
   bodyParser.urlencoded({
-    extended: true
+    extended: false
   })
 );
 app.use(bodyParser.json());
@@ -93,8 +93,9 @@ apiRouter
       !req.body.phoneNumber ||
       !req.body.username
     ) {
+      console.log(req.body);
       res.status(400);
-      res.send({
+      res.json({
         success: false,
         message:
           "Please include a first and last name, UWEC email address, and phone number to create a user",
@@ -106,13 +107,15 @@ apiRouter
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         phoneNumber: req.body.phoneNumber,
-        username: username
+        username: req.body.username,
+        subscribed: true
       });
 
       // attempt to save the user
       newUser.save(function(err) {
         if (err) {
-          return res.json({ success: false, message: err.errmsg });
+          console.log(err);
+          return res.json({ success: false, message: err });
         }
         res.json({
           success: true,
