@@ -4,15 +4,18 @@ let mongoose = require("mongoose");
 let userSchema = mongoose.Schema({
   firstName: {
     type: String,
-    required: true
+    required: true,
+    select: false
   },
   lastName: {
     type: String,
-    required: true
+    required: true,
+    select: false
   },
   phoneNumber: {
     type: String,
-    required: true
+    required: true,
+    select: false
   },
   username: {
     type: String,
