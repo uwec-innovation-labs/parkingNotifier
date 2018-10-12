@@ -7,23 +7,31 @@ axios.get("http://www.ci.eau-claire.wi.us/").then(
     var success = false;
 
     if (response.status === 200) {
-      // successful response. Let's read in the html
+      // reads, loads, and parses html into readable form
+      // current version scrapes for top navigation bar
+      // final implementation will scrape for alternate parking banner and it's details
       const html = response.data;
-      const $ = cheerio.load(html); // loads html into parsable format
-      var topNav = $("#top_nav"); // searches for the 'top_nav' id in the html
-      var topNavText = topNav.text(); // parse the html into a readable form
+      const $ = cheerio.load(html);
+      var topNav = $("#top_nav");
+      var topNavText = topNav.text();
 
       if (topNavText.includes("Contact Us")) {
+        // gets the date the scrape is performed
+        // final implentation will get date from website scrape
+        let date = new Date();
+
+        // creates new status and sets attributes
         let status = new Status({
           alternateParking: true,
-          timestamp: new Date().getTime(),
-          streetSide: "Odd"
+          timestamp: date.getTime(),
+          streetSide: getStreetSide(date)
         });
 
         console.log(status);
 
+        // saves status to mongodb
         status.save().then(function() {
-          console.log("done");
+          console.log("Successfully saved status to DB...");
         });
       } else {
         console.log("Failed");
@@ -33,3 +41,14 @@ axios.get("http://www.ci.eau-claire.wi.us/").then(
   // unsuccessful response. Log error.
   error => console.log(err)
 );
+
+// pulls the date given to status.timestamp and determines the parking for the day
+function getStreetSide(date) {
+  var day = date.getDate();
+  if (day % 2 === 0) {
+    ``;
+    return "Even";
+  } else {
+    return "Odd";
+  }
+}
