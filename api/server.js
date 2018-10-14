@@ -165,6 +165,15 @@ apiRouter.route("/users/:phone").delete(function(req, res) {
   });
 });
 
+apiRouter.route("/stats/users").get((req, res) => {
+  User.count({}, (err, count) => {
+    res.status(200);
+    res.json({
+      count: count
+    });
+  });
+});
+
 app.use("/", apiRouter);
 
 /***** ERROR PAGES *****/
