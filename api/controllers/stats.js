@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
+var User = require("../models/user");
 
-User = mongoose.model("User");
+mongoose.model("User");
 
 exports.countUsers = (req, res) => {
   User.countDocuments({}, (err, count) => {
