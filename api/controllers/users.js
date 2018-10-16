@@ -13,6 +13,25 @@ exports.listUsers = (req, res) => {
   });
 };
 
+exports.getUser = (req, res) => {
+  // check to see that the user included
+  if (!req.params.username) {
+    res.json({
+      success: false,
+      message: "Please include a username to get the info for."
+    });
+    return;
+  }
+
+  User.findOne({ username: req.params.username }, (err, user) => {
+    if (err) {
+      console.err(err);
+    }
+    console.log(user);
+    res.status(200).send(user);
+  });
+};
+
 exports.addUser = (req, res) => {
   if (
     !req.body.firstName ||
