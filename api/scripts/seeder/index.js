@@ -2,7 +2,7 @@ const axios = require("axios");
 const faker = require("faker");
 const moment = require("moment");
 
-const count = 50;
+const count = 1000;
 
 async function populate() {
   let created = 0;
