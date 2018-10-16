@@ -26,3 +26,18 @@ This is the API for the parking notifier. This handles all of the following:
   ]
 }
 ```
+
+### **`GET /users/:username`**
+
+- **`Description`** - This endpoint returns all the users in the system
+- **`Optional Paramaters`** - None
+- **`Response`**:
+
+```json
+{
+  "_id": "5bc5f849d7d44e0028874e8e",
+  "username": "johndoe5302",
+  "subscribed": "true",
+  "__v": 0
+}
+```
