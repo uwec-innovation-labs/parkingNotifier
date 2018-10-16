@@ -8,7 +8,7 @@ This is the API for the parking notifier. This handles all of the following:
 
 ## Routes
 
-### **`GET /users/`**
+### **`GET /users`**
 
 - **`Description`** - This endpoint returns all the users in the system
 - **`Optional Paramaters`** - None
@@ -29,7 +29,7 @@ This is the API for the parking notifier. This handles all of the following:
 
 ### **`GET /users/:username`**
 
-- **`Description`** - This endpoint returns all the users in the system
+- **`Description`** - This endpoint returns a specific user in the system and if they don't exists, it returns nothing.
 - **`Optional Paramaters`** - None
 - **`Response`**:
 
@@ -39,5 +39,17 @@ This is the API for the parking notifier. This handles all of the following:
   "username": "johndoe5302",
   "subscribed": "true",
   "__v": 0
+}
+```
+
+### **`GET /stats`**
+
+- **`Description`** - This endpoint returns general stats about the system.
+- **`Optional Paramaters`** - None
+- **`Response`**:
+
+```json
+{
+  "count": 1000
 }
 ```
