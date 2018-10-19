@@ -64,6 +64,7 @@ app.use(function(req, res) {
   res.status(404);
   res.json({
     status: "failed",
+    message: "This resource does not exist",
     apiDocumentation: "https://github.com/UWEC-ITC/parkingNotifier-API"
   });
 });
@@ -73,6 +74,7 @@ app.use(function(error, req, res, next) {
   console.log(error);
   res.json({
     status: "failed",
+    message: "Server error",
     apiDocumentation: "https://github.com/UWEC-ITC/parkingNotifier-API"
   });
 });
