@@ -28,7 +28,7 @@ setTimeout(function() {
       }
     )
     .then(() => {
-      console.log("mongodb is connected");
+      console.log("Connected to database");
     })
     .catch(err => {
       console.error(err);
