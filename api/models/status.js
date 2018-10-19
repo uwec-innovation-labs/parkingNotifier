@@ -12,6 +12,10 @@ let statusSchema = mongoose.Schema({
   streetSide: {
     type: String,
     required: true
+  },
+  expirationDate: {
+    type: Date,
+    require: true
   }
 });
 
