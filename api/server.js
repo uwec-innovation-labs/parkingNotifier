@@ -24,7 +24,8 @@ setTimeout(function() {
         auth: {
           user: "proto",
           password: "password123"
-        }
+        },
+        useNewUrlParser: true
       }
     )
     .then(() => {
