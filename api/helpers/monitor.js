@@ -24,7 +24,8 @@ axios.get("http://www.ci.eau-claire.wi.us/").then(
         let status = new Status({
           alternateParking: true,
           timestamp: date.getTime(),
-          streetSide: getStreetSide(date)
+          streetSide: getStreetSide(date),
+          expirationDate: getExpirationDate(date)
         });
 
         console.log(status);
@@ -51,4 +52,11 @@ function getStreetSide(date) {
   } else {
     return "Odd";
   }
+}
+
+//adds 72 hours to the starting date
+function getExpirationDate(date) {
+  var expirationDate = new Date();
+  expirationDate.setDate(date.getDate() + 3);
+  return expirationDate;
 }

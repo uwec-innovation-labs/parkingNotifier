@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 
 var userRoutes = require("./routes/users");
 var statRoutes = require("./routes/stats");
+var statusRoutes = require("./routes/status");
 
 // import environment variables from .env file
 require("dotenv").config();
@@ -62,6 +63,7 @@ app.use(bodyParser.json());
 
 userRoutes(app);
 statRoutes(app);
+statusRoutes(app);
 
 /***** ERROR PAGES *****/
 app.use(function(req, res) {
