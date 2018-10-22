@@ -32,6 +32,9 @@ setTimeout(function() {
       console.log("Connected to database");
     })
     .catch(err => {
+      console.log(
+        "This error could be because of a missing .env file. Make sure you have created your own:"
+      );
       console.error(err);
     });
 }, 20000);

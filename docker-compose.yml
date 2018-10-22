@@ -10,6 +10,7 @@ services:
       - MONGODB_USERNAME=proto
       - MONGODB_PASSWORD=password123
       - MONGODB_DATABASE=parkingnotifier
+      - MONGODB_EXTRA_FLAGS=--quiet
   api:
     image: parkingnotifier/api
     container_name: parking-api
