@@ -1,10 +1,11 @@
 const dotenv = require('dotenv').config();
+const getenv = require('getenv');
 const twilio = require('twilio');
 const mongoose = require('mongoose');
 const request = require('request');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-const client = new twilio(process.env.TWILIO_ID, process.env.TWILIO_TOKEN);
+const client = new twilio(process.env.TWILIO_USERNAME, process.env.TWILIO_TOKEN);
 
 request('http://localhost:9000/users', {json:true}, (err, res, body) => {
   var numbers = [];
@@ -15,18 +16,22 @@ request('http://localhost:9000/users', {json:true}, (err, res, body) => {
   callNumbers(numbers);
 });
 
-/*
+
 const katieNumber = '+17156122163';
-const taylorNumber = '+16083230141';
-var numbers = [katieNumber];*/
+//const taylorNumber = '+16083230141';
+
 
 function callNumbers(numbers) {
+  
+  var numbers = [katieNumber];
+  
+  var i = 1;
   numbers.forEach((number) => {
     var message = client.messages.create({
       body: process.env.TWILIO_MESSAGE,
-      from: process.env.TWILIO_FROM,
+      from: getenv('TWILIO_FROM' + Math.round(i/250)),
       to: number
-    }).then()
+    }).then(i = i + 1)
     .catch(e => {
       if (e.code == 21211) {
         console.error("The number " + number + " is invalid");
