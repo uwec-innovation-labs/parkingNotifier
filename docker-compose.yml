@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3"
 services:
   db:
     container_name: parking-db
@@ -10,7 +10,9 @@ services:
       - MONGODB_USERNAME=proto
       - MONGODB_PASSWORD=password123
       - MONGODB_DATABASE=parkingnotifier
+      - MONGODB_EXTRA_FLAGS=--quiet
   api:
+    image: parkingnotifier/api
     container_name: parking-api
     build:
       context: ./api
@@ -22,6 +24,7 @@ services:
     depends_on:
       - db
   frontend:
+    image: parkingnotifier/frontend
     container_name: parking-frontend
     build:
       context: ./frontend
