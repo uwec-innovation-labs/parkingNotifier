@@ -113,7 +113,7 @@ class App extends Component {
                 type="tel"
                 class="form-control"
                 id="phoneNumber"
-                placeHolder="Phone Number"
+
               />
             </div>
             <div class="form-group">
@@ -122,7 +122,6 @@ class App extends Component {
                 type="email"
                 class="form-control"
                 id="email"
-                placeHolder="UWEC Email"
               />
             </div>
             <Button
@@ -137,13 +136,7 @@ class App extends Component {
           </form>
         </div>
 
-        <footer>
-          <small>
-            {" "}
-            This page is brought to you by the UWEC Student Senate and
-            Information Technology Commission{" "}
-          </small>
-        </footer>
+        
 
         {listData}
       </div>
