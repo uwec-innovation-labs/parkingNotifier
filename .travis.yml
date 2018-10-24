@@ -1,6 +1,24 @@
 language: node_js
 node_js:
-    - "8"
+  - "8"
+  - "10"
 cache:
-  directories:
+  - directories
     - node_modules
+  - "stable"
+script:
+  - cd frontend
+  - npm install
+  - npm test
+  - npm run build
+deploy:
+  - provider: s3
+    access_key_id: $AWS_KEY_ID
+    secret_access_key: $AWS_KEY_SECRET
+    bucket: "dev-parkingnotifier"
+    region: "us-west-2"
+    local_dir: frontend/build
+    skip_cleanup: true
+    acl: public_read
+    on:
+      branch: master

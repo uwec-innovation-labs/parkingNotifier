@@ -1,5 +1,7 @@
-# this file will control the chron jobs and timing
-# for the scraping of the city website
+echo "Loading dummy data into database"
 
+cd ./api/scripts/seeder
 
-# create .env file
+npm install
+
+npm start
