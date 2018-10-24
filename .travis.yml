@@ -19,5 +19,3 @@ deploy:
     local_dir: frontend/build
     skip_cleanup: true
     acl: public_read
-    on:
-      branch: master
