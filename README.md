@@ -1,7 +1,7 @@
 <h1 align="center">
 Parking Notifier
 
-[![Build Status](https://travis-ci.com/UWEC-ITC/parkingNotifier.svg?branch=dev)](https://travis-ci.com/UWEC-ITC/parkingNotifier)
+[![Build Status](https://travis-ci.com/clearwater-labs/parkingNotifier.svg?branch=dev)](https://travis-ci.com/clearwater-labs/parkingNotifier)
 
 </h1>
 
