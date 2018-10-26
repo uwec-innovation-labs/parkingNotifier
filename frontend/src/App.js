@@ -17,17 +17,6 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    axios.get("http://localhost:9000/users").then(res => {
-      console.log(res.data);
-      console.log(res.data[0]);
-      this.setState({
-        data: [...res.data]
-      });
-      console.log(this.state);
-    });
-  }
-
   validateForm() {
     return this.state.name.length > 0 && this.state.phoneNumber.length > 0;
   }
@@ -56,15 +45,6 @@ class App extends Component {
   };
 
   render() {
-    const listData = this.state.data.map(item => (
-      <div className="users">
-        <ul>
-          <li>Name: {item.firstName + " " + item.lastName}</li>
-          <li>Phone: {item.phone}</li>
-          <li>Email: {item.username}@uwec.edu</li>
-        </ul>
-      </div>
-    ));
     return (
       <div className="App">
         <div className="content">
@@ -113,16 +93,11 @@ class App extends Component {
                 type="tel"
                 class="form-control"
                 id="phoneNumber"
-
               />
             </div>
             <div class="form-group">
               <label for="email"> UWEC Email </label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-              />
+              <input type="email" class="form-control" id="email" />
             </div>
             <Button
               block
@@ -135,10 +110,6 @@ class App extends Component {
             </Button>
           </form>
         </div>
-
-        
-
-        {listData}
       </div>
     );
   }
