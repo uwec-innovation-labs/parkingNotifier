@@ -23,5 +23,3 @@ These rules are in effect for a full **72 hours (3 days)** after the snow emerge
 ## Technical Details & Instructions
 
 A detailed overview and guide for engineering can be found [here](docs/technical-details.md).
-
-<div align="center"><sup><sub align="center">Hosted and funded by <a href="http://www.uwec.edu/StudentSenate/commissions/itc/">UWEC Information Technology Commission</a></sub></sup></div>
