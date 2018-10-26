@@ -56,7 +56,7 @@ class App extends Component {
           />
         </div>
         <div className="container">
-          <h3> UWEC Parking Notifier Sign-up </h3>
+          <h3> Parking Notifier Sign-up </h3>
           <p>
             {" "}
             During a snow emergency, the City of Eau Claire will activate
@@ -102,7 +102,7 @@ class App extends Component {
             <Button
               block
               type="submit"
-              bsSize="large"
+              bsSize="large btn-primary"
               disabled={!this.validateForm()}
             >
               {" "}
