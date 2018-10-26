@@ -65,39 +65,39 @@ class App extends Component {
           </p>
 
           <form onSubmit={this.handleSubmit}>
-            <label for="name" id="nameLabel">
+            <label htmlFor="name" id="nameLabel">
               {" "}
               Name{" "}
             </label>
             <div className="form-group" id="firstAndLastName">
               <input
                 type="name"
-                class="form-control"
+                className="form-control"
                 autoFocus
                 id="firstName"
-                placeHolder="First"
+                placeholder="First"
                 onChange={this.handleChange}
               />
               <input
                 type="name"
-                class="form-control"
+                className="form-control"
                 id="lastName"
-                placeHolder="Last"
+                placeholder="Last"
                 onChange={this.handleChange}
               />
             </div>
-            <div class="form-group">
-              <label for="phoneNumber"> Phone Number </label>
+            <div className="form-group">
+              <label htmlFor="phoneNumber"> Phone Number </label>
               <InputMask
                 mask="999-999-9999"
                 type="tel"
-                class="form-control"
+                className="form-control"
                 id="phoneNumber"
               />
             </div>
-            <div class="form-group">
-              <label for="email"> UWEC Email </label>
-              <input type="email" class="form-control" id="email" />
+            <div className="form-group">
+              <label htmlFor="email"> UWEC Email </label>
+              <input type="email" className="form-control" id="email" />
             </div>
             <Button
               block
