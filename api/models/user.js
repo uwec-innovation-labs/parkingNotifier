@@ -25,6 +25,7 @@ let userSchema = mongoose.Schema({
     type: Boolean,
     required: true
   }
+  /////// need to add attribute for twilio account number
 });
 
 let User = (module.exports = mongoose.model("User", userSchema));

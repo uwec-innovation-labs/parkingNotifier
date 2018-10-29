@@ -1,5 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const express = require("express");
+const mongoose = require("mongoose");
 let Status = require("../models/status");
 
 axios.get("http://www.ci.eau-claire.wi.us/").then(
@@ -30,18 +32,22 @@ axios.get("http://www.ci.eau-claire.wi.us/").then(
 
         console.log(status);
 
+
         // saves status to mongodb
-        status.save().then(function() {
-          console.log("Successfully saved status to DB...");
+        status.save(function(err) {
+          if(err){
+            console.log(err);
+            return res.json({success: false, message: err});
+          }
+          res.json({
+            success: true,
+            message: "Successfully updated current status"
+          });
         });
-      } else {
-        console.log("Failed");
-      }
-    }
-  },
-  // unsuccessful response. Log error.
-  error => console.log(err)
-);
+      };
+    };
+  }
+)
 
 // pulls the date given to status.timestamp and determines the parking for the day
 function getStreetSide(date) {
