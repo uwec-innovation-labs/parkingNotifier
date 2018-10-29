@@ -10,31 +10,32 @@ class App extends Component {
     super(props);
 
     this.state = {
-      name: "",
       phoneNumber: "",
-      username: "",
+      email: "",
+      firstName: "",
+      lastName: "",
       data: []
     };
   }
 
   validateForm() {
-    return this.state.name.length > 0 && this.state.phoneNumber.length > 0;
+    return this.state.email.length > 0 && this.state.phoneNumber.length > 0;
   }
 
   handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value
     });
+    console.log(this.state);
   };
 
   handleSubmit = event => {
     axios
-      .post(`http://localhost:9000/users/${this.state.username}`, {
-        params: {
-          firstName: this.state.name,
-          phoneNumber: this.state.phoneNumber,
-          username: this.state.username
-        }
+      .post(`http://localhost:9000/users`, {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        username: this.state.email,
+        phoneNumber: this.state.phoneNumber
       })
       .then(res => {
         console.log(res);
@@ -93,16 +94,23 @@ class App extends Component {
                 type="tel"
                 className="form-control"
                 id="phoneNumber"
+                onChange={this.handleChange}
               />
             </div>
             <div className="form-group">
               <label htmlFor="email"> UWEC Email </label>
-              <input type="email" className="form-control" id="email" />
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                onChange={this.handleChange}
+              />
             </div>
             <Button
               block
               type="submit"
-              bsSize="large btn-primary"
+              className="btn-primary"
+              bsSize="large"
               disabled={!this.validateForm()}
             >
               {" "}

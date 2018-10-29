@@ -39,7 +39,7 @@ exports.addUser = (req, res) => {
     !req.body.phoneNumber ||
     !req.body.username
   ) {
-    console.log(req.body);
+    console.log("BODY!:" + req.body.firstName);
     res.status(400);
     res.json({
       success: false,
@@ -49,6 +49,7 @@ exports.addUser = (req, res) => {
     });
     return;
   } else {
+    console.log("BODY: " + req.body.firstName);
     var newUser = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -56,7 +57,7 @@ exports.addUser = (req, res) => {
       username: req.body.username,
       subscribed: true
     });
-
+    console.log("User:" + newUser);
     // attempt to save the user
     newUser.save(function(err) {
       if (err) {
