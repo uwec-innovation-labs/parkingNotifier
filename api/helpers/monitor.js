@@ -32,7 +32,6 @@ axios.get("http://www.ci.eau-claire.wi.us/").then(
 
         console.log(status);
 
-
         // saves status to mongodb
         status.save(function(err) {
           if(err){
