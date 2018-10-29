@@ -23,3 +23,7 @@ These rules are in effect for a full **72 hours (3 days)** after the snow emerge
 ## Technical Details & Instructions
 
 A detailed overview and guide for engineering can be found [here](docs/technical-details.md).
+
+## Demo
+
+Current development environment: http://parkingnotifier.s3-website-us-west-2.amazonaws.com/
