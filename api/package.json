@@ -26,6 +26,7 @@
     "express": "^4.16.3",
     "mongodb": "^3.1.6",
     "mongoose": "^5.3.1",
+    "mongoose-unique-validator": "^2.0.2",
     "morgan": "^1.9.1",
     "twilio": "^3.22.0"
   },
