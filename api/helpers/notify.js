@@ -18,7 +18,6 @@ request('http://localhost:9000/users', {json:true}, (err, res, body) => {
 
 
 const katieNumber = '+17156122163';
-//const taylorNumber = '+16083230141';
 
 
 function callNumbers(numbers) {

@@ -1,6 +1,5 @@
 language: node_js
 node_js:
-  - "8"
   - "10"
 cache:
   - directories
@@ -15,10 +14,20 @@ deploy:
   - provider: s3
     access_key_id: $AWS_KEY_ID
     secret_access_key: $AWS_KEY_SECRET
-    bucket: "dev-parkingnotifier"
-    region: "us-west-2"
-    local_dir: frontend/build
+    bucket: "parkingnotifier.com"
+    region: "us-east-2"
+    local_dir: build
     skip_cleanup: true
     acl: public_read
     on:
       branch: master
+  - provider: s3
+    access_key_id: $AWS_KEY_ID
+    secret_access_key: $AWS_KEY_SECRET
+    bucket: "parkingnotifier"
+    region: "us-west-2"
+    local_dir: build
+    skip_cleanup: true
+    acl: public_read
+    on:
+      branch: dev

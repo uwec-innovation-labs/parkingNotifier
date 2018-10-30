@@ -39,7 +39,7 @@ exports.addUser = (req, res) => {
     !req.body.phoneNumber ||
     !req.body.username
   ) {
-    console.log(req.body);
+    console.log("BODY!:" + req.body.firstName);
     res.status(400);
     res.json({
       success: false,
@@ -49,6 +49,7 @@ exports.addUser = (req, res) => {
     });
     return;
   } else {
+    console.log("BODY: " + req.body.firstName);
     var newUser = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -56,9 +57,9 @@ exports.addUser = (req, res) => {
       username: req.body.username,
       subscribed: true
     });
-
+    console.log("User:" + newUser);
     // attempt to save the user
-    newUser.save(function(err) {
+    newUser.save(err => {
       if (err) {
         console.log(err);
         return res.json({ success: false, message: err });
@@ -76,7 +77,7 @@ exports.deleteUser = (req, res) => {
     // make sure that the user exists
     if (count > 0) {
       // remove the user that matches the email number
-      User.remove({ email: req.params.email }, function(err, bear) {
+      User.remove({ email: req.params.email }, (err, bear) => {
         if (err) res.send(err);
         res.json({ success: true, message: "Successfully unsubscribed" });
       });

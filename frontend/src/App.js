@@ -10,42 +10,32 @@ class App extends Component {
     super(props);
 
     this.state = {
-      name: "",
       phoneNumber: "",
-      username: "",
+      email: "",
+      firstName: "",
+      lastName: "",
       data: []
     };
   }
 
-  componentDidMount() {
-    axios.get("http://localhost:9000/users").then(res => {
-      console.log(res.data);
-      console.log(res.data[0]);
-      this.setState({
-        data: [...res.data]
-      });
-      console.log(this.state);
-    });
-  }
-
   validateForm() {
-    return this.state.name.length > 0 && this.state.phoneNumber.length > 0;
+    return this.state.email.length > 0 && this.state.phoneNumber.length > 0;
   }
 
   handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value
     });
+    console.log(this.state);
   };
 
   handleSubmit = event => {
     axios
-      .post(`http://localhost:9000/users/${this.state.username}`, {
-        params: {
-          firstName: this.state.name,
-          phoneNumber: this.state.phoneNumber,
-          username: this.state.username
-        }
+      .post(`http://localhost:9000/users`, {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        username: this.state.email,
+        phoneNumber: this.state.phoneNumber
       })
       .then(res => {
         console.log(res);
@@ -56,15 +46,6 @@ class App extends Component {
   };
 
   render() {
-    const listData = this.state.data.map(item => (
-      <div className="users">
-        <ul>
-          <li>Name: {item.firstName + " " + item.lastName}</li>
-          <li>Phone: {item.phone}</li>
-          <li>Email: {item.username}@uwec.edu</li>
-        </ul>
-      </div>
-    ));
     return (
       <div className="App">
         <div className="content">
@@ -76,7 +57,7 @@ class App extends Component {
           />
         </div>
         <div className="container">
-          <h3> UWEC Parking Notifier Sign-up </h3>
+          <h3> Parking Notifier Sign-up </h3>
           <p>
             {" "}
             During a snow emergency, the City of Eau Claire will activate
@@ -85,49 +66,50 @@ class App extends Component {
           </p>
 
           <form onSubmit={this.handleSubmit}>
-            <label for="name" id="nameLabel">
+            <label htmlFor="name" id="nameLabel">
               {" "}
               Name{" "}
             </label>
             <div className="form-group" id="firstAndLastName">
               <input
                 type="name"
-                class="form-control"
+                className="form-control"
                 autoFocus
                 id="firstName"
-                placeHolder="First"
+                placeholder="First"
                 onChange={this.handleChange}
               />
               <input
                 type="name"
-                class="form-control"
+                className="form-control"
                 id="lastName"
-                placeHolder="Last"
+                placeholder="Last"
                 onChange={this.handleChange}
               />
             </div>
-            <div class="form-group">
-              <label for="phoneNumber"> Phone Number </label>
+            <div className="form-group">
+              <label htmlFor="phoneNumber"> Phone Number </label>
               <InputMask
                 mask="999-999-9999"
                 type="tel"
-                class="form-control"
+                className="form-control"
                 id="phoneNumber"
-                placeHolder="Phone Number"
+                onChange={this.handleChange}
               />
             </div>
-            <div class="form-group">
-              <label for="email"> UWEC Email </label>
+            <div className="form-group">
+              <label htmlFor="email"> UWEC Email </label>
               <input
                 type="email"
-                class="form-control"
+                className="form-control"
                 id="email"
-                placeHolder="UWEC Email"
+                onChange={this.handleChange}
               />
             </div>
             <Button
               block
               type="submit"
+              className="btn-primary"
               bsSize="large"
               disabled={!this.validateForm()}
             >
@@ -136,16 +118,6 @@ class App extends Component {
             </Button>
           </form>
         </div>
-
-        <footer>
-          <small>
-            {" "}
-            This page is brought to you by the UWEC Student Senate and
-            Information Technology Commission{" "}
-          </small>
-        </footer>
-
-        {listData}
       </div>
     );
   }

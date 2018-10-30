@@ -17,7 +17,7 @@ services:
     build:
       context: ./api
     volumes:
-      - .:/parkingNotifier
+      - ./api:/parkingNotifier/api
       - /parkingNotifier/api/node_modules
     ports:
       - "9000:9000"
@@ -29,7 +29,7 @@ services:
     build:
       context: ./frontend
     volumes:
-      - .:/parkingNotifier
+      - ./frontend:/parkingNotifier/frontend
       - /parkingNotifier/frontend/node_modules
     ports:
       - "3000:3000"
