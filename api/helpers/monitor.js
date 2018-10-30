@@ -4,6 +4,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Status = require("../models/status");
 
+console.log(mongoose.connection.readyState); //test mongodb connection (return status: disconnected=0, connected=1, connecting=2, disconnecting=3 )
+
 axios.get("http://www.ci.eau-claire.wi.us/").then(response => {
   var success = false;
 
