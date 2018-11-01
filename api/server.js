@@ -3,10 +3,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
+const CronJob = require("cron").CronJob;
 
 var userRoutes = require("./routes/users");
 var statRoutes = require("./routes/stats");
 var statusRoutes = require("./routes/status");
+var monitorHelper = require("./helpers/monitor");
 
 // import environment variables from .env file
 require("dotenv").config();
@@ -85,6 +87,11 @@ app.use(function(error, req, res, next) {
     apiDocumentation: "https://github.com/UWEC-ITC/parkingNotifier-API"
   });
 });
+
+new CronJob("0 18 * * * ", function() {
+  console.log("Eau Claire Web Scrape Triggered");
+  monitorHelper(app);
+}).start();
 
 app.listen(port, function() {
   console.log("API listening on port ", port);
