@@ -20,22 +20,20 @@ module.exports = app => {
       var topNav = $("#top_nav");
       var topNavText = topNav.text();
 
-      //checks for
+      //checks if alternate parking banner exists
       if (topNavText.includes("Contact Us")) {
-        // gets the date the scrape is performed
-        // final implentation will get date from website scrape
         let date = new Date();
-        //let offset = date.getTimezoneOffset() / 60;
-        //console.log(date.toLocaleString("en-US"));
-        //date.setHours(date.getHours() - offset);
-        //console.log(date.toLocaleString("en-US"));
 
         // creates new status and sets attributes
         let newStatus = {
           alternateParking: true,
-          timestamp: date.toLocaleString("en-US"),
+          timestamp: date.toLocaleString("en-US", {
+            timeZone: "America/Chicago"
+          }),
           streetSide: getStreetSide(date),
-          expirationDate: getExpirationDate(date).toLocaleString("en-US")
+          expirationDate: getExpirationDate(date).toLocaleString("en-US", {
+            timeZone: "America/Chicago"
+          })
         };
 
         new Status(newStatus)
@@ -58,9 +56,11 @@ module.exports = app => {
   }
 
   //adds 72 hours to the starting date
+  //needed to add extra hour to be a true 72 hours from start date
   function getExpirationDate(date) {
     var expirationDate = new Date();
     expirationDate.setDate(date.getDate() + 3);
+    expirationDate.setHours(expirationDate.getHours() + 1);
     return expirationDate;
   }
 };
