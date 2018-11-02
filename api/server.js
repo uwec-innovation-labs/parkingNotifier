@@ -4,12 +4,14 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 
-var userRoutes = require("./routes/users");
-var statRoutes = require("./routes/stats");
-var statusRoutes = require("./routes/status");
+const userRoutes = require("./routes/users");
+const statRoutes = require("./routes/stats");
+const statusRoutes = require("./routes/status");
+const numberRoutes = require("./routes/numbers");
 
 // import environment variables from .env file
-require("dotenv").config();
+const dotenv = require('dotenv').config();
+const getenv = require('getenv');
 
 // create an instance of express
 const app = express();
@@ -20,12 +22,12 @@ setTimeout(function() {
   console.log("Trying to connect");
   mongoose
     .connect(
-      "mongodb://" + process.env.DB_HOST,
-      {
-        auth: {
-          user: "proto",
-          password: "password123"
-        },
+      //'mongodb://' + process.env.DB_HOST, {
+      'mongodb://localhost:27017/parkingnotifier', {
+      /*auth: {
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD
+      }*/
         useNewUrlParser: true
       }
     )
@@ -65,6 +67,7 @@ app.use(bodyParser.json());
 userRoutes(app);
 statRoutes(app);
 statusRoutes(app);
+numberRoutes(app);
 
 /***** ERROR PAGES *****/
 app.use(function(req, res) {

@@ -11,6 +11,10 @@ request('http://localhost:9000/users', {json:true}, (err, res, body) => {
   var numbers = [];
   var users = body;
   /*users.forEach((user) => {
+    var newNumber = {
+      toNumber: "+1" + user.phone,
+      fromNumber: ""
+    }
     numbers.push("+1" + user.phone);
   });*/
   callNumbers(numbers);
@@ -18,6 +22,7 @@ request('http://localhost:9000/users', {json:true}, (err, res, body) => {
 
 
 const katieNumber = '+17156122163';
+//const taylorNumber = '+16083230141';
 
 
 function callNumbers(numbers) {
@@ -35,8 +40,8 @@ function callNumbers(numbers) {
       if (e.code == 21211) {
         console.error("The number " + number + " is invalid");
       } else {
-	console.error(e.message);}
-    })	  
+	      console.error(e.message);}
+      })	  
     .done();
 });
 }
