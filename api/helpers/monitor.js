@@ -5,7 +5,8 @@ module.exports = app => {
   const mongoose = require("mongoose");
   const Status = require("../models/status");
 
-  console.log(mongoose.connection.readyState); //test mongodb connection (return status: disconnected=0, connected=1, connecting=2, disconnecting=3 )
+  //test mongodb connection (return status: disconnected=0, connected=1, connecting=2, disconnecting=3 )
+  console.log(mongoose.connection.readyState);
 
   axios.get("http://www.ci.eau-claire.wi.us/").then(response => {
     var success = false;
@@ -19,17 +20,22 @@ module.exports = app => {
       var topNav = $("#top_nav");
       var topNavText = topNav.text();
 
+      //checks for
       if (topNavText.includes("Contact Us")) {
         // gets the date the scrape is performed
         // final implentation will get date from website scrape
         let date = new Date();
+        //let offset = date.getTimezoneOffset() / 60;
+        //console.log(date.toLocaleString("en-US"));
+        //date.setHours(date.getHours() - offset);
+        //console.log(date.toLocaleString("en-US"));
 
         // creates new status and sets attributes
         let newStatus = {
           alternateParking: true,
-          timestamp: date.getTime(),
+          timestamp: date.toLocaleString("en-US"),
           streetSide: getStreetSide(date),
-          expirationDate: getExpirationDate(date)
+          expirationDate: getExpirationDate(date).toLocaleString("en-US")
         };
 
         new Status(newStatus)

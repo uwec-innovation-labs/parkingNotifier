@@ -6,7 +6,7 @@ let statusSchema = mongoose.Schema({
     required: true
   },
   timestamp: {
-    type: Date,
+    type: String,
     required: true
   },
   streetSide: {
@@ -14,7 +14,7 @@ let statusSchema = mongoose.Schema({
     required: true
   },
   expirationDate: {
-    type: Date,
+    type: String,
     require: true
   }
 });

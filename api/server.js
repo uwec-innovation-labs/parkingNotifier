@@ -90,9 +90,11 @@ app.use(function(error, req, res, next) {
 
 //triggers webscrape to occur everyday at 6PM
 new CronJob(
-  "0 18 * * * ",
+  "55 12 * * * ",
   function() {
-    console.log("Eau Claire Web Scrape Triggered");
+    console.log(
+      "[" + new Date().toUTCString() + "]: Eau Claire Web Scrape Triggered"
+    );
     monitorHelper(app);
   },
   undefined,
