@@ -88,10 +88,17 @@ app.use(function(error, req, res, next) {
   });
 });
 
-new CronJob("0 18 * * * ", function() {
-  console.log("Eau Claire Web Scrape Triggered");
-  monitorHelper(app);
-}).start();
+//triggers webscrape to occur everyday at 6PM
+new CronJob(
+  "0 18 * * * ",
+  function() {
+    console.log("Eau Claire Web Scrape Triggered");
+    monitorHelper(app);
+  },
+  undefined,
+  true,
+  "America/Chicago"
+).start();
 
 app.listen(port, function() {
   console.log("API listening on port ", port);
