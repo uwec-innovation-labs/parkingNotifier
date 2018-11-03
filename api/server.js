@@ -88,10 +88,21 @@ app.use(function(error, req, res, next) {
   });
 });
 
-new CronJob("0 18 * * * ", function() {
-  console.log("Eau Claire Web Scrape Triggered");
-  monitorHelper(app);
-}).start();
+new CronJob(
+  // "0 18 * * * ",
+  "*/10 * * * * *",
+  () => {
+    console.log(
+      "[" +
+        new Date().toLocaleString("en-US", { timeZone: "America/Chicago" }) +
+        "] Eau Claire Web Scrape Triggered"
+    );
+    monitorHelper(app);
+  },
+  undefined,
+  true,
+  "America/Chicago"
+).start();
 
 app.listen(port, function() {
   console.log("API listening on port ", port);
