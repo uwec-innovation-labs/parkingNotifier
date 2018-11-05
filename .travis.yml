@@ -7,7 +7,7 @@ cache:
   - "stable"
 script:
   - npm install -g codecov
-  - cd frontend
+  - cd api
   - npm install
   - npm test
   - istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
