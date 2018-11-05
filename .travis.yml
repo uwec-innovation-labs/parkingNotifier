@@ -10,7 +10,6 @@ script:
   - cd api
   - npm install
   - npm test
-  - nyc cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
   - codecov
   - npm run build
 deploy:
