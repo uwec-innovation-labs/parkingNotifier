@@ -1,13 +1,12 @@
 language: node_js
 node_js:
   - "10"
-install:
-  - npm install -g codecov
 cache:
   - directories
     - node_modules
   - "stable"
 script:
+  - npm install -g codecov
   - cd frontend
   - npm install
   - npm test
