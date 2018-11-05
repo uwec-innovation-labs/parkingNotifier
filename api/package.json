@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "check-status": "node helpers/monitor.js",
-    "test": "mocha --timeout 10000"
+    "test": "nyc mocha --timeout 10000"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     "chai-http": "^4.2.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.4",
+    "nyc": "^13.1.0",
     "supertest": "^3.3.0"
   }
 }
