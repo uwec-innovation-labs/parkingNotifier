@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - "10"
+install:
+  - npm install -g codecov
 cache:
   - directories
     - node_modules
@@ -9,6 +11,8 @@ script:
   - cd frontend
   - npm install
   - npm test
+  - istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
+  - codecov
   - npm run build
 deploy:
   - provider: s3
