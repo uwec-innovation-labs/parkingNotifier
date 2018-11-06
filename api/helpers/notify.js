@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const request = require('request');
 const querystring = require('querystring');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var text = require('textbelt');
 
 const client = new twilio(process.env.TWILIO_USERNAME, process.env.TWILIO_TOKEN);
 
@@ -33,7 +34,7 @@ function callNumbers(numbers) {
   
   numbers = [katieNumber];
 
-  var body = JSON.stringify({
+  var messageInfo = querystring.stringify({
     number: '7156122163',
     message: 'test'
   });
@@ -42,16 +43,19 @@ function callNumbers(numbers) {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: body
+    body: messageInfo
   };
 
-  request.post(options, function(err) {
+  /*request.post(options, function(err, res, body) {
     if (err) {
       console.log("error");
     } else {
       console.log("success");
+      console.log(body);
     }
-  }); 
+  });*/
+  
+  
 
   /*var i = 1;
   numbers.forEach((number) => {
