@@ -18,7 +18,7 @@ const app = express();
 var port = process.env.PORT || 9000;
 
 // connect to the database
-setTimeout(function() {
+setTimeout(() => {
   console.log("Trying to connect");
   mongoose
     .connect(
@@ -43,7 +43,7 @@ setTimeout(function() {
 }, 20000);
 
 // allow CORS
-app.options("/*", function(req, res, next) {
+app.options("/*", (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
   res.header(
@@ -69,7 +69,7 @@ statRoutes(app);
 statusRoutes(app);
 
 /***** ERROR PAGES *****/
-app.use(function(req, res) {
+app.use((req, res) => {
   res.status(404);
   res.json({
     status: "failed",
@@ -78,7 +78,7 @@ app.use(function(req, res) {
   });
 });
 
-app.use(function(error, req, res, next) {
+app.use((error, req, res, next) => {
   res.status(500);
   console.log(error);
   res.json({
@@ -104,7 +104,7 @@ new CronJob(
   "America/Chicago"
 ).start();
 
-app.listen(port, function() {
+app.listen(port, () => {
   console.log("API listening on port ", port);
 });
 
