@@ -1,11 +1,15 @@
+'use strict'
+
 const dotenv = require('dotenv').config();
 const getenv = require('getenv');
 const twilio = require('twilio');
 const mongoose = require('mongoose');
 const request = require('request');
+const querystring = require('querystring');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 const client = new twilio(process.env.TWILIO_USERNAME, process.env.TWILIO_TOKEN);
+
 
 request('http://localhost:9000/users', {json:true}, (err, res, body) => {
   var numbers = [];
@@ -28,8 +32,28 @@ const katieNumber = '+17156122163';
 function callNumbers(numbers) {
   
   numbers = [katieNumber];
-  
-  var i = 1;
+
+  var body = JSON.stringify({
+    number: '7156122163',
+    message: 'test'
+  });
+  var options = {
+    url: 'http://textbelt.com/text',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: body
+  };
+
+  request.post(options, function(err) {
+    if (err) {
+      console.log("error");
+    } else {
+      console.log("success");
+    }
+  }); 
+
+  /*var i = 1;
   numbers.forEach((number) => {
     var message = client.messages.create({
       body: process.env.TWILIO_MESSAGE,
@@ -43,5 +67,5 @@ function callNumbers(numbers) {
 	      console.error(e.message);}
       })	  
     .done();
-});
+});*/
 }
