@@ -89,8 +89,8 @@ app.use(function(error, req, res, next) {
 });
 
 new CronJob(
-  // "0 18 * * * ",
-  "*/10 * * * * *",
+  "0 18 * * * ",
+  //"*/10 * * * * *",
   () => {
     console.log(
       "[" +
