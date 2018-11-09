@@ -39,6 +39,12 @@
     margin-bottom: 10px;
   }
 
+  #unsubscribeBtn {
+    max-width: 50%;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+
 
   p {
     margin: 0 auto;

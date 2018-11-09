@@ -3,11 +3,14 @@ import "./App.css";
 import InputMask from "react-input-mask";
 import { Button } from "react-bootstrap";
 import "reactstrap";
+import { render } from 'react-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 const axios = require("axios");
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+
+const Signup = (props) => {
+//  constructor(props) {
+//    super(props);
 
     this.state = {
       phoneNumber: "",
@@ -16,41 +19,14 @@ class App extends Component {
       lastName: "",
       data: []
     };
-  }
 
-  validateForm() {
-    return this.state.email.length > 0 && this.state.phoneNumber.length > 0;
-  }
 
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-    console.log(this.state);
-  };
 
-  handleSubmit = event => {
-    axios
-      .post(`http://localhost:9000/users`, {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        username: this.state.email,
-        phoneNumber: this.state.phoneNumber
-      })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  render() {
     return (
       <div className="App">
         <div className="content">
           <img
-            src={require("./studentsenate_logo.png")}
+            src={require("../studentsenate_logo.png")}
             className="img-responsive"
             id="StudentSenateLogo"
             alt="StudentSenateLogo"
@@ -98,7 +74,7 @@ class App extends Component {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="email"> UWEC Email </label>
+              <label htmlFor="email"> Email </label>
               <input
                 type="email"
                 className="form-control"
@@ -111,16 +87,51 @@ class App extends Component {
               type="submit"
               className="btn-primary"
               bsSize="large"
-              disabled={!this.validateForm()}
+  //            disabled={!this.validateForm()}
             >
               {" "}
               Submit{" "}
+            </Button>
+            <Button
+              id="unsubscribeBtn"
+              block
+              type="unsubscribe"
+              className="btn-primary"
+              bsSize="small"
+  //            disabled={!this.validateForm()}
+            >
+              {" "}
+              Unsubscribe{" "}
             </Button>
           </form>
         </div>
       </div>
     );
-  }
-}
 
-export default App;
+
+
+
+  }
+
+
+
+  // handleSubmit = event => {
+  //   axios
+  //     .post(`http://localhost:9000/users`, {
+  //       firstName: this.state.firstName,
+  //       lastName: this.state.lastName,
+  //       username: this.state.email,
+  //       phoneNumber: this.state.phoneNumber
+  //     })
+  //     .then(res => {
+  //       console.log(res);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
+
+
+
+
+export default Signup;
