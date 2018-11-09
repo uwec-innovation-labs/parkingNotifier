@@ -28,11 +28,6 @@ module.exports = app => {
 
       //checks if alternate parking banner exists
       if (topNavText.includes("Contact Us")) {
-        //var offset = date.getTimezoneOffset() / 60;
-        // console.log(offset);
-        // date.setHours(date.getHours() - offset);
-        // console.log(date);
-        // creates new status and sets attributes
         newStatus = {
           alternateParking: true,
           timestamp: date.toLocaleString("en-US", {
@@ -65,8 +60,12 @@ module.exports = app => {
 
   // pulls the date given to status.timestamp and determines the parking for the day
   getStreetSide = date => {
-    var day = date.getDate();
-    if (day % 2 === 0) {
+    //finds local time, and parses string for date
+    //date format in system [month/day/year time]
+    var local = date.toLocaleString();
+    var day = local.match(/.*\/(.*)\/.*/);
+
+    if (day[1] % 2 === 0) {
       return "Even";
     } else {
       return "Odd";
@@ -74,11 +73,9 @@ module.exports = app => {
   };
 
   //adds 72 hours to the starting date
-  //needed to add extra hour to be a true 72 hours from start date
   getExpirationDate = date => {
     var expirationDate = new Date();
     expirationDate.setDate(date.getDate() + 3);
-    expirationDate.setHours(expirationDate.getHours() + 1);
     return expirationDate;
   };
 };
