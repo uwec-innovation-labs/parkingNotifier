@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
 var User = require("../models/user");
-var Analytics = require("../models/analytics");
 
 mongoose.model("User");
 
