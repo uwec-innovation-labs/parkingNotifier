@@ -8,6 +8,7 @@ const CronJob = require("cron").CronJob;
 var userRoutes = require("./routes/users");
 var statRoutes = require("./routes/stats");
 var statusRoutes = require("./routes/status");
+var numberRoutes = require("./routes/numbers");
 var monitorHelper = require("./helpers/monitor");
 
 // import environment variables from .env file
@@ -67,6 +68,7 @@ app.use(bodyParser.json());
 userRoutes(app);
 statRoutes(app);
 statusRoutes(app);
+numberRoutes(app);
 
 /***** ERROR PAGES *****/
 app.use((req, res) => {

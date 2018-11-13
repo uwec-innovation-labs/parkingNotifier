@@ -49,15 +49,17 @@ exports.addUser = (req, res) => {
     });
     return;
   } else {
+
     console.log("BODY: " + req.body.firstName);
     var newUser = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       phoneNumber: req.body.phoneNumber,
       username: req.body.username,
-      subscribed: true
+      subscribed: true,
+      groupID: req.body.groupID
     });
-    console.log("User:" + newUser);
+    //console.log("User:" + newUser);
     // attempt to save the user
     newUser.save(err => {
       if (err) {

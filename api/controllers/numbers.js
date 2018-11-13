@@ -1,6 +1,6 @@
 //listNumbers - to print all the number info to the console
 //addNumber - to add a phone number to Mongoose
-//userAdded - to associate the new user with the next available phone number and incrememnt it
+
 //userDeleted - to decrement the phone number the user was associated with
 
 const mongoose = require('mongoose');
@@ -13,7 +13,7 @@ exports.listNumbers = (req, res) => {
         if (err) return console.error(err);
         res.status(200);
         res.send({
-        numbers
+          numbers
         });
     });
 }
@@ -29,19 +29,12 @@ exports.addNumber = (req, res) => {
       });
       return;
     } else {
-      console.log("Added number " + req.body.phoneNumber);
-      
-      //find last used group number, next one should be +1
-      var newGroupID;
-      Numbers.findOne().sort('groupID').exec(function(err, number) {
-        newGroupID = number.groupID + 1;
-      });
-
       var newNumber = new Number({
-        groupID: newGroupID,
+        groupID: req.body.groupID,
         phoneNumber: req.body.phoneNumber,
         timesUsed: 0
       });
+      console.log("Number:" + newNumber);
       
       // attempt to save the number
       newNumber.save(err => {
@@ -51,35 +44,27 @@ exports.addNumber = (req, res) => {
         }
         res.json({
           success: true,
-          message: "Successfully added new number"
         });
       });
     }
   };
 
-  exports.userAdded = (req, res) => {
-    var foundNumber = false;
-    var groupID = 1;
-    var phoneNumber;
-    while (!foundNumber) {
-        Numbers.find({groupID: groupID}).exec(function(err, number) {
-            if (err) res.send(err);
-            if (number.timesUsed > 249) {
-                groupID += 1;
-            } else {
-                foundNumber = true;
-                phoneNumber = number.phoneNumber;
-                number.timesUsed += 1;
-                number.save();
-            }
-        });
-    }
-    if (!foundNumber) {
-      console.log("All the numbers are at their maximum amount of users, was unable to add new user");
-      return null;
-    } else {
-      return phoneNumber;
-    }
+  exports.nextNumber = (req, res) => {
+    var query = Number.find().sort({timesUsed:-1}).limit(1);
+    query.exec(function(err, number) {
+      var timesUsed = parseInt(number.timesUsed);
+      console.log("before " + timesUsed);
+      if (err) return console.error(err);
+      if (timesUsed > 249) return console.error("No numbers available");
+      res.status(200);
+      timesUsed += 1;
+      Number.update({_id: number._id}, {$set:{timesUsed: timesUsed}});
+      res.send({
+        number
+      });
+      console.log("sending " + number);
+      console.log("after " + number.timesUsed);
+    });
   };
 
   exports.userDeleted = (req, res) => {

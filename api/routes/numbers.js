@@ -4,8 +4,9 @@ module.exports = app => {
   app
     .route("/numbers")
     .get(numberController.listNumbers)
-    .put(numberController.addNumber)
-    .post(numberController.userAdded)
+    .post(numberController.addNumber)
     .delete(numberController.userDeleted);
 
+  app
+    .route("/numbers/next").get(numberController.nextNumber);
 };
