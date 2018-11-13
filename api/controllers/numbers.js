@@ -74,7 +74,12 @@ exports.addNumber = (req, res) => {
             }
         });
     }
-    return phoneNumber;
+    if (!foundNumber) {
+      console.log("All the numbers are at their maximum amount of users, was unable to add new user");
+      return null;
+    } else {
+      return phoneNumber;
+    }
   };
 
   exports.userDeleted = (req, res) => {

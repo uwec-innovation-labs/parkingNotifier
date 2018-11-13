@@ -22,7 +22,7 @@ request('http://localhost:9000/users', {json:true}, (err, res, body) => {
     }
     numbers.push("+1" + user.phone);
   });*/
-  callNumbers(numbers);
+  //callNumbers(numbers);
 });
 
 
@@ -34,30 +34,7 @@ function callNumbers(numbers) {
   
   numbers = [katieNumber];
 
-  var messageInfo = querystring.stringify({
-    number: '7156122163',
-    message: 'test'
-  });
-  var options = {
-    url: 'http://textbelt.com/text',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: messageInfo
-  };
-
-  /*request.post(options, function(err, res, body) {
-    if (err) {
-      console.log("error");
-    } else {
-      console.log("success");
-      console.log(body);
-    }
-  });*/
-  
-  
-
-  /*var i = 1;
+  var i = 1;
   numbers.forEach((number) => {
     var message = client.messages.create({
       body: process.env.TWILIO_MESSAGE,
@@ -71,5 +48,27 @@ function callNumbers(numbers) {
 	      console.error(e.message);}
       })	  
     .done();
-});*/
+});
+
+  /*var messageInfo = querystring.stringify({
+    number: '7156122163',
+    message: 'test'
+  });
+  var options = {
+    url: 'http://textbelt.com/text',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: messageInfo
+  };*/
+
+  /*request.post(options, function(err, res, body) {
+    if (err) {
+      console.log("error");
+    } else {
+      console.log("success");
+      console.log(body);
+    }
+  });*/
+  
 }
