@@ -4,7 +4,7 @@ import Unsubscribe from './unsubscribe'
 
   const App = () => (
       <div>
-        <Signup />
+        <Signup/>
       </div>
   )
   //

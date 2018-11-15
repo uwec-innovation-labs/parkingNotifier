@@ -7,7 +7,7 @@ const Main = () => (
   <main>
     <Switch>
      <Route path='/Signup' component={Signup}/>
-//     <Route path='/Unsubscribe' component={Unsubscribe}/>
+     <Route path='/Unsubscribe' component={Unsubscribe}/>
     </Switch>
   </main>
 );

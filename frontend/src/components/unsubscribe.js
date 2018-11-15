@@ -18,7 +18,7 @@ const Unsubscribe = (props) => {
       <div className="App">
         <div className="content">
           <img
-            src={require("../studentsenate_logo.png")}
+            src={require("../clearwater_logo.png")}
             className="img-responsive"
             id="StudentSenateLogo"
             alt="StudentSenateLogo"
@@ -67,9 +67,7 @@ const Unsubscribe = (props) => {
       </div>
     );
   }
-
-
-
+  
   // handleSubmit = event => {
   //   axios
   //     .post(`http://localhost:9000/users`, {
@@ -85,9 +83,5 @@ const Unsubscribe = (props) => {
   //       console.log(err);
   //     });
   // };
-
-
-
-
 
 export default Unsubscribe;

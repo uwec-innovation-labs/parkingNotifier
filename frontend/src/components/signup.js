@@ -20,13 +20,27 @@ const Signup = (props) => {
       data: []
     };
 
-
+      // handleSubmit = event => {
+      //   axios
+      //     .post(`http://localhost:9000/users`, {
+      //       firstName: this.state.firstName,
+      //       lastName: this.state.lastName,
+      //       username: this.state.email,
+      //       phoneNumber: this.state.phoneNumber
+      //     })
+      //     .then(res => {
+      //       console.log(res);
+      //     })
+      //     .catch(err => {
+      //       console.log(err);
+      //     });
+      // };
 
     return (
       <div className="App">
         <div className="content">
           <img
-            src={require("../studentsenate_logo.png")}
+            src={require("../clearwater_logo.png")}
             className="img-responsive"
             id="StudentSenateLogo"
             alt="StudentSenateLogo"
@@ -93,6 +107,7 @@ const Signup = (props) => {
               Submit{" "}
             </Button>
             <Button
+              link="/unsubscribe"
               id="unsubscribeBtn"
               block
               type="unsubscribe"
@@ -107,31 +122,5 @@ const Signup = (props) => {
         </div>
       </div>
     );
-
-
-
-
   }
-
-
-
-  // handleSubmit = event => {
-  //   axios
-  //     .post(`http://localhost:9000/users`, {
-  //       firstName: this.state.firstName,
-  //       lastName: this.state.lastName,
-  //       username: this.state.email,
-  //       phoneNumber: this.state.phoneNumber
-  //     })
-  //     .then(res => {
-  //       console.log(res);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
-
-
-
-
 export default Signup;
