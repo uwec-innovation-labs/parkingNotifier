@@ -12,7 +12,8 @@ async function populate() {
   while (numsCreated < phones) {
     const phone = {
       groupID: numsCreated + 1,
-      phoneNumber: `${faker.phone.phoneNumber()}`
+      phoneNumber: `${faker.phone.phoneNumber()}`,
+      timesUsed: '0'
     };
 
     try {

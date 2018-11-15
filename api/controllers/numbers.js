@@ -12,6 +12,12 @@ exports.listNumbers = (req, res) => {
     Number.find((err, numbers) => {
         if (err) return console.error(err);
         res.status(200);
+        numbers.forEach(function(number) {
+          console.log("Number " + number);
+          console.log(number.groupID);
+          console.log(number.phoneNumber);
+          console.log(number.timesUsed);
+        });
         res.send({
           numbers
         });
@@ -32,9 +38,12 @@ exports.addNumber = (req, res) => {
       var newNumber = new Number({
         groupID: req.body.groupID,
         phoneNumber: req.body.phoneNumber,
-        timesUsed: 0
+        timesUsed: req.body.timesUsed
       });
       console.log("Number:" + newNumber);
+      console.log(newNumber.groupID);
+      console.log(newNumber.phoneNumber);
+      console.log(newNumber.timesUsed);
       
       // attempt to save the number
       newNumber.save(err => {
@@ -50,20 +59,24 @@ exports.addNumber = (req, res) => {
   };
 
   exports.nextNumber = (req, res) => {
-    var query = Number.find().sort({timesUsed:-1}).limit(1);
-    query.exec(function(err, number) {
-      var timesUsed = parseInt(number.timesUsed);
-      console.log("before " + timesUsed);
-      if (err) return console.error(err);
-      if (timesUsed > 249) return console.error("No numbers available");
+    
+    //.sort({timesUsed:-1}).limit(1)
+    //query.exec(function(err, number) {
+    Number.findOne({}, (err, number) => {
+      if (err) {
+        console.err(err);
+      }
+      console.log("Number " + number);
+      console.log("groupID " + number.groupID);
+      console.log("timesUsed " + number.timesUsed);
+
+      var tu = parseInt(number.timesUsed, 10);
+      if (tu > 249) return console.error("No numbers available");
+  
+      tu += 1;
+      Number.update({_id: number._id}, {$set:{timesUsed: tu}});
       res.status(200);
-      timesUsed += 1;
-      Number.update({_id: number._id}, {$set:{timesUsed: timesUsed}});
-      res.send({
-        number
-      });
-      console.log("sending " + number);
-      console.log("after " + number.timesUsed);
+      res.status(200).send(number);
     });
   };
 

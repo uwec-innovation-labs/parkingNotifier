@@ -50,7 +50,7 @@ exports.addUser = (req, res) => {
     return;
   } else {
 
-    console.log("BODY: " + req.body.firstName);
+    //console.log("BODY: " + req.body.firstName);
     var newUser = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,

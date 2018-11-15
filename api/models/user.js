@@ -32,7 +32,6 @@ let userSchema = mongoose.Schema({
     type: Boolean,
     required: true
   }
-  /////// need to add attribute for twilio account number
 });
 
 userSchema.plugin(uniqueValidator);

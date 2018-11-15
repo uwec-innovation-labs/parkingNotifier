@@ -13,7 +13,7 @@ let numberSchema = mongoose.Schema({
       select: false
     },
     timesUsed: {
-      type: Number,
+      type: String,
       required: true,
       select: false
     }
