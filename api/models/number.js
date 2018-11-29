@@ -5,17 +5,17 @@ let numberSchema = mongoose.Schema({
     groupID: {
       type: String,
       required: true,
-      select: false
+      select: true
     },
     phoneNumber: {
       type: String,
       required: true,
-      select: false
+      select: true
     },
     timesUsed: {
       type: String,
       required: true,
-      select: false
+      select: true
     }
   });
   

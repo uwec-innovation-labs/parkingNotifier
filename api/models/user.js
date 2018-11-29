@@ -21,7 +21,7 @@ let userSchema = mongoose.Schema({
   groupID: {
     type: String,
     required: true,
-    select: false
+    select: true
   },
   username: {
     type: String,

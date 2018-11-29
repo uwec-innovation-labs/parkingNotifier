@@ -2,7 +2,7 @@ const axios = require("axios");
 const faker = require("faker");
 const moment = require("moment");
 
-const count = 1000;
+const count = 500;
 const phones = 2;
 
 async function populate() {
@@ -31,24 +31,24 @@ async function populate() {
   let i = 0;
   while (created < count) {
 
-    if (i == 250) {
-      console.log("calling next number");
       try {
-      var number = await axios.get(`http://localhost:9000/numbers/next`);
-      //groupID = number.groupID;
-      //console.log(groupID);
-    } catch (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    
-      groupID++;
-      i = 0;
-      if (groupID > numsCreated) {
-        console.log("Ran out of phone numbers, " + (count - created) + " users left over");
-        break;
+        var req = await axios.get(`http://localhost:9000/numbers/next`);
+        if (req.data == "") {
+          console.log("Ran out of phone numbers, " + (count - created) + " users left over");
+          process.exit(0);
+          break;
+        } else {
+          console.log("got number ");
+          console.log(req.data);
+         var number = req.data;
+         groupID = number.groupID;
+        }
+      } catch (err) {
+          console.error(err);
+          process.exit(1);
+          break;
       }
-    }
+    
     const user = {
       firstName: `${faker.name.firstName()}`,
       lastName: `${faker.name.lastName()}`,
@@ -65,7 +65,6 @@ async function populate() {
     }
 
     created++;
-    i++;
   }
 
   return true;

@@ -12,12 +12,12 @@ exports.listNumbers = (req, res) => {
     Number.find((err, numbers) => {
         if (err) return console.error(err);
         res.status(200);
-        numbers.forEach(function(number) {
+        /*numbers.forEach(function(number) {
           console.log("Number " + number);
           console.log(number.groupID);
           console.log(number.phoneNumber);
           console.log(number.timesUsed);
-        });
+        });*/
         res.send({
           numbers
         });
@@ -40,10 +40,6 @@ exports.addNumber = (req, res) => {
         phoneNumber: req.body.phoneNumber,
         timesUsed: req.body.timesUsed
       });
-      console.log("Number:" + newNumber);
-      console.log(newNumber.groupID);
-      console.log(newNumber.phoneNumber);
-      console.log(newNumber.timesUsed);
       
       // attempt to save the number
       newNumber.save(err => {
@@ -60,30 +56,50 @@ exports.addNumber = (req, res) => {
 
   exports.nextNumber = (req, res) => {
     
-    //.sort({timesUsed:-1}).limit(1)
-    //query.exec(function(err, number) {
-    Number.findOne({}, (err, number) => {
+    Number.find().sort({timesUsed: 1}).limit(1).findOne({}, (err, number) => {
       if (err) {
         console.err(err);
       }
-      console.log("Number " + number);
-      console.log("groupID " + number.groupID);
-      console.log("timesUsed " + number.timesUsed);
 
       var tu = parseInt(number.timesUsed, 10);
-      if (tu > 249) return console.error("No numbers available");
+      if (tu == 250) {
+         console.log("No numbers available");
+         res.status(200);
+         res.status(200).send(null);
+      } else {
   
-      tu += 1;
-      Number.update({_id: number._id}, {$set:{timesUsed: tu}});
-      res.status(200);
-      res.status(200).send(number);
+        tu += 1;
+        var times_used = "" + tu;
+        Number.findOneAndUpdate(
+          {_id: number.id},
+          {$set: {timesUsed: times_used}}, 
+          (err, number) => {
+            if (err) {
+              console.err(err);
+            }
+          }
+        );
+        res.status(200);
+        res.status(200).send(number);
+      }
     });
   };
 
   exports.userDeleted = (req, res) => {
-    var groupID = res.body.groupID;
-    Numbers.find({groupID: groupID}).exec(function(err, number) {
-        number.timesUsed -= 1;
-        number.save();
-    });
+    Number.findOne({groupID: req.groupID}({}, (err, number) => {
+      if (err) {
+        console.err(err);
+      }
+      tu -= 1;
+      var times_used = "" + tu;
+      Number.findOneAndUpdate(
+        {_id: number.id},
+        {$set: {timesUsed: times_used}}, 
+        (err, number) => {
+          if (err) {
+            console.err(err);
+          }
+        }
+      );
+    }));
   };

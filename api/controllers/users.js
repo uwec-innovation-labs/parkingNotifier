@@ -49,7 +49,6 @@ exports.addUser = (req, res) => {
     });
     return;
   } else {
-
     //console.log("BODY: " + req.body.firstName);
     var newUser = new User({
       firstName: req.body.firstName,
@@ -80,6 +79,15 @@ exports.deleteUser = (req, res) => {
     if (count > 0) {
       // remove the user that matches the email number
       User.remove({ email: req.params.email }, (err, bear) => {
+        
+        //free up the phone number
+        try {
+          axios.delete(`http://localhost:9000/numbers`, req.params);
+        } catch (err) {
+          console.error(err);
+          process.exit(1);
+        }
+
         if (err) res.send(err);
         res.json({ success: true, message: "Successfully unsubscribed" });
       });
