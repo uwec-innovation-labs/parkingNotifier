@@ -6,5 +6,11 @@ module.exports = app => {
     .get(userController.listUsers)
     .post(userController.addUser);
 
-  app.route("/users/:username").get(userController.getUser);
+  app
+    .route("/users/:username")
+    .get(userController.getUser);
+
+  app
+    .route("/users/unsubscribe")
+    .post(userController.deleteUser);
 };

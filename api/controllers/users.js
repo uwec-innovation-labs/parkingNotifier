@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var User = require("../models/user");
+const axios = require("axios");
 
 mongoose.model("User");
 
@@ -33,6 +34,7 @@ exports.getUser = (req, res) => {
 };
 
 exports.addUser = (req, res) => {
+  console.log(req.body);
   if (
     !req.body.firstName ||
     !req.body.lastName ||
@@ -74,15 +76,14 @@ exports.addUser = (req, res) => {
 };
 
 exports.deleteUser = (req, res) => {
-  User.count({ email: req.params.email }, (err, count) => {
+  User.count({ username: req.body.username }, (err, count) => {
     // make sure that the user exists
     if (count > 0) {
-      // remove the user that matches the email number
-      User.remove({ email: req.params.email }, (err, bear) => {
+      // remove the user that matches the username
         
-        //free up the phone number
+      //free up the phone number
         try {
-          axios.delete(`http://localhost:9000/numbers`, req.params);
+          axios.post(`http://localhost:9000/numbers/unsubscribe`, req.body);
         } catch (err) {
           console.error(err);
           process.exit(1);
@@ -90,12 +91,11 @@ exports.deleteUser = (req, res) => {
 
         if (err) res.send(err);
         res.json({ success: true, message: "Successfully unsubscribed" });
-      });
     } else {
       res.status(400);
       res.json({
         success: false,
-        message: "User with that email does not exist"
+        message: "User with that username does not exist"
       });
     }
   });

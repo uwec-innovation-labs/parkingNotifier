@@ -86,10 +86,13 @@ exports.addNumber = (req, res) => {
   };
 
   exports.userDeleted = (req, res) => {
-    Number.findOne({groupID: req.groupID}({}, (err, number) => {
-      if (err) {
-        console.err(err);
+    Number.findOne({}, (err, number) => {
+      if (err || number == null) {
+        //console.err(err);
+        console.log("error here");
       }
+      console.log(number);
+      var tu = parseInt(number.timesUsed, 10);
       tu -= 1;
       var times_used = "" + tu;
       Number.findOneAndUpdate(
@@ -97,9 +100,10 @@ exports.addNumber = (req, res) => {
         {$set: {timesUsed: times_used}}, 
         (err, number) => {
           if (err) {
-            console.err(err);
+            //console.err(err);
+console.log("error here2");
           }
         }
       );
-    }));
+    });
   };
