@@ -55,7 +55,7 @@ exports.addNumber = (req, res) => {
   };
 
   exports.nextNumber = (req, res) => {
-    
+
     Number.find().sort({timesUsed: 1}).limit(1).findOne({}, (err, number) => {
       if (err) {
         console.err(err);

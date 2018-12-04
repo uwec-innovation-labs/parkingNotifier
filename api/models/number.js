@@ -10,7 +10,8 @@ let numberSchema = mongoose.Schema({
     phoneNumber: {
       type: String,
       required: true,
-      select: true
+      select: true,
+      unique: true
     },
     timesUsed: {
       type: String,
