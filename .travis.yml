@@ -6,7 +6,12 @@ cache:
     - node_modules
   - "stable"
 script:
-  - cd frontend
+  - npm install -g codecov
+  - cd api
+  - npm install
+  - npm test
+  - codecov
+  - cd ../frontend
   - npm install
   - npm test
   - npm run build
