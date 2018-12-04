@@ -1,26 +1,9 @@
 import React from "react";
-import "./App.css";
 import InputMask from "react-input-mask";
 import { Button } from "react-bootstrap";
 import "reactstrap";
 
 const Signup = props => {
-  // handleSubmit = event => {
-  //   axios
-  //     .post(`http://localhost:9000/users`, {
-  //       firstName: this.state.firstName,
-  //       lastName: this.state.lastName,
-  //       username: this.state.email,
-  //       phoneNumber: this.state.phoneNumber
-  //     })
-  //     .then(res => {
-  //       console.log(res);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
-
   return (
     <div className="App">
       <div className="content">
