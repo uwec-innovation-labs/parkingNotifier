@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import InputMask from "react-input-mask";
 import { Button } from "react-bootstrap";
+import AppNavbar from "./AppNavbar";
 
 class Unsubscribe extends Component {
   render() {
     return (
       <div>
+        <AppNavbar />
         <form onSubmit={this.handleSubmit}>
           <div className="form-group" id="username">
             <label htmlFor="username"> UWEC Email </label>
@@ -27,7 +29,7 @@ class Unsubscribe extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <Button block type="submit" className="btn-primary" bsSize="large">
+          <Button block type="submit" className="btn-primary">
             Unsubscribe
           </Button>
         </form>

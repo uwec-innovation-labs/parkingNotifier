@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AppNavbar from "./AppNavbar";
 
-class Home extends Component {
+class About extends Component {
   render() {
     return (
       <div className="App">
@@ -52,21 +52,16 @@ class Home extends Component {
               <li className="list-group-item">
                 On odd-numbered days, park on the odd side of the street
               </li>
-              <li className="list-group-item">
-                Policy lasts 72 hours (3 days) after declared
-              </li>
+              <li className="list-group-item">Lasts for 72 hours</li>
               <li className="list-group-item">
                 In effect from midnight to 5:00pm during the 72 hours
               </li>
             </ul>
           </div>
-          <a href="/register">
-            <div className="button">Register for Alerts</div>
-          </a>
         </div>
       </div>
     );
   }
 }
 
-export default Home;
+export default About;
