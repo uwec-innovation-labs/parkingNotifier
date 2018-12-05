@@ -4,7 +4,7 @@ import "./App.css";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import About from "./components/About";
-import Unsubscribe from "./components/Unsubscribe";
+import Unsubscribe from "./components/unsubscribe";
 
 class Routes extends Component {
   render() {
