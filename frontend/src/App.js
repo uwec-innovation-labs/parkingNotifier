@@ -3,8 +3,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
 import Register from "./components/Register";
-import Unsubscribe from "./components/Unsubscribe";
 import About from "./components/About";
+import Unsubscribe from "./components/Unsubscribe";
 
 class Routes extends Component {
   render() {
