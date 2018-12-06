@@ -74,7 +74,7 @@ class Register extends Component {
             </form>
           </div>
           </div>
-          <div className="col">
+          <div className="col align-self-center">
             <img
               src={require("../demo_text.jpg")}
               className="text-example-img"
