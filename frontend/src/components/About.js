@@ -32,7 +32,8 @@ class About extends Component {
             "I’m a Software Engineering major with an Information Systems minor here at UWEC. I am excited to explore how technology and innovation can improve lives. As Director and Technical Manager, I remove barriers to help our software engineers succeed, plan strategically for the longevity of the organization, and have a bit of fun too.",
           links: {
             email: "mailto:STOUTAB4384@uwec.edu",
-            linkedin: "https://www.linkedin.com/in/stoutalex/"
+            linkedin: "https://www.linkedin.com/in/stoutalex/",
+            github: "https://github.com/alex-stout"
           }
         },
         {
@@ -106,7 +107,7 @@ class About extends Component {
               {person.links.email ? (
                 <a href={person.links.email}>
                   <Button>
-                    <FontAwesomeIcon icon="envelope" size="1.5x" />
+                    <FontAwesomeIcon icon="envelope" size="lg" />
                   </Button>
                 </a>
               ) : (
@@ -116,7 +117,17 @@ class About extends Component {
                 <a href={person.links.linkedin}>
                   <Button>
                     {" "}
-                    <FontAwesomeIcon icon={["fab", "linkedin"]} />
+                    <FontAwesomeIcon icon={["fab", "linkedin"]} size="lg" />
+                  </Button>
+                </a>
+              ) : (
+                <Fragment />
+              )}
+              {person.links.github ? (
+                <a href={person.links.github}>
+                  <Button>
+                    {" "}
+                    <FontAwesomeIcon icon={["fab", "github"]} size="lg" />
                   </Button>
                 </a>
               ) : (
