@@ -16,15 +16,37 @@ h6 {
 }
 
 .text-example-img {
-    margin: 50px auto;
-    width: 30%;
-    min-width: 300px;
-    max-width: 600px;
-    transition: all ease-in-out 750ms;
+  margin: 50px auto;
+  width: 30%;
+  min-width: 300px;
+  max-width: 600px;
+  transition: all ease-in-out 750ms;
+  box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
+  animation-name: float;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
 
-.text-example-img:hover {
-  transform: translate(-50px, 0px);
+@keyframes float {
+  0% {
+    transform: translate(0px, 0px);
+    box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
+  }
+  50% {
+    transform: translate(0px, -10px);
+    box-shadow: 0px 27px 20px -10px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    transform: translate(0px, 0px);
+    box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@media (max-width: 629px) {
+  #exampleContainer {
+    display: none;
+  }
 }
 
 .clearwater_logo_register {
@@ -35,7 +57,7 @@ h6 {
   padding: 0px;
 }
 
-p.register{
+p.register {
   max-width: 75%;
 }
 
@@ -108,11 +130,6 @@ p.register{
   margin: 0 auto;
   margin-top: 30px;
 }
-
-#demo_text  {
-  box-shadow: 20px 17px 10px -10px rgba(0, 0, 0, 0.4);
-}
-
 
 #cwlLogo_register {
   max-width: 200px;
