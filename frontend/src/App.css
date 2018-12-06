@@ -3,6 +3,7 @@
   max-width: 355px;
   text-align: left;
   margin-bottom: 50px;
+
 }
 
 h1,
@@ -12,6 +13,14 @@ h4,
 h5,
 h6 {
   font-family: "Roboto", sans-serif;
+}
+
+#col-left {
+    margin-left: 200px;
+}
+
+.col align-self-center {
+  padding: 0px;
 }
 
 .button {
@@ -84,12 +93,21 @@ h6 {
   margin-top: 30px;
 }
 
+#demo_text  {
+  box-shadow: 20px 17px 10px -10px rgba(0, 0, 0, 0.4);
+}
+
+
+#cwlLogo_register {
+  max-width: 200px;
+}
+
 p {
   margin: 30px auto;
   max-width: 600px;
   text-overflow: ellipsis;
   margin-bottom: 10px;
-  text-align: left;
+  text-align: center;
   font-family: "Open Sans", sans-serif;
 }
 

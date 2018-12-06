@@ -13,7 +13,9 @@ class Register extends Component {
     return (
       <div>
         <AppNavbar />
-        <div className="content">
+        <div className="row">
+        <div className="col align-self-center padding-0">
+        <h4> Be the first to know! </h4>
           <div className="registerForm">
             <form>
               <label htmlFor="name" id="nameLabel">
@@ -59,6 +61,15 @@ class Register extends Component {
                 Register
               </Button>
             </form>
+          </div>
+          </div>
+          <div className="col">
+            <img
+              src={require("../demo_text.jpg")}
+              className="img-responsive"
+              id="demo_text"
+              alt="Text Message Example"
+            />
           </div>
         </div>
       </div>
