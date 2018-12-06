@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import InputMask from "react-input-mask";
-import { Button } from "react-bootstrap";
 import AppNavbar from "./AppNavbar";
-import "reactstrap";
+import { Col, Row, Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 class Register extends Component {
   constructor(props) {
@@ -13,53 +12,63 @@ class Register extends Component {
     return (
       <div>
         <AppNavbar />
-        <div className="content">
-          <div className="registerForm">
-            <form>
-              <label htmlFor="name" id="nameLabel">
-                Name
-              </label>
-              <div className="form-group" id="firstAndLastName">
-                <input
-                  type="name"
-                  className="form-control"
-                  autoFocus
-                  id="firstName"
-                  placeholder="First"
-                  onChange={this.handleChange}
-                />
-                <input
-                  type="name"
-                  className="form-control"
-                  id="lastName"
-                  placeholder="Last"
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="phoneNumber"> Phone Number </label>
-                <InputMask
-                  mask="999-999-9999"
-                  type="tel"
-                  className="form-control"
-                  id="phoneNumber"
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email"> UWEC Email </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  onChange={this.handleChange}
-                />
-              </div>
-              <Button block type="submit" className="btn-primary">
-                Register
-              </Button>
-            </form>
-          </div>
+        <div className="container navbar-offset">
+          <h2> Register to Receive Text Alerts</h2>
+          <h6>
+            When you register with the Parking Notifier, you will receive a text
+            message when alternate side parking takes effect. It'll tell you
+            which side of the street to park on and when the rules will end (3
+            days after the start of the rules).
+          </h6>
+          <Form>
+            <label htmlFor="frmNameA">Name</label>
+            <Row form="true">
+              <Col md={6}>
+                <FormGroup>
+                  <Input
+                    type="text"
+                    name="fname"
+                    id="frmNameA"
+                    placeholder="First"
+                    required
+                    autoComplete="given-name"
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={6}>
+                <FormGroup>
+                  <Input
+                    id="lName"
+                    name="lname"
+                    type="text"
+                    placeholder="Last"
+                    autoComplete="family-name"
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+            <FormGroup>
+              <Label>Phone Number</Label>
+              <InputMask
+                mask="999-999-9999"
+                type="tel"
+                className="form-control"
+                id="phoneNumber"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>UWEC Email</Label>
+              <Input
+                name="email"
+                type="email"
+                placeholder="username@uwec.edu"
+                autoComplete="email"
+              />
+            </FormGroup>
+            <Button outline block color="primary" type="submit">
+              Register
+            </Button>
+          </Form>
         </div>
       </div>
     );

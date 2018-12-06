@@ -6,7 +6,7 @@ class Home extends Component {
     return (
       <div className="App">
         <AppNavbar />
-        <div className="content">
+        <div className="content navbar-offset">
           <img
             src={require("../clearwater_logo.png")}
             className="img-responsive"
