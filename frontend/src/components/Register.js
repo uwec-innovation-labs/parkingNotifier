@@ -14,8 +14,8 @@ class Register extends Component {
       <div>
         <AppNavbar />
         <div className="row">
-        <div className="col align-self-center padding-0">
-        <h4> Be the first to know! </h4>
+        <div className="col align-self-center">
+        <h3> Register </h3>
           <div className="registerForm">
             <form>
               <label htmlFor="name" id="nameLabel">
