@@ -12,12 +12,12 @@ import {
   CardDeck,
   Button
 } from "reactstrap";
-import AlexHeadshot from "../media/alex_stout.jpg";
-import TaylorHeadshot from "../media/taylor_misch.jpg";
-import GreyHeadshot from "../media/grey_larson.jpg";
-import TylerHeadshot from "../media/tyler_reski.jpg";
-import SarahHeadshot from "../media/sarah_ericson.jpg";
-import StevenHeadshot from "../media/steven_nelson.jpg";
+import AlexHeadshot from "../alex_stout.jpg";
+import TaylorHeadshot from "../taylor_misch.jpg";
+import GreyHeadshot from "../grey_larson.jpg";
+import TylerHeadshot from "../tyler_reski.jpg";
+import SarahHeadshot from "../sarah_ericson.jpg";
+import StevenHeadshot from "../steven_nelson.jpg";
 
 class About extends Component {
   constructor(props) {
