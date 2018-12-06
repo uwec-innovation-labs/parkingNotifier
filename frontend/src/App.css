@@ -3,7 +3,6 @@
   max-width: 355px;
   text-align: left;
   margin-bottom: 50px;
-
 }
 
 h1,
@@ -15,12 +14,28 @@ h6 {
   font-family: "Roboto", sans-serif;
 }
 
-#col-left {
-    margin-left: 200px;
+.text-example-img {
+    margin: 50px auto;
+    width: 30%;
+    min-width: 300px;
+    max-width: 600px;
+    transition: all ease-in-out 750ms;
+}
+
+.text-example-img:hover {
+  transform: translate(-50px, 0px);
+}
+
+.clearwater_logo_register {
+  max-width: 200px;
 }
 
 .col align-self-center {
   padding: 0px;
+}
+
+p.register{
+  max-width: 75%;
 }
 
 .button {

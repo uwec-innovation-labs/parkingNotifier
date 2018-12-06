@@ -13,9 +13,19 @@ class Register extends Component {
     return (
       <div>
         <AppNavbar />
+      <div className=".container-fluid">
         <div className="row">
         <div className="col align-self-center">
-        <h3> Register </h3>
+        <img
+          src={require("../clearwater_logo.png")}
+          className="clearwater_logo_register"
+          id="clearwater_logo_register"
+          alt="Clearwater Labs"
+        />
+        <p className="register">
+        When you register with the Parking Notifier, you will receive a text message when alternate side parking takes effect.
+        It'll tell you which side of the street to park on and when the rules will end (3 days after the start of the rules).
+        </p>
           <div className="registerForm">
             <form>
               <label htmlFor="name" id="nameLabel">
@@ -49,11 +59,12 @@ class Register extends Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="email"> Email </label>
+                <label htmlFor="email"> UWEC Email </label>
                 <input
                   type="email"
                   className="form-control"
                   id="email"
+                  placeholder="username@uwec.edu"
                   onChange={this.handleChange}
                 />
               </div>
@@ -66,13 +77,14 @@ class Register extends Component {
           <div className="col">
             <img
               src={require("../demo_text.jpg")}
-              className="img-responsive"
+              className="text-example-img"
               id="demo_text"
               alt="Text Message Example"
             />
           </div>
         </div>
       </div>
+    </div>
     );
   }
 }
