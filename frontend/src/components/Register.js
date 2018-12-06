@@ -13,7 +13,7 @@ class Register extends Component {
     return (
       <div>
         <AppNavbar />
-        <div className="content">
+        <div className="content navbar-offset">
           <div className="registerForm">
             <form>
               <label htmlFor="name" id="nameLabel">

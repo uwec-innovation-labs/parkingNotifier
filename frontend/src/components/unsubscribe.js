@@ -6,7 +6,7 @@ import AppNavbar from "./AppNavbar";
 class Unsubscribe extends Component {
   render() {
     return (
-      <div>
+      <div className="navbar-offset">
         <AppNavbar />
         <form onSubmit={this.handleSubmit}>
           <div className="form-group" id="username">
