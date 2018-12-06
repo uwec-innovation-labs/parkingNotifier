@@ -95,8 +95,8 @@ class About extends Component {
   renderBios(people) {
     return (
       <Fragment>
-        {people.map(person => (
-          <Card>
+        {people.map((person, i) => (
+          <Card key={i}>
             <CardImg top src={person.picture} alt={person.name} />
             <CardBody>
               <CardTitle>{person.name}</CardTitle>
@@ -106,7 +106,7 @@ class About extends Component {
             <CardFooter>
               {person.links.email ? (
                 <a href={person.links.email}>
-                  <Button>
+                  <Button id="icons">
                     <FontAwesomeIcon icon="envelope" size="lg" />
                   </Button>
                 </a>
@@ -115,8 +115,7 @@ class About extends Component {
               )}
               {person.links.linkedin ? (
                 <a href={person.links.linkedin}>
-                  <Button>
-                    {" "}
+                  <Button id="icons">
                     <FontAwesomeIcon icon={["fab", "linkedin"]} size="lg" />
                   </Button>
                 </a>
@@ -125,8 +124,7 @@ class About extends Component {
               )}
               {person.links.github ? (
                 <a href={person.links.github}>
-                  <Button>
-                    {" "}
+                  <Button id="icons">
                     <FontAwesomeIcon icon={["fab", "github"]} size="lg" />
                   </Button>
                 </a>

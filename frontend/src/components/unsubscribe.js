@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import InputMask from "react-input-mask";
-import { Button } from "react-bootstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import AppNavbar from "./AppNavbar";
 
 class Unsubscribe extends Component {
@@ -8,31 +8,36 @@ class Unsubscribe extends Component {
     return (
       <div className="navbar-offset">
         <AppNavbar />
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group" id="username">
-            <label htmlFor="username"> UWEC Email </label>
-            <input
-              type="name"
-              className="form-control"
-              autoFocus
-              id="username"
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="phoneNumber"> Phone Number </label>
+        <div className="container content">
+          <h2>Don't want to receive updates anymore?</h2>
+          <h4>No problem.</h4>
+          <h6>Just use the info that you signed up with.</h6>
+        </div>
+        <Form>
+          <FormGroup>
+            <Label>Phone Number</Label>
             <InputMask
               mask="999-999-9999"
               type="tel"
               className="form-control"
+              required
               id="phoneNumber"
-              onChange={this.handleChange}
             />
-          </div>
-          <Button block type="submit" className="btn-primary">
+          </FormGroup>
+          <FormGroup>
+            <Label>UWEC Email</Label>
+            <Input
+              name="email"
+              type="email"
+              placeholder="username@uwec.edu"
+              required
+              autoComplete="email"
+            />
+          </FormGroup>
+          <Button outline block color="primary" type="submit">
             Unsubscribe
           </Button>
-        </form>
+        </Form>
       </div>
     );
   }
