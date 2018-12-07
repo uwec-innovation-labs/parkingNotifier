@@ -16,10 +16,9 @@ h6 {
 }
 
 .text-example-img {
-  margin: 50px auto;
-  width: 30%;
-  min-width: 300px;
-  max-width: 600px;
+  width: 80%;
+  margin-top: 20px;
+  max-width: 500px;
   transition: all ease-in-out 750ms;
   box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
   animation-name: float;
@@ -124,11 +123,6 @@ p.register {
   flex-direction: row;
 }
 
-.container {
-  text-align: center;
-  background-color: inherit;
-}
-
 .content {
   text-align: center;
 }
@@ -159,7 +153,7 @@ p {
   max-width: 600px;
   text-overflow: ellipsis;
   margin-bottom: 10px;
-  text-align: center;
+  text-align: left;
   font-family: "Open Sans", sans-serif;
 }
 

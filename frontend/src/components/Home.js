@@ -8,7 +8,7 @@ class Home extends Component {
         <AppNavbar />
         <div className="content navbar-offset">
           <img
-            src={require("../clearwater_logo.png")}
+            src={require("../media/clearwater_logo.png")}
             className="img-responsive"
             id="cwlLogo"
             alt="cwlLogo"
