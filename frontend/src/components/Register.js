@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import InputMask from "react-input-mask";
-import { Button } from "react-bootstrap";
 import AppNavbar from "./AppNavbar";
-import "reactstrap";
+import { Col, Row, Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 class Register extends Component {
   constructor(props) {
@@ -40,6 +39,7 @@ class Register extends Component {
                       autoFocus
                       id="firstName"
                       placeholder="First"
+                      autoComplete="given-name"
                       onChange={this.handleChange}
                     />
                     <input
@@ -47,6 +47,7 @@ class Register extends Component {
                       className="form-control"
                       id="lastName"
                       placeholder="Last"
+                      autoComplete="family-name"
                       onChange={this.handleChange}
                     />
                   </div>
@@ -67,11 +68,12 @@ class Register extends Component {
                       className="form-control"
                       id="email"
                       placeholder="username@uwec.edu"
+                      autoComplete="email"
                       onChange={this.handleChange}
                     />
                   </div>
-                  <Button block type="submit" className="btn-primary">
-                    Register
+                  <Button outline block color="primary" type="submit">
+                   Register
                   </Button>
                 </form>
               </div>
