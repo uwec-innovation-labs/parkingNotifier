@@ -10,7 +10,7 @@ class Unsubscribe extends Component {
         <AppNavbar />
         <form onSubmit={this.handleSubmit}>
           <div className="form-group" id="username">
-            <label htmlFor="username"> Email </label>
+            <label htmlFor="username"> UWEC Email </label>
             <input
               type="name"
               className="form-control"
