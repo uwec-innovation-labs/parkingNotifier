@@ -1,7 +1,16 @@
 import React, { Component } from "react";
 import InputMask from "react-input-mask";
 import AppNavbar from "./AppNavbar";
-import { Button, Form, Row, Col, FormGroup, Input, Label } from "reactstrap";
+import {
+  Container,
+  Button,
+  Form,
+  Row,
+  Col,
+  FormGroup,
+  Input,
+  Label
+} from "reactstrap";
 
 class Register extends Component {
   constructor(props) {
@@ -15,15 +24,17 @@ class Register extends Component {
         <div className="container navbar-offset" />
         <div className="row">
           <div className="col align-self-center">
-            <h2> Register to Receive Text Alerts</h2>
-            <h6>
-              When you register with the Parking Notifier, you will receive a
-              text message when alternate side parking takes effect. It'll tell
-              you which side of the street to park on and when the rules will
-              end (3 days after the start of the rules).
-            </h6>
+            <Container>
+              <h2> Register to Receive Text Alerts</h2>
+              <h6>
+                When you register with the Parking Notifier, you will receive a
+                text message when alternate side parking takes effect. It'll
+                tell you which side of the street to park on and when the rules
+                will end (3 days after the start of the rules).
+              </h6>
+            </Container>
             <Form>
-              <label htmlFor="frmNameA">Name</label>
+              <Label htmlFor="frmNameA">Name</Label>
               <Row form="true">
                 <Col md={6}>
                   <FormGroup>
@@ -76,7 +87,6 @@ class Register extends Component {
             <img
               src={require("../media/demo_text.jpg")}
               className="text-example-img"
-              id="demo_text"
               alt="Text Message Example"
             />
           </div>
