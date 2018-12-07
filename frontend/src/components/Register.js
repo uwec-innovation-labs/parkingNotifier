@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import InputMask from "react-input-mask";
 import AppNavbar from "./AppNavbar";
-import { Col, Row, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button } from "reactstrap";
 
 class Register extends Component {
   constructor(props) {
