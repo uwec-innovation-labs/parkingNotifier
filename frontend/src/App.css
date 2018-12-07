@@ -75,14 +75,20 @@ p.register {
   margin-bottom: 50px;
 }
 
+#icons {
+  margin: -5px 5px;
+}
+
+.icons {
+  bottom: 0;
+}
+
 .button:hover {
   box-shadow: 0px 27px 20px -20px rgba(0, 0, 0, 0.2);
   transform: translate(0px, -10px);
 }
 
 .card {
-  width: 60%;
-  margin: 30px auto;
   box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
   transition: all ease-in-out 750ms;
 }
@@ -90,6 +96,19 @@ p.register {
 .card:hover {
   box-shadow: 0px 27px 20px -20px rgba(0, 0, 0, 0.2);
   transform: translate(0px, -10px);
+}
+.card-deck {
+  margin: 20px auto;
+  width: 70%;
+}
+
+.card-title {
+  font-family: "Roboto", sans-serif;
+}
+
+.card-text {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.95em;
 }
 
 #firstName {
@@ -159,7 +178,7 @@ body {
 
 form {
   text-align: left;
-  margin: 0 auto;
+  margin: 2% auto;
   width: 70%;
   max-width: 400px;
 }
@@ -172,8 +191,10 @@ li {
   float: left;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+.navbar-offset {
+  margin-top: 60px;
+}
+
+a:link {
+  text-decoration: none;
 }
