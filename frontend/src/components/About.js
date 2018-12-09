@@ -54,7 +54,7 @@ class About extends Component {
           bio:
             "My name is Taylor Misch. I’m a Computer Science major at the University of Wisconsin - Eau Claire. Apart from school, I enjoy participating in hackathons as well as playing volleyball and piano. I will be graduating after the Spring 2019 semester and plan to continue my career doing web and software development. Feel free to contact me on LinkedIn.",
           links: {
-            email: "matilto:MISCHTC6733@uwec.edu",
+            email: "mailto:MISCHTC6733@uwec.edu",
             linkedin: "https://www.linkedin.com/in/tmisch/"
           }
         },
