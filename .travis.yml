@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - "10"
+services:
+  - docker
 script:
   - cd frontend
   - npm install
@@ -27,6 +29,8 @@ deploy:
     acl: public_read
     on:
       branch: dev
+after_success:
+  - ./deploy_api.sh
 env:
   global:
     secure: izspJw+LHskXCqpQBf0UpqPm5Rwxh/yfsQsRzv1T4AYmTCIZUerXKOnJvjE+cJ3VguWFBWY6sYsHJDVWuwbPsKv39gT5AncZTPuFgRrbGnLZYis7le8RUmGCCc/IJSwytw7eDQgF9E+pvdpDH5cCV8DxCRG3dXZp4nzohxLFHInIM5NpRREay5/GFhJgnCGoCQaSF+zXOBVQ128WfI/JUd2DtLvry0qkFun+k3orGyE6WS5FCwhCPMtftjwj6820bFJFKk3kw8svW9JKnBRsK6xRuS9pmSbH5vGCutiLiB8e82rmcon2gfgRZws+N46jtIH8idGcspFG16gulCyForJ1Atq/9h7HB/UBSWY/vB0hCzujQ6GLHDVYMXP6eS+cOFffQ0kBYsjNzd1tGLGNLWPv0TGhToyKJLVKJn0/mtIahpmZvVu3tuc6Ujr7oLp2JzS4sYIMKN6A0gDtoc6x1Te8L53mg+x5s+RaOE3d/kb7YQuGEGiovl/Qf6OyXFWZ68T6D6B0eI74GJHV5lOT/fV5eFKWoG9I8vtgJo3sPm/QhXLnpzA4YcNs0WHmWzwaHUrIPFfWf/KHybGnHfGkl1ySHJGL5DHKzxReVzZ9u3uLWIDcs0O2K+tcCZdAL8DRCvswjD1lvfTX2AGxpXvRb9+eeqXBZUG2jioo8RNrS1w=
