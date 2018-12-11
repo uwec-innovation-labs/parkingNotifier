@@ -5,6 +5,7 @@ module.exports = app => {
   const mongoose = require("mongoose");
   const Status = require("../models/status");
   const cityURL = "http://www.ci.eau-claire.wi.us/";
+  const notifyHelper = require("./notify");
 
   axios.get(cityURL).then(response => {
     var success = false;
@@ -60,7 +61,7 @@ module.exports = app => {
           .catch(err => console.log(err));
 
         //send out the twillio messsage
-        //call the notify.js methods
+        notifyHelper(app);
       }
     }
   });
