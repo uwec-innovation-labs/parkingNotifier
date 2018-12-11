@@ -6,7 +6,6 @@ module.exports = app => {
   const Status = require("../models/status");
 
   //test mongodb connection (return status: disconnected=0, connected=1, connecting=2, disconnecting=3 )
-  console.log(mongoose.connection.readyState);
 
   axios.get("http://www.ci.eau-claire.wi.us/").then(response => {
     var success = false;
@@ -17,8 +16,8 @@ module.exports = app => {
       // final implementation will scrape for alternate parking banner and it's details
       const html = response.data;
       const $ = cheerio.load(html);
-      var topNav = $("#top_nav");
-      var topNavText = topNav.text();
+      var latestNews = $("li", ".home_news");
+      var altParkingText = latestNews.text();
 
       //creating entry date
       var date = new Date();
@@ -27,10 +26,10 @@ module.exports = app => {
       let newStatus;
 
       //checks if alternate parking banner exists
-      if (topNavText.includes("Contact Us")) {
+      if (altParkingText.includes("Alternate Side Parking in Effect")) {
         newStatus = {
           alternateParking: true,
-          timestamp: date.toLocaleString("en-US", {
+          timestamp: getStartDate(date).toLocaleString("en-US", {
             timeZone: "America/Chicago"
           }),
           streetSide: getStreetSide(date),
@@ -72,10 +71,19 @@ module.exports = app => {
     }
   };
 
+  //sets the date to the next day from the starting date.
+  getStartDate = date => {
+    var startDate = new Date();
+    startDate.setDate(date.getDate() + 1);
+    startDate.setHours(0, 1, 0, 0);
+    return startDate;
+  };
+
   //adds 72 hours to the starting date
   getExpirationDate = date => {
     var expirationDate = new Date();
     expirationDate.setDate(date.getDate() + 3);
+    expirationDate.setHours(23, 59, 59, 59);
     return expirationDate;
   };
 };
