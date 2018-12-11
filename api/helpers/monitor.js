@@ -6,12 +6,6 @@ module.exports = app => {
   const Status = require("../models/status");
   const cityURL = "http://www.ci.eau-claire.wi.us/";
 
-  //test mongodb connection (return status: disconnected=0, connected=1, connecting=2, disconnecting=3 )
-  console.log("====================\n");
-  console.log("====================\n");
-  console.log("====================\n");
-  console.log("====================\n");
-
   axios.get(cityURL).then(response => {
     var success = false;
 
@@ -38,8 +32,8 @@ module.exports = app => {
         });
       });
 
+      //checking if html contains alternate parking listing
       var altParkingInEffect = checkForAlternateParking(newsItems);
-      console.log("Is this true: " + altParkingInEffect); // testing purposes
 
       //creating entry date
       var date = new Date();
@@ -66,25 +60,12 @@ module.exports = app => {
           .catch(err => console.log(err));
 
         //send out the twillio messsage
-
         //call the notify.js methods
       }
-      // } else {
-      //   newStatus = {
-      //     alternateParking: false,
-      //     timestamp: date.toLocaleString("en-US", {
-      //       timeZone: "America/Chicago"
-      //     }),
-      //     streetSide: getStreetSide(date),
-      //     expirationDate: getExpirationDate(date).toLocaleString("en-US", {
-      //       timeZone: "America/Chicago"
-      //     })
-      //   };
-      // }
     }
   });
 
-  // pulls the date given to status.timestamp and determines the parking for the day
+  //pulls the date given to status.timestamp and determines the parking for the day
   getStreetSide = date => {
     //finds local time, and parses string for date
     //date format in system [month/day/year time]
@@ -115,15 +96,14 @@ module.exports = app => {
   };
 
   checkForAlternateParking = newsItems => {
-    // console.log("JSON STRING: " + JSON.stringify(newsItems));
     newsItems.forEach(element => {
       if (element.title.includes("Alternate Side Parking in Effect")) {
-        var postDate = element.description.match(/(\d*\/\d*\/\d*)/);
+        var postDate = element.description.match(/(\d*\/\d*\/\d*)/); //regular expression search for a date
         postDate = postDate[1]; //sets to the first instance
-        return getIsNewPost(postDate);
+        return getIsNewPost(postDate); //Alternate Side Parking listed in latest news. Checking if it is brand new.
       }
     });
-    return false;
+    return false; //Alternate Side Parking not listed in latest news
   };
 
   getIsNewPost = dayPosted => {
@@ -134,10 +114,8 @@ module.exports = app => {
       dayPosted.lastIndexOf("/")
     );
     var difference = today + 1 - posted; //checks if the the posting date matches todays date + 1
-    console.log("Difference " + difference);
 
     if (difference == 0) {
-      console.log("New Posting Found. Sending Text Messages Via Twillio");
       return true; //the post is new and a text should be sent out
     }
     return false;
