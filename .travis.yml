@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - "10"
+services:
+  - docker
 script:
   - cd frontend
   - npm install
@@ -27,6 +29,15 @@ deploy:
     acl: public_read
     on:
       branch: dev
+after_success:
+  - cd
+  - cd api
+  - pip install --user awscli # install aws cli w/o sudo
+  - export PATH=$PATH:$HOME/.local/bin # put aws in the path
+  - eval $(aws ecr get-login --no-include-email --region us-east-1) #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
+  - docker build -t parkingnotifier-api .
+  - docker tag parkingnotifier-api:latest 571228505279.dkr.ecr.us-east-1.amazonaws.com/parkingnotifier-api:latest
+  - docker push 571228505279.dkr.ecr.us-east-1.amazonaws.com/parkingnotifier-api:latest
 env:
   global:
     secure: izspJw+LHskXCqpQBf0UpqPm5Rwxh/yfsQsRzv1T4AYmTCIZUerXKOnJvjE+cJ3VguWFBWY6sYsHJDVWuwbPsKv39gT5AncZTPuFgRrbGnLZYis7le8RUmGCCc/IJSwytw7eDQgF9E+pvdpDH5cCV8DxCRG3dXZp4nzohxLFHInIM5NpRREay5/GFhJgnCGoCQaSF+zXOBVQ128WfI/JUd2DtLvry0qkFun+k3orGyE6WS5FCwhCPMtftjwj6820bFJFKk3kw8svW9JKnBRsK6xRuS9pmSbH5vGCutiLiB8e82rmcon2gfgRZws+N46jtIH8idGcspFG16gulCyForJ1Atq/9h7HB/UBSWY/vB0hCzujQ6GLHDVYMXP6eS+cOFffQ0kBYsjNzd1tGLGNLWPv0TGhToyKJLVKJn0/mtIahpmZvVu3tuc6Ujr7oLp2JzS4sYIMKN6A0gDtoc6x1Te8L53mg+x5s+RaOE3d/kb7YQuGEGiovl/Qf6OyXFWZ68T6D6B0eI74GJHV5lOT/fV5eFKWoG9I8vtgJo3sPm/QhXLnpzA4YcNs0WHmWzwaHUrIPFfWf/KHybGnHfGkl1ySHJGL5DHKzxReVzZ9u3uLWIDcs0O2K+tcCZdAL8DRCvswjD1lvfTX2AGxpXvRb9+eeqXBZUG2jioo8RNrS1w=

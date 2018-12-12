@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import AppNavbar from "./AppNavbar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Card,
   CardImg,
@@ -107,7 +106,7 @@ class About extends Component {
               {person.links.email ? (
                 <a href={person.links.email}>
                   <Button id="icons">
-                    <FontAwesomeIcon icon="envelope" size="lg" />
+                    <i class="fas fa-envelope fa-lg" />
                   </Button>
                 </a>
               ) : (
@@ -116,7 +115,7 @@ class About extends Component {
               {person.links.linkedin ? (
                 <a href={person.links.linkedin}>
                   <Button id="icons">
-                    <FontAwesomeIcon icon={["fab", "linkedin"]} size="lg" />
+                    <i class="fab fa-linkedin fa-lg" />
                   </Button>
                 </a>
               ) : (
@@ -125,7 +124,7 @@ class About extends Component {
               {person.links.github ? (
                 <a href={person.links.github}>
                   <Button id="icons">
-                    <FontAwesomeIcon icon={["fab", "github"]} size="lg" />
+                    <i class="fab fa-github fa-lg" />
                   </Button>
                 </a>
               ) : (
