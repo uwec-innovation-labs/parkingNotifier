@@ -59,7 +59,7 @@ class About extends Component {
           }
         },
         {
-          name: "Katie Reiter",
+          name: "Katherine Reiter",
           picture: KatieHeadshot,
           position: "Senior Software Engineer",
           bio:
