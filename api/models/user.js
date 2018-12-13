@@ -16,9 +16,10 @@ let userSchema = mongoose.Schema({
   phoneNumber: {
     type: String,
     required: true,
-    select: false
+    select: true
   },
   username: {
+    //email
     type: String,
     required: true,
     unique: true

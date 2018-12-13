@@ -26,6 +26,7 @@
     "date-and-time": "^0.6.3",
     "dotenv": "^4.0.0",
     "express": "^4.16.3",
+    "getenv": "^0.7.0",
     "mongodb": "^3.1.6",
     "mongoose": "^5.3.1",
     "mongoose-unique-validator": "^2.0.2",
