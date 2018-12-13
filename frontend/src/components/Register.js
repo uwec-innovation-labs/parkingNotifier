@@ -41,6 +41,24 @@ class Register extends Component {
       });
   }
 
+  registerUser() {
+    fetch("http://api.parkingnotifier.com/users", {
+      mode: "cors",
+      method: "POST",
+      headers: {
+        "Content-Type": "applciation/json"
+      },
+      body: JSON.stringify({
+        firstName: this.state.fname,
+        lastName: this.state.lname,
+        username: this.state.email,
+        phoneNumber: this.state.phone
+      })
+    }).then(res => {
+      console.log(res);
+    });
+  }
+
   handleInput = e => {
     const key = e.target.name;
     const value = e.target.value;
@@ -118,7 +136,7 @@ class Register extends Component {
                 </h4>
               </div>
             </Container>
-            <Form validated="true">
+            <Form validated="true" onSubmit={this.registerUser()}>
               <Label htmlFor="frmNameA">Name</Label>
               <Row>
                 <Col md={6}>
