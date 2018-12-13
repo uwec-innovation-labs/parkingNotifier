@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const CronJob = require("cron").CronJob;
+var cors = require("cors");
 
 var userRoutes = require("./routes/users");
 var statRoutes = require("./routes/stats");
@@ -36,16 +37,7 @@ mongoose
     console.error(err);
   });
 
-// allow CORS
-app.options("/*", (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Content-Length, X-Requested-With"
-  );
-  res.sendStatus(200);
-});
+app.use(cors());
 
 // request logging
 app.use(morgan("tiny"));
