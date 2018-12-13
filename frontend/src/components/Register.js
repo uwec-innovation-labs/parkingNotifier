@@ -72,6 +72,8 @@ class Register extends Component {
       case "email":
         this.validateEmail(value);
         break;
+      default:
+        console.log("Didn't match anything.");
     }
   };
 
@@ -136,7 +138,7 @@ class Register extends Component {
                 </h4>
               </div>
             </Container>
-            <Form validated="true" onSubmit={this.registerUser()}>
+            <Form validated="true">
               <Label htmlFor="frmNameA">Name</Label>
               <Row>
                 <Col md={6}>
