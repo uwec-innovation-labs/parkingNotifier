@@ -19,9 +19,7 @@ let userSchema = mongoose.Schema({
     select: false
   },
   groupID: {
-    type: String,
-    required: true,
-    select: true
+    type: String
   },
   username: {
     type: String,
