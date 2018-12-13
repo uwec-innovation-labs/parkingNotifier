@@ -8,18 +8,20 @@ require('dotenv').config()
 
 // create an instance of express
 const app = express();
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8082;
 
 // import data models
-var User = require('./models/user'); // get our mongoose model
-var Status = require('./models/status'); // get our mongoose model
+var User = require('./api/models/user'); // get our mongoose model
+var Status = require('./api/models/status'); // get our mongoose model
+var Number = require('./api/models/number'); // get our mongoose model
 
 // connect to the database
-mongoose.connect('mongodb://' + process.env.DB_HOST, {
-  auth: {
+//mongoose.connect('mongodb://' + process.env.DB_HOST, {
+mongoose.connect('mongodb://localhost:27017/parkingnotifier', {
+  /*auth: {
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD
-  }
+  }*/
 })
 .catch((err) => console.error(err));
 
