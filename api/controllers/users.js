@@ -3,16 +3,6 @@ var User = require("../models/user");
 
 mongoose.model("User");
 
-exports.listUsers = (req, res) => {
-  User.find((err, users) => {
-    if (err) return console.error(err);
-    res.status(200);
-    res.send({
-      users
-    });
-  });
-};
-
 exports.getUser = (req, res) => {
   // check to see that the user included
   if (!req.params.username) {
@@ -73,13 +63,26 @@ exports.addUser = (req, res) => {
 };
 
 exports.deleteUser = (req, res) => {
-  User.count({ email: req.params.email }, (err, count) => {
+  console.log(req.body.email);
+  if (!req.body.email) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: "No email to unsubscribe included"
+    });
+    return;
+  }
+  User.count({ username: req.body.email }, (err, count) => {
     // make sure that the user exists
     if (count > 0) {
       // remove the user that matches the email number
-      User.remove({ email: req.params.email }, (err, bear) => {
+      User.findOneAndRemove({ username: req.body.email }, (err, user) => {
         if (err) res.send(err);
-        res.json({ success: true, message: "Successfully unsubscribed" });
+        res.json({
+          success: true,
+          message: "Successfully unsubscribed",
+          user: user
+        });
       });
     } else {
       res.status(400);

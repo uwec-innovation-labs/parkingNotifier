@@ -15,7 +15,7 @@ async function populate() {
     };
 
     try {
-      await axios.post(`http://localhost:9000/users`, user);
+      await axios.post(`http://localhost:80/users`, user);
     } catch (err) {
       console.error(err);
       process.exit(1);
