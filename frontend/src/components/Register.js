@@ -41,6 +41,24 @@ class Register extends Component {
       });
   }
 
+  registerUser() {
+    fetch("http://api.parkingnotifier.com/users", {
+      mode: "cors",
+      method: "POST",
+      headers: {
+        "Content-Type": "applciation/json"
+      },
+      body: JSON.stringify({
+        firstName: this.state.fname,
+        lastName: this.state.lname,
+        username: this.state.email,
+        phoneNumber: this.state.phone
+      })
+    }).then(res => {
+      console.log(res);
+    });
+  }
+
   handleInput = e => {
     const key = e.target.name;
     const value = e.target.value;
@@ -54,6 +72,8 @@ class Register extends Component {
       case "email":
         this.validateEmail(value);
         break;
+      default:
+        console.log("Didn't match anything.");
     }
   };
 
@@ -94,13 +114,6 @@ class Register extends Component {
   };
 
   render() {
-    var emailFeedback;
-    if (this.state.emailValid) {
-    } else {
-      emailFeedback = (
-        <FormFeedback>Looks like that email's already taken.</FormFeedback>
-      );
-    }
     return (
       <div>
         <AppNavbar />

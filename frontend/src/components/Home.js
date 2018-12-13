@@ -43,12 +43,12 @@ class Home extends Component {
           </p>
           <p>
             In neighborhoods heavily populated by students, it's very common for
-            students to receive tickets for not following the policy and
-            compliance to be very low. Low compliance of the parking rules leads
-            to decreased effectiveness of snowplows, and, ultimately, the
-            degradation of road conditions throughout winter. The goal of this
-            project is to decrease the number of tickets issued to students and
-            increase the effectiveness of residential plowing.
+            students to receive tickets and compliance to be very low. Low
+            compliance of the parking rules leads to decreased effectiveness of
+            snowplows, and, ultimately, the degradation of road conditions
+            throughout winter. The goal of this project is to decrease the
+            number of tickets issued to students and increase the effectiveness
+            of residential plowing.
           </p>
           <div className="card">
             <div className="card-body">
