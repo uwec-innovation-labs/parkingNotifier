@@ -17,6 +17,7 @@ import GreyHeadshot from "../media/grey_larson.jpg";
 import TylerHeadshot from "../media/tyler_reski.jpg";
 import SarahHeadshot from "../media/sarah_ericson.jpg";
 import StevenHeadshot from "../media/steven_nelson.jpg";
+import KatieHeadshot from "../media/katie_reiter.jpg";
 
 class About extends Component {
   constructor(props) {
@@ -58,9 +59,20 @@ class About extends Component {
           }
         },
         {
+          name: "Katie Reiter",
+          picture: KatieHeadshot,
+          position: "Senior Software Engineer",
+          bio:
+            "I'm studying Computer Science at UWEC. I also read books, make games, and go for walks until I get lost. I like to solve problems, and I'm excited to make university life a little easier for everyone here.",
+          links: {
+            email: "mailto:NELSONSJ6220@uwec.edu",
+            linkedin: "https://www.linkedin.com/in/nelsonstevenj/"
+          }
+        },
+        {
           name: "Steven Nelson",
           picture: StevenHeadshot,
-          position: "Director & Technical Manager",
+          position: "Senior Software Engineer",
           bio:
             "I am a software developer at Clearwater Labs and a senior software engineering major at UW-Eau Claire. Previously, I worked at The Toro Company as an Information Services Intern. In my spare time I enjoy going to concerts and being outdoors",
           links: {
@@ -95,7 +107,7 @@ class About extends Component {
     return (
       <Fragment>
         {people.map((person, i) => (
-          <Card key={i}>
+          <Card className="mx-auto" key={i}>
             <CardImg top src={person.picture} alt={person.name} />
             <CardBody>
               <CardTitle>{person.name}</CardTitle>
@@ -106,7 +118,7 @@ class About extends Component {
               {person.links.email ? (
                 <a href={person.links.email}>
                   <Button id="icons">
-                    <i class="fas fa-envelope fa-lg" />
+                    <i className="fas fa-envelope fa-lg" />
                   </Button>
                 </a>
               ) : (
@@ -115,7 +127,7 @@ class About extends Component {
               {person.links.linkedin ? (
                 <a href={person.links.linkedin}>
                   <Button id="icons">
-                    <i class="fab fa-linkedin fa-lg" />
+                    <i className="fab fa-linkedin fa-lg" />
                   </Button>
                 </a>
               ) : (
@@ -124,7 +136,7 @@ class About extends Component {
               {person.links.github ? (
                 <a href={person.links.github}>
                   <Button id="icons">
-                    <i class="fab fa-github fa-lg" />
+                    <i className="fab fa-github fa-lg" />
                   </Button>
                 </a>
               ) : (
@@ -163,11 +175,12 @@ class About extends Component {
             work with the latest and greatest technology to deploy simplified
             yet effective solutions.
           </p>
-          <h4>The Team</h4>
+          <h3>The Team</h3>
         </div>
-        <CardDeck>{this.renderBios(this.state.employees.slice(0, 2))}</CardDeck>
-        <CardDeck>{this.renderBios(this.state.employees.slice(2, 4))}</CardDeck>
-        <CardDeck>{this.renderBios(this.state.employees.slice(4, 6))}</CardDeck>
+        <CardDeck>{this.renderBios(this.state.employees.slice(0, 1))}</CardDeck>
+        <CardDeck>{this.renderBios(this.state.employees.slice(1, 3))}</CardDeck>
+        <CardDeck>{this.renderBios(this.state.employees.slice(3, 5))}</CardDeck>
+        <CardDeck>{this.renderBios(this.state.employees.slice(5, 7))}</CardDeck>
       </div>
     );
   }

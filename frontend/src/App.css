@@ -90,6 +90,9 @@ p.register {
 .card {
   box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
   transition: all ease-in-out 750ms;
+  max-width: 500px;
+  margin: 0 auto;
+  width: 60%;
 }
 
 .card:hover {
@@ -99,6 +102,7 @@ p.register {
 .card-deck {
   margin: 20px auto;
   width: 70%;
+  max-width: 1000px;
 }
 
 .card-title {
@@ -191,4 +195,11 @@ li {
 
 a:link {
   text-decoration: none;
+}
+
+.statCard {
+  margin-top: 20px;
+  color: #6e6e6e;
+  font-weight: 300;
+  font-family: "Roboto", sans-serif;
 }
