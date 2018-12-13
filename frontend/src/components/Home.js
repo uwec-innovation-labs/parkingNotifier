@@ -2,6 +2,24 @@ import React, { Component } from "react";
 import AppNavbar from "./AppNavbar";
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0
+    };
+  }
+
+  componentDidMount() {
+    fetch("http://api.parkingnotifier.com/stats")
+      .then(res => res.json())
+      .then(result => {
+        console.log(result);
+        this.setState({
+          count: result.count
+        });
+      });
+  }
+
   render() {
     return (
       <div className="App">
@@ -61,7 +79,13 @@ class Home extends Component {
             </ul>
           </div>
           <a href="/register">
-            <div className="button">Register for Alerts</div>
+            <div className="button">
+              Join{" "}
+              {this.state.count
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+              others
+            </div>
           </a>
         </div>
       </div>

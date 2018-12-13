@@ -63,7 +63,7 @@ class About extends Component {
           picture: KatieHeadshot,
           position: "Senior Software Engineer",
           bio:
-            "I am a software developer at Clearwater Labs and a senior software engineering major at UW-Eau Claire. Previously, I worked at The Toro Company as an Information Services Intern. In my spare time I enjoy going to concerts and being outdoors",
+            "I'm studying Computer Science at UWEC. I also read books, make games, and go for walks until I get lost. I like to solve problems, and I'm excited to make university life a little easier for everyone here.",
           links: {
             email: "mailto:NELSONSJ6220@uwec.edu",
             linkedin: "https://www.linkedin.com/in/nelsonstevenj/"

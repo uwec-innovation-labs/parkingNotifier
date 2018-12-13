@@ -196,3 +196,10 @@ li {
 a:link {
   text-decoration: none;
 }
+
+.statCard {
+  margin-top: 20px;
+  color: #6e6e6e;
+  font-weight: 300;
+  font-family: "Roboto", sans-serif;
+}
