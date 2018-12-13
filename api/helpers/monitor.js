@@ -53,8 +53,6 @@ module.exports = app => {
             timeZone: "America/Chicago"
           })
         };
-      }
-
 
         new Status(newStatus)
           .save()
