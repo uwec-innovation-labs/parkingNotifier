@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const CronJob = require("cron").CronJob;
+var cors = require("cors");
 
 var userRoutes = require("./routes/users");
 var statRoutes = require("./routes/stats");
@@ -16,43 +17,28 @@ require("dotenv").config();
 
 // create an instance of express
 const app = express();
-var port = process.env.PORT || 9000;
+var port = process.env.PORT || 80;
 
 // connect to the database
-setTimeout(() => {
-  console.log("Trying to connect");
-  mongoose
-    .connect(
-      "mongodb://" + process.env.DB_HOST,
-      {
-        auth: {
-          user: "proto",
-          password: "password123"
-        },
-        useNewUrlParser: true
-      }
-    )
-    .then(() => {
-      console.log("Connected to database");
-    })
-    .catch(err => {
-      console.log(
-        "This error could be because of a missing .env file. Make sure you have created your own:"
-      );
-      console.error(err);
-    });
-}, 20000);
+console.log("Trying to connect");
+mongoose
+  .connect(
+    "mongodb://" + process.env.DB_HOST,
+    {
+      useNewUrlParser: true
+    }
+  )
+  .then(() => {
+    console.log("Connected to database");
+  })
+  .catch(err => {
+    console.log(
+      "This error could be because of a missing .env file. Make sure you have created your own:"
+    );
+    console.error(err);
+  });
 
-// allow CORS
-app.options("/*", (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Content-Length, X-Requested-With"
-  );
-  res.sendStatus(200);
-});
+app.use(cors());
 
 // request logging
 app.use(morgan("tiny"));
