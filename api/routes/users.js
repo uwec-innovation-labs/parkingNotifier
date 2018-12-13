@@ -3,8 +3,8 @@ module.exports = app => {
 
   app
     .route("/users")
-    .get(userController.listUsers)
-    .post(userController.addUser);
+    .post(userController.addUser)
+    .delete(userController.deleteUser);
 
   app
     .route("/users/:username")

@@ -1,9 +1,40 @@
 import React, { Component } from "react";
-import InputMask from "react-input-mask";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import AppNavbar from "./AppNavbar";
 
 class Unsubscribe extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      formValid: true
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleInput = e => {
+    const key = e.target.name;
+    const value = e.target.value;
+    this.setState({ [key]: value });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    fetch("http://localhost:80/users", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: this.state.email
+      })
+    });
+    this.setState({
+      formValid: true
+    });
+    console.log("SUBMIT");
+  };
+
   render() {
     return (
       <div className="navbar-offset">
@@ -13,17 +44,7 @@ class Unsubscribe extends Component {
           <h4>No problem.</h4>
           <h6>Just use the info that you signed up with.</h6>
         </div>
-        <Form>
-          <FormGroup>
-            <Label>Phone Number</Label>
-            <InputMask
-              mask="999-999-9999"
-              type="tel"
-              className="form-control"
-              required
-              id="phoneNumber"
-            />
-          </FormGroup>
+        <Form onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label>UWEC Email</Label>
             <Input
@@ -32,6 +53,8 @@ class Unsubscribe extends Component {
               placeholder="username@uwec.edu"
               required
               autoComplete="email"
+              value={this.state.email}
+              onChange={event => this.handleInput(event)}
             />
           </FormGroup>
           <Button outline block color="primary" type="submit">

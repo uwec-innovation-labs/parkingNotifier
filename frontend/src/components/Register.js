@@ -10,7 +10,8 @@ import {
   FormGroup,
   Input,
   Label,
-  FormFeedback
+  FormFeedback,
+  Alert
 } from "reactstrap";
 
 class Register extends Component {
@@ -22,12 +23,13 @@ class Register extends Component {
       lname: "",
       phone: "",
       email: "",
-      formErrors: { emmail: "", phone: "" },
-      emailValid: null,
+      emailValid: true,
       phoneValid: false,
-      formValid: false,
-      message: "This needs to be a valid UWEC email address."
+      formValid: true,
+      message: "This needs to be a valid UWEC email address.",
+      submitSuccess: false
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -41,12 +43,21 @@ class Register extends Component {
       });
   }
 
+  handleSubmit = event => {
+    event.preventDefault();
+    this.setState({
+      formValid: true
+    });
+    console.log("SUBMIT");
+    console.log(this.state);
+    this.registerUser();
+  };
+
   registerUser() {
     fetch("http://api.parkingnotifier.com/users", {
-      mode: "cors",
       method: "POST",
       headers: {
-        "Content-Type": "applciation/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         firstName: this.state.fname,
@@ -54,9 +65,19 @@ class Register extends Component {
         username: this.state.email,
         phoneNumber: this.state.phone
       })
-    }).then(res => {
-      console.log(res);
-    });
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (!data.success) {
+          this.setState({
+            formValid: false,
+            message: "This email has already been taken."
+          });
+        } else {
+          this.setState({ submitSuccess: true });
+        }
+      });
   }
 
   handleInput = e => {
@@ -73,7 +94,7 @@ class Register extends Component {
         this.validateEmail(value);
         break;
       default:
-        console.log("Didn't match anything.");
+        break;
     }
   };
 
@@ -138,69 +159,91 @@ class Register extends Component {
                 </h4>
               </div>
             </Container>
-            <Form validated="true">
-              <Label htmlFor="frmNameA">Name</Label>
-              <Row>
-                <Col md={6}>
-                  <FormGroup>
-                    <Input
-                      type="text"
-                      name="fname"
-                      id="frmNameA"
-                      placeholder="First"
-                      required
-                      autoComplete="given-name"
-                      value={this.state.fname}
-                      onChange={event => this.handleInput(event)}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col md={6}>
-                  <FormGroup>
-                    <Input
-                      id="lName"
-                      name="lname"
-                      type="text"
-                      placeholder="Last"
-                      required
-                      autoComplete="family-name"
-                      value={this.state.lname}
-                      onChange={event => this.handleInput(event)}
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <FormGroup>
-                <Label>Phone Number</Label>
-                <InputMask
-                  mask="999-999-9999"
-                  required
-                  type="tel"
-                  className="form-control"
-                  id="phoneNumber"
-                  name="phone"
-                  value={this.state.phone}
-                  onChange={event => this.handleInput(event)}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label>UWEC Email</Label>
-                <Input
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="username@uwec.edu"
-                  autoComplete="email"
-                  value={this.state.email}
-                  onChange={event => this.handleInput(event)}
-                  invalid={!!!this.state.emailValid}
-                />
-                <FormFeedback>{this.state.message}</FormFeedback>
-              </FormGroup>
-              <Button outline block color="primary" type="submit">
-                Register
-              </Button>
-            </Form>
+            {this.state.submitSuccess ? (
+              <Container>
+                <Alert color="success">
+                  <h4 className="alert-heading">
+                    You're registered! We'll take the rest form here.
+                  </h4>
+                  <p>
+                    You'll receive a text when alternate side parking goes into
+                    effect.
+                  </p>
+                </Alert>
+              </Container>
+            ) : (
+              <Form onSubmit={this.handleSubmit}>
+                {this.state.formValid ? (
+                  ""
+                ) : (
+                  <Alert className="text-center" color="danger">
+                    {this.state.message}
+                  </Alert>
+                )}
+
+                <Label htmlFor="frmNameA">Name</Label>
+                <Row>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Input
+                        type="text"
+                        name="fname"
+                        id="frmNameA"
+                        placeholder="First"
+                        required
+                        autoComplete="given-name"
+                        value={this.state.fname}
+                        onChange={event => this.handleInput(event)}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Input
+                        id="lName"
+                        name="lname"
+                        type="text"
+                        placeholder="Last"
+                        required
+                        autoComplete="family-name"
+                        value={this.state.lname}
+                        onChange={event => this.handleInput(event)}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <FormGroup>
+                  <Label>Phone Number</Label>
+                  <InputMask
+                    mask="999-999-9999"
+                    required
+                    type="tel"
+                    className="form-control"
+                    id="phoneNumber"
+                    name="phone"
+                    value={this.state.phone}
+                    onChange={event => this.handleInput(event)}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label>UWEC Email</Label>
+                  <Input
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="username@uwec.edu"
+                    autoComplete="email"
+                    value={this.state.email}
+                    onChange={event => this.handleInput(event)}
+                    invalid={!!!this.state.emailValid}
+                  />
+                  <FormFeedback>Must be a valid UWEC email.</FormFeedback>
+                </FormGroup>
+                <Button outline block color="primary" type="submit">
+                  Register
+                </Button>
+              </Form>
+            )}
           </div>
           <div id="exampleContainer" className="col align-self-center">
             <img
