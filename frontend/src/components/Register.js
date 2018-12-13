@@ -94,13 +94,6 @@ class Register extends Component {
   };
 
   render() {
-    var emailFeedback;
-    if (this.state.emailValid) {
-    } else {
-      emailFeedback = (
-        <FormFeedback>Looks like that email's already taken.</FormFeedback>
-      );
-    }
     return (
       <div>
         <AppNavbar />
