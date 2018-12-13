@@ -18,6 +18,11 @@ let userSchema = mongoose.Schema({
     required: true,
     select: false
   },
+  groupID: {
+    type: String,
+    required: true,
+    select: true
+  },
   username: {
     type: String,
     required: true,
@@ -27,7 +32,6 @@ let userSchema = mongoose.Schema({
     type: Boolean,
     required: true
   }
-  /////// need to add attribute for twilio account number
 });
 
 userSchema.plugin(uniqueValidator);

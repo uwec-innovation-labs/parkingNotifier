@@ -1,5 +1,7 @@
 var mongoose = require("mongoose");
 var User = require("../models/user");
+var Number = require("../models/number");
+const axios = require("axios");
 
 mongoose.model("User");
 
@@ -32,7 +34,8 @@ exports.getUser = (req, res) => {
   });
 };
 
-exports.addUser = (req, res) => {
+exports.addUser = async function addUser(req, res) {
+  console.log(req.body);
   if (
     !req.body.firstName ||
     !req.body.lastName ||
@@ -49,43 +52,65 @@ exports.addUser = (req, res) => {
     });
     return;
   } else {
-    console.log("BODY: " + req.body.firstName);
-    var newUser = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      phoneNumber: req.body.phoneNumber,
-      username: req.body.username,
-      subscribed: true
-    });
-    console.log("User:" + newUser);
-    // attempt to save the user
-    newUser.save(err => {
-      if (err) {
-        console.log(err);
-        return res.json({ success: false, message: err });
-      }
-      res.json({
-        success: true,
-        message: "Successfully created new user"
+    
+    try {
+      //get the next number
+      //should add a check if there is no next number
+      var nreq = await axios.get(`http://localhost:9000/numbers/next`);
+
+      var newUser = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        phoneNumber: req.body.phoneNumber,
+        username: req.body.username,
+        subscribed: true,
+        groupID: nreq.data.groupID
       });
-    });
+
+      // attempt to save the user
+      newUser.save(err => {
+        if (err) {
+          console.log(err);
+          return res.json({ success: false, message: err });
+        }
+        console.log("made user");
+        res.json({
+          success: true,
+          message: "Successfully created new user"
+        });
+      });
+    } catch (err) {
+      console.error(err);
+      process.exit(1);
+    }
   }
 };
 
 exports.deleteUser = (req, res) => {
-  User.count({ email: req.params.email }, (err, count) => {
+  User.count({ username: req.body.username }, (err, count) => {
     // make sure that the user exists
     if (count > 0) {
-      // remove the user that matches the email number
-      User.remove({ email: req.params.email }, (err, bear) => {
+      // remove the user that matches the username
+      User.remove({ username: req.body.username }, (err, bear) => {
+        //if (err) res.send(err);
+       // res.json({ success: true, message: "Successfully unsubscribed" });
+      });
+        
+      //free up the phone number
+        try {
+          axios.post(`http://localhost:9000/numbers/unsubscribe`, req.body);
+        } catch (err) {
+          console.error(err);
+          process.exit(1);
+        }
+
         if (err) res.send(err);
         res.json({ success: true, message: "Successfully unsubscribed" });
-      });
     } else {
       res.status(400);
       res.json({
         success: false,
-        message: "User with that email does not exist"
+        message: "User with that username does not exist"
       });
     }
   });

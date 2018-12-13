@@ -53,6 +53,8 @@ module.exports = app => {
             timeZone: "America/Chicago"
           })
         };
+      }
+
 
         new Status(newStatus)
           .save()
@@ -88,10 +90,11 @@ module.exports = app => {
   };
 
   //adds 72 hours to the starting date
+
   getExpirationDate = date => {
     var expirationDate = new Date();
     expirationDate.setDate(date.getDate() + 3);
-    expirationDate.setHours(23, 59, 59, 59);
+    expirationDate.setHours(expirationDate.getHours() + 1);
     return expirationDate;
   };
 
