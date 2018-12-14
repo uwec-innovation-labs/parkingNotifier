@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormFeedback,
+  Alert,
+  Container
+} from "reactstrap";
 import AppNavbar from "./AppNavbar";
 
 class Unsubscribe extends Component {
@@ -7,7 +16,9 @@ class Unsubscribe extends Component {
     super(props);
     this.state = {
       email: "",
-      formValid: true
+      formValid: true,
+      emailValid: true,
+      message: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -16,11 +27,17 @@ class Unsubscribe extends Component {
     const key = e.target.name;
     const value = e.target.value;
     this.setState({ [key]: value });
+    this.validateEmail(e.target.value);
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    fetch("http://localhost:80/users", {
+    console.log("EMAIL" + this.state.emailValid);
+    if (!this.state.emailValid) {
+      console.log("incorrect email");
+      return;
+    }
+    fetch("http://api.parkingnotifier.com/users", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
@@ -28,11 +45,31 @@ class Unsubscribe extends Component {
       body: JSON.stringify({
         email: this.state.email
       })
-    });
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (!data.success) {
+          this.setState({
+            formValid: false,
+            message: "Looks like you're not registered yet."
+          });
+        } else {
+          this.setState({ success: data.success });
+        }
+      });
     this.setState({
       formValid: true
     });
     console.log("SUBMIT");
+  };
+
+  validateEmail = value => {
+    if (value.length > 0 && /@uwec.edu\s*$/.test(value)) {
+      this.setState({ emailValid: true });
+    } else {
+      this.setState({ emailValid: false });
+    }
   };
 
   render() {
@@ -44,23 +81,41 @@ class Unsubscribe extends Component {
           <h4>No problem.</h4>
           <h6>Just use the info that you signed up with.</h6>
         </div>
-        <Form onSubmit={this.handleSubmit}>
-          <FormGroup>
-            <Label>UWEC Email</Label>
-            <Input
-              name="email"
-              type="email"
-              placeholder="username@uwec.edu"
-              required
-              autoComplete="email"
-              value={this.state.email}
-              onChange={event => this.handleInput(event)}
-            />
-          </FormGroup>
-          <Button outline block color="primary" type="submit">
-            Unsubscribe
-          </Button>
-        </Form>
+        {this.state.success ? (
+          <Container>
+            <Alert color="primary">
+              It's sad to see you go. You're unsubscribed now.
+            </Alert>
+          </Container>
+        ) : (
+          <Form onSubmit={this.handleSubmit}>
+            {this.state.formValid ? (
+              ""
+            ) : (
+              <Alert className="text-center" color="danger">
+                {this.state.message}
+              </Alert>
+            )}
+
+            <FormGroup>
+              <Label>UWEC Email</Label>
+              <Input
+                name="email"
+                type="email"
+                placeholder="username@uwec.edu"
+                required
+                autoComplete="email"
+                value={this.state.email}
+                onChange={event => this.handleInput(event)}
+                invalid={!!!this.state.emailValid}
+              />
+              <FormFeedback>Must be a valid UWEC email.</FormFeedback>
+            </FormGroup>
+            <Button outline block color="primary" type="submit">
+              Unsubscribe
+            </Button>
+          </Form>
+        )}
       </div>
     );
   }
