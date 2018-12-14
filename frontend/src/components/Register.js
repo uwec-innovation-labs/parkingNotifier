@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import InputMask from "react-input-mask";
 import AppNavbar from "./AppNavbar";
 import {
   Container,
@@ -14,6 +13,8 @@ import {
   Alert
 } from "reactstrap";
 
+var PhoneNumber = require("awesome-phonenumber");
+
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +25,7 @@ class Register extends Component {
       phone: "",
       email: "",
       emailValid: true,
+      phoneValid: true,
       formValid: true,
       submitSuccess: false,
       message: "This needs to be a valid UWEC email address."
@@ -35,7 +37,6 @@ class Register extends Component {
     fetch("http://api.parkingnotifier.com/stats")
       .then(res => res.json())
       .then(result => {
-        console.log(result);
         this.setState({
           count: result.count
         });
@@ -44,13 +45,9 @@ class Register extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state.phone.length);
-    if (this.state.emailValid && this.state.phone.length === 12) {
-      this.setState({
-        formValid: true
-      });
-      console.log("SUBMIT");
-      console.log(this.state);
+    var pn = new PhoneNumber(this.state.phone, "US");
+    if (this.state.emailValid && pn.isValid()) {
+      this.setState({ formValid: true, phone: pn.getNumber() });
       this.registerUser();
     }
   };
@@ -70,7 +67,6 @@ class Register extends Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         if (!data.success) {
           this.setState({
             formValid: false,
@@ -95,8 +91,20 @@ class Register extends Component {
       case "email":
         this.validateEmail(value);
         break;
+      case "phone":
+        this.validatePhone(value);
+        break;
       default:
         break;
+    }
+  };
+
+  validatePhone = value => {
+    var pn = new PhoneNumber(this.state.phone, "US");
+    if (!pn.isValid()) {
+      this.setState({ phoneValid: false });
+    } else {
+      this.setState({ phoneValid: true });
     }
   };
 
@@ -184,8 +192,7 @@ class Register extends Component {
                 </Row>
                 <FormGroup>
                   <Label>Phone Number</Label>
-                  <InputMask
-                    mask="999-999-9999"
+                  <Input
                     required
                     type="tel"
                     className="form-control"
@@ -193,6 +200,7 @@ class Register extends Component {
                     name="phone"
                     value={this.state.phone}
                     onChange={event => this.handleInput(event)}
+                    invalid={!!!this.state.phoneValid}
                   />
                   <FormFeedback>Must be a valid phone number</FormFeedback>
                 </FormGroup>
