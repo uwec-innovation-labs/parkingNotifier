@@ -18,24 +18,23 @@ const app = express();
 var port = process.env.PORT || 9000;
 
 // connect to the database
-  console.log("Trying to connect");
-  mongoose
-    .connect(
-      "mongodb://" + process.env.DB_HOST,
-      {
-        useNewUrlParser: true
-      }
-    )
-    .then(() => {
-      console.log("Connected to database");
-    })
-    .catch(err => {
-      console.log(
-        "This error could be because of a missing .env file. Make sure you have created your own:"
-      );
-      console.error(err);
-    });
-
+console.log("Trying to connect");
+mongoose
+  .connect(
+    "mongodb://" + process.env.DB_HOST,
+    {
+      useNewUrlParser: true
+    }
+  )
+  .then(() => {
+    console.log("Connected to database");
+  })
+  .catch(err => {
+    console.log(
+      "This error could be because of a missing .env file. Make sure you have created your own:"
+    );
+    console.error(err);
+  });
 
 // allow CORS
 app.options("/*", (req, res, next) => {
@@ -84,8 +83,8 @@ app.use((error, req, res, next) => {
 });
 
 new CronJob(
-  //"0 18 * * * ", //runs at 6pm everyday
-  "*/10 * * * * *", //runs every 10 seconds (testing purposes only)
+  "0 18 * * * ", //runs at 6pm everyday
+  //"*/10 * * * * *", //runs every 10 seconds (testing purposes only)
   () => {
     console.log(
       "[" +

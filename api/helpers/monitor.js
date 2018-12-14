@@ -34,17 +34,6 @@ module.exports = app => {
         });
       });
 
-      /*  TESTING PURPOSES ONLY
-      var now = new Date();
-      console.log("Test start Date: " + date.addDays(now, 20) + "\n\n");
-
-      console.log("Testing starting date function: " + getStartDate(now));
-      console.log(
-        "Testing expiration date function: " + getExpirationDate(now)
-      );
-*/
-      notifyHelper(app);
-
       //checking if html contains alternate parking listing
       var altParkingInEffect = checkForAlternateParking(newsItems);
 

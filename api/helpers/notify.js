@@ -39,8 +39,8 @@ module.exports = app => {
     userList.forEach(u => {
       //var groupId = u.groupId;
       //var fromNumber = fromNumbers[groupId];
-      console.log(u);
-      var fromNumber = "+17155983494";
+      console.log(u); //list of the users
+      //var fromNumber = "+17155983494";
       var message = client.messages
         .create({
           body: body,
