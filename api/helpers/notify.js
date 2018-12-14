@@ -5,6 +5,7 @@ module.exports = app => {
   const request = require("request");
   const date = require("date-and-time");
   const User = require("../models/user");
+  const Numbers = require("../models/numbers");
 
   // import environment variables from .env file
   require("dotenv").config({ path: "../.env" });
@@ -14,10 +15,9 @@ module.exports = app => {
     process.env.TWILIO_TOKEN
   );
 
-  var numbers = findUsers();
-  console.log(numbers);
+  findUsers();
 
-  function callNumbers(numbers) {
+  function callNumbers(userList, fromNumbers) {
     var i = 1;
 
     //calculate the start and end date
@@ -35,17 +35,19 @@ module.exports = app => {
 
     console.log(body); //testing purposes.
 
-    numbers.forEach(number => {
+    userList.forEach(u => {
+      var groupId = u.groupId;
+      var fromNumber = fromNumbers[groupId];
       var message = client.messages
         .create({
           body: body,
-          from: getenv("TWILIO_FROM" + Math.round(i / 250)),
-          to: number
+          from: fromNumber,
+          to: u.number
         })
         .then((i = i + 1))
         .catch(e => {
           if (e.code == 21211) {
-            console.error("The number " + number + " is invalid");
+            console.error("The number " + u.number + " is invalid");
           } else {
             console.error(e.message);
           }
@@ -56,18 +58,31 @@ module.exports = app => {
   }
 
   function findUsers() {
-    var numbers = [];
+    var userList = [];
     User.find((err, users) => {
       if (err) return console.error(err);
       return users;
     }).then(users => {
       users.forEach(user => {
-        numbers.push(user.phoneNumber);
+        userList.push(user.phoneNumber);
         console.log("number added: " + user.phoneNumber);
-        console.log(numbers);
+        console.log(userList);
       });
-      callNumbers(numbers);
+      getFromNumbers(userList);
     });
-    return numbers;
+  }
+
+  function getFromNumbers(userList) {
+    var fromNumbers = [];
+    Numbers.find((err, n) => {
+      if (err) return console.error(err);
+      return n;
+    }).then(n => {
+      n.forEach(num => {
+        fromNumbers.push(num);
+        console.log("Got from number " + num);
+      });
+      callNumbers(userList, fromNumbers);
+    });
   }
 };
