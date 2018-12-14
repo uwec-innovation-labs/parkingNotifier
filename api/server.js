@@ -18,16 +18,11 @@ const app = express();
 var port = process.env.PORT || 9000;
 
 // connect to the database
-setTimeout(() => {
   console.log("Trying to connect");
   mongoose
     .connect(
       "mongodb://" + process.env.DB_HOST,
       {
-        auth: {
-          user: "proto",
-          password: "password123"
-        },
         useNewUrlParser: true
       }
     )
@@ -40,7 +35,7 @@ setTimeout(() => {
       );
       console.error(err);
     });
-}, 20000);
+
 
 // allow CORS
 app.options("/*", (req, res, next) => {

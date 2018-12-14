@@ -4,6 +4,7 @@ module.exports = app => {
   const mongoose = require("mongoose");
   const request = require("request");
   const date = require("date-and-time");
+  const User = require("../models/user");
 
   // import environment variables from .env file
   require("dotenv").config({ path: "../.env" });
@@ -13,29 +14,8 @@ module.exports = app => {
     process.env.TWILIO_TOKEN
   );
 
-  var numbers = [];
-
-  request(
-    //"http://api.parkingnotifier.com/users",
-    "http://localhost:9000/users",
-    { json: true },
-    (err, res, body) => {
-      var numbers = [];
-      var users = body;
-      console.log("users: " + JSON.stringify(users));
-      Object.keys(users).forEach(user => {
-        // console.log(
-        //   "Username: " +
-        //     JSON.stringify(users[user].username) +
-        //     "\nUser phone: " +
-        //     JSON.stringify(users[user].phoneNumber)
-        // );
-        numbers.push("+1" + user.phone);
-        console.log("Number Pushed!");
-      });
-      // callNumbers(numbers);
-    }
-  );
+  var numbers = findUsers();
+  console.log(numbers);
 
   function callNumbers(numbers) {
     var i = 1;
@@ -56,7 +36,6 @@ module.exports = app => {
     console.log(body); //testing purposes.
 
     numbers.forEach(number => {
-      /*
       var message = client.messages
         .create({
           body: body,
@@ -70,9 +49,25 @@ module.exports = app => {
           } else {
             console.error(e.message);
           }
-        })
-        .done();
-        */
+        });
+      console.log("Here\n");
+      //.done();
     });
+  }
+
+  function findUsers() {
+    var numbers = [];
+    User.find((err, users) => {
+      if (err) return console.error(err);
+      return users;
+    }).then(users => {
+      users.forEach(user => {
+        numbers.push(user.phoneNumber);
+        console.log("number added: " + user.phoneNumber);
+        console.log(numbers);
+      });
+      callNumbers(numbers);
+    });
+    return numbers;
   }
 };
