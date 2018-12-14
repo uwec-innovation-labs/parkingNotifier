@@ -39,9 +39,8 @@ module.exports = app => {
     userList.forEach(u => {
       //var groupId = u.groupId;
       //var fromNumber = fromNumbers[groupId];
-      console.log("here");
       console.log(u);
-      var fromNumber = "+1234567890";
+      var fromNumber = "+17155983494";
       var message = client.messages
         .create({
           body: body,
@@ -49,6 +48,7 @@ module.exports = app => {
           to: u.phoneNumber
         })
         .then((i = i + 1))
+        .then(console.log("Message sent successfully"))
         .catch(e => {
           if (e.code == 21211) {
             console.error("The number " + u.phoneNumber + " is invalid");
@@ -56,7 +56,6 @@ module.exports = app => {
             console.error(e.message);
           }
         });
-      console.log("Here\n");
       //.done();
     });
   }
