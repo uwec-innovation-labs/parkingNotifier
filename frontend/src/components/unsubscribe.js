@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormFeedback
+} from "reactstrap";
 import AppNavbar from "./AppNavbar";
 
 class Unsubscribe extends Component {
@@ -7,7 +14,8 @@ class Unsubscribe extends Component {
     super(props);
     this.state = {
       email: "",
-      formValid: true
+      formValid: true,
+      emailValid: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -16,9 +24,14 @@ class Unsubscribe extends Component {
     const key = e.target.name;
     const value = e.target.value;
     this.setState({ [key]: value });
+    this.validateEmail(e.target.value);
   };
 
   handleSubmit = event => {
+    if (!this.validateEmail(this.state.email)) {
+      console.log("incorrect email");
+      return;
+    }
     event.preventDefault();
     fetch("http://localhost:80/users", {
       method: "DELETE",
@@ -33,6 +46,14 @@ class Unsubscribe extends Component {
       formValid: true
     });
     console.log("SUBMIT");
+  };
+
+  validateEmail = value => {
+    if (value.length > 0 && /@uwec.edu\s*$/.test(value)) {
+      this.setState({ emailValid: true });
+    } else {
+      this.setState({ emailValid: false });
+    }
   };
 
   render() {
@@ -55,7 +76,9 @@ class Unsubscribe extends Component {
               autoComplete="email"
               value={this.state.email}
               onChange={event => this.handleInput(event)}
+              invalid={!!!this.state.emailValid}
             />
+            <FormFeedback>Must be a valid UWEC email.</FormFeedback>
           </FormGroup>
           <Button outline block color="primary" type="submit">
             Unsubscribe

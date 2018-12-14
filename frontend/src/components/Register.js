@@ -24,10 +24,9 @@ class Register extends Component {
       phone: "",
       email: "",
       emailValid: true,
-      phoneValid: false,
       formValid: true,
-      message: "This needs to be a valid UWEC email address.",
-      submitSuccess: false
+      submitSuccess: false,
+      message: "This needs to be a valid UWEC email address."
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -45,12 +44,15 @@ class Register extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.setState({
-      formValid: true
-    });
-    console.log("SUBMIT");
-    console.log(this.state);
-    this.registerUser();
+    console.log(this.state.phone.length);
+    if (this.state.emailValid && this.state.phone.length === 12) {
+      this.setState({
+        formValid: true
+      });
+      console.log("SUBMIT");
+      console.log(this.state);
+      this.registerUser();
+    }
   };
 
   registerUser() {
@@ -100,37 +102,9 @@ class Register extends Component {
 
   validateEmail = value => {
     if (value.length > 0 && /@uwec.edu\s*$/.test(value)) {
-      console.log("It's a valid email");
       this.setState({ emailValid: true });
-      return (
-        <Input
-          type="text"
-          name="fname"
-          id="frmNameA"
-          placeholder="First"
-          required
-          autoComplete="given-name"
-          value={this.state.fname}
-          onChange={event => this.handleInput(event)}
-          valid
-        />
-      );
     } else {
-      console.log("It's invalid email");
       this.setState({ emailValid: false });
-      return (
-        <Input
-          type="text"
-          name="fname"
-          id="frmNameA"
-          placeholder="First"
-          required
-          autoComplete="given-name"
-          value={this.state.fname}
-          onChange={event => this.handleInput(event)}
-          invalid
-        />
-      );
     }
   };
 
@@ -162,13 +136,9 @@ class Register extends Component {
             {this.state.submitSuccess ? (
               <Container>
                 <Alert color="success">
-                  <h4 className="alert-heading">
+                  <h6 className="alert-heading">
                     You're registered! We'll take the rest form here.
-                  </h4>
-                  <p>
-                    You'll receive a text when alternate side parking goes into
-                    effect.
-                  </p>
+                  </h6>
                 </Alert>
               </Container>
             ) : (
@@ -224,6 +194,7 @@ class Register extends Component {
                     value={this.state.phone}
                     onChange={event => this.handleInput(event)}
                   />
+                  <FormFeedback>Must be a valid phone number</FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <Label>UWEC Email</Label>
