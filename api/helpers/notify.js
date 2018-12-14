@@ -18,6 +18,7 @@ module.exports = app => {
   findUsers();
 
   function callNumbers(userList, fromNumbers) {
+    console.log("called callNumbers");
     var i = 1;
 
     //calculate the start and end date
@@ -33,21 +34,24 @@ module.exports = app => {
     var body = `Alternate Side Parking Notification: Alternate side parking will be in effect from 
      ${formattedStartDate} until ${formattedEndDate} at 5:00pm. Parking is enforced between midnight and 5:00pm each day.`;
 
-    console.log(body); //testing purposes.
+    //console.log(body); //testing purposes.
 
     userList.forEach(u => {
-      var groupId = u.groupId;
-      var fromNumber = fromNumbers[groupId];
+      //var groupId = u.groupId;
+      //var fromNumber = fromNumbers[groupId];
+      console.log("here");
+      console.log(u);
+      var fromNumber = "+1234567890";
       var message = client.messages
         .create({
           body: body,
           from: fromNumber,
-          to: u.number
+          to: u.phoneNumber
         })
         .then((i = i + 1))
         .catch(e => {
           if (e.code == 21211) {
-            console.error("The number " + u.number + " is invalid");
+            console.error("The number " + u.phoneNumber + " is invalid");
           } else {
             console.error(e.message);
           }
@@ -58,17 +62,19 @@ module.exports = app => {
   }
 
   function findUsers() {
+    console.log("Called findUsers");
     var userList = [];
     User.find((err, users) => {
       if (err) return console.error(err);
       return users;
     }).then(users => {
       users.forEach(user => {
-        userList.push(user.phoneNumber);
-        console.log("number added: " + user.phoneNumber);
-        console.log(userList);
+        userList.push(user);
+        //console.log("number added: " + user.phoneNumber);
+        //console.log(userList);
       });
-      getFromNumbers(userList);
+      //getFromNumbers(userList);
+      callNumbers(userList, []);
     });
   }
 
