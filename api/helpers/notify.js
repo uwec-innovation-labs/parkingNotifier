@@ -1,74 +1,69 @@
-'use strict'
+module.exports = app => {
+  const twilio = require("twilio")(
+    process.env.TWILIO_USERNAME,
+    process.env.TWILIO_TOKEN
+  );
+  const date = require("date-and-time");
+  const User = require("../models/user");
 
-const dotenv = require('dotenv').config();
-const getenv = require('getenv');
-const twilio = require('twilio');
-const mongoose = require('mongoose');
-const request = require('request');
-const querystring = require('querystring');
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-var text = require('textbelt');
+  // import environment variables from .env file
+  require("dotenv").config({ path: "../.env" });
 
-const client = new twilio(process.env.TWILIO_USERNAME, process.env.TWILIO_TOKEN);
+  const service = twilio.notify.services(process.env.TWILIO_NOTIFY_SERVICE_SID);
 
+  function callNumbers(userList) {
+    console.log("called callNumbers");
+    var i = 1;
 
-request('http://localhost:9000/users', {json:true}, (err, res, body) => {
-  var numbers = [];
-  var users = body;
-  /*users.forEach((user) => {
-    var newNumber = {
-      toNumber: "+1" + user.phone,
-      fromNumber: ""
+    //calculate the start and end date
+    var startDate = new Date();
+    startDate.setDate(startDate.getDate() + 1);
+    var endDate = new Date();
+    endDate = date.addDays(startDate, 3);
+
+    var formattedStartDate = date.format(startDate, "MM/DD/YY");
+    var formattedEndDate = date.format(endDate, "MM/DD/YY");
+
+    // message that will be sent to all users
+    var body = `Alternate side parking is in effect from ${formattedStartDate} until ${formattedEndDate} at 5pm. Parking is enforced between midnight and 5pm each day. Details: parkingnotifier.com`;
+
+    //console.log(body); //testing purposes.
+    for (i = 0; i < 1; i++) {
+      var bindings = userList.map(user => {
+        return JSON.stringify({
+          binding_type: "sms",
+          address: user.phoneNumber
+        });
+      });
+
+      notification = service.notifications
+        .create({
+          toBinding: bindings,
+          body: body
+        })
+        .then(() => {
+          console.log(bindings);
+          console.log(notification);
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
-    numbers.push("+1" + user.phone);
-  });*/
-  //callNumbers(numbers);
-});
+  }
 
+  function findUsers() {
+    console.log("Called findUsers");
+    var userList = [];
+    User.find((err, users) => {
+      if (err) return console.error(err);
+      return users;
+    }).then(users => {
+      users.forEach(user => {
+        userList.push(user);
+      });
+      callNumbers(userList, []);
+    });
+  }
 
-const katieNumber = '+17156122163';
-//const taylorNumber = '+16083230141';
-
-
-function callNumbers(numbers) {
-  
-  numbers = [katieNumber];
-
-  var i = 1;
-  numbers.forEach((number) => {
-    var message = client.messages.create({
-      body: process.env.TWILIO_MESSAGE,
-      from: getenv('TWILIO_FROM' + Math.round(i/250)),
-      to: number
-    }).then(i = i + 1)
-    .catch(e => {
-      if (e.code == 21211) {
-        console.error("The number " + number + " is invalid");
-      } else {
-	      console.error(e.message);}
-      })	  
-    .done();
-});
-
-  /*var messageInfo = querystring.stringify({
-    number: '7156122163',
-    message: 'test'
-  });
-  var options = {
-    url: 'http://textbelt.com/text',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: messageInfo
-  };*/
-
-  /*request.post(options, function(err, res, body) {
-    if (err) {
-      console.log("error");
-    } else {
-      console.log("success");
-      console.log(body);
-    }
-  });*/
-  
-}
+  findUsers();
+};

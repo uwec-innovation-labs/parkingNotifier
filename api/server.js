@@ -9,7 +9,6 @@ var cors = require("cors");
 var userRoutes = require("./routes/users");
 var statRoutes = require("./routes/stats");
 var statusRoutes = require("./routes/status");
-var numberRoutes = require("./routes/numbers");
 var monitorHelper = require("./helpers/monitor");
 
 // import environment variables from .env file
@@ -54,7 +53,6 @@ app.use(bodyParser.json());
 userRoutes(app);
 statRoutes(app);
 statusRoutes(app);
-numberRoutes(app);
 
 /***** ERROR PAGES *****/
 app.use((req, res) => {
@@ -77,8 +75,8 @@ app.use((error, req, res, next) => {
 });
 
 new CronJob(
-  "0 18 * * * ",
-  //"*/10 * * * * *",
+  "0 18 * * * ", //runs at 6pm everyday
+  //"*/10 * * * * *", //runs every 10 seconds (testing purposes only)
   () => {
     console.log(
       "[" +
