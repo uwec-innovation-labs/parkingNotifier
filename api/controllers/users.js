@@ -5,12 +5,6 @@ const axios = require("axios");
 
 mongoose.model("User");
 
-exports.getAllUsers = (req, res) => {
-  User.find((err, users) => {
-    res.status(200).send(users);
-  });
-};
-
 exports.getUser = (req, res) => {
   // check to see that the user included
   if (!req.params.username) {
