@@ -4,10 +4,12 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const CronJob = require("cron").CronJob;
+var cors = require("cors");
 
 var userRoutes = require("./routes/users");
 var statRoutes = require("./routes/stats");
 var statusRoutes = require("./routes/status");
+var numberRoutes = require("./routes/numbers");
 var monitorHelper = require("./helpers/monitor");
 
 // import environment variables from .env file
@@ -15,7 +17,7 @@ require("dotenv").config();
 
 // create an instance of express
 const app = express();
-var port = process.env.PORT || 9000;
+var port = process.env.PORT || 80;
 
 // connect to the database
 console.log("Trying to connect");
@@ -36,16 +38,7 @@ mongoose
     console.error(err);
   });
 
-// allow CORS
-app.options("/*", (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Content-Length, X-Requested-With"
-  );
-  res.sendStatus(200);
-});
+app.use(cors());
 
 // request logging
 app.use(morgan("tiny"));
@@ -61,6 +54,7 @@ app.use(bodyParser.json());
 userRoutes(app);
 statRoutes(app);
 statusRoutes(app);
+numberRoutes(app);
 
 /***** ERROR PAGES *****/
 app.use((req, res) => {
