@@ -1,7 +1,5 @@
 var mongoose = require("mongoose");
 var User = require("../models/user");
-var Number = require("../models/number");
-const axios = require("axios");
 
 mongoose.model("User");
 
@@ -24,8 +22,7 @@ exports.getUser = (req, res) => {
   });
 };
 
-exports.addUser = async function addUser(req, res) {
-  console.log(req.body);
+exports.addUser = (req, res) => {
   if (
     !req.body.firstName ||
     !req.body.lastName ||
@@ -42,37 +39,26 @@ exports.addUser = async function addUser(req, res) {
     });
     return;
   } else {
-    
-    try {
-      //get the next number
-      //should add a check if there is no next number
-      var nreq = await axios.get(`http://localhost:9000/numbers/next`);
-
-      var newUser = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        phoneNumber: req.body.phoneNumber,
-        username: req.body.username,
-        subscribed: true,
-        groupID: nreq.data.groupID
+    console.log("BODY: " + req.body.firstName);
+    var newUser = new User({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      phoneNumber: req.body.phoneNumber,
+      username: req.body.username,
+      subscribed: true
+    });
+    console.log("User:" + newUser);
+    // attempt to save the user
+    newUser.save(err => {
+      if (err) {
+        console.log(err);
+        return res.json({ success: false, message: err });
+      }
+      res.json({
+        success: true,
+        message: "Successfully created new user"
       });
-
-      // attempt to save the user
-      newUser.save(err => {
-        if (err) {
-          console.log(err);
-          return res.json({ success: false, message: err });
-        }
-        console.log("made user");
-        res.json({
-          success: true,
-          message: "Successfully created new user"
-        });
-      });
-    } catch (err) {
-      console.error(err);
-      process.exit(1);
-    }
+    });
   }
 };
 
@@ -102,7 +88,7 @@ exports.deleteUser = (req, res) => {
       res.status(400);
       res.json({
         success: false,
-        message: "User with that username does not exist"
+        message: "User with that email does not exist"
       });
     }
   });
