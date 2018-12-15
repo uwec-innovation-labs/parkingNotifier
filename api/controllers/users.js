@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
 var User = require("../models/user");
-var Number = require("../models/number");
 const axios = require("axios");
 
 mongoose.model("User");
