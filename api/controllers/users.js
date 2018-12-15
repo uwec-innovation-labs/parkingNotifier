@@ -39,29 +39,24 @@ exports.addUser = (req, res) => {
     });
     return;
   } else {
-    try {
-      //get the next number
-      //should add a check if there is no next number
-
-      var newUser = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        phoneNumber: req.body.phoneNumber,
-        username: req.body.username.toLowerCase(),
-        subscribed: true
-      });
-
-      // attempt to save the user
-      newUser.save(err => {
-        if (err) {
-          console.log(err);
-          return res.json({ success: false, message: err });
-        }
-        console.log("made user");
-        res.json({
-          success: true,
-          message: "Successfully created new user"
-        });
+    console.log("BODY: " + req.body.firstName);
+    var newUser = new User({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      phoneNumber: req.body.phoneNumber,
+      username: req.body.username.toLowerCase(),
+      subscribed: true
+    });
+    console.log("User:" + newUser);
+    // attempt to save the user
+    newUser.save(err => {
+      if (err) {
+        console.log(err);
+        return res.json({ success: false, message: err });
+      }
+      res.json({
+        success: true,
+        message: "Successfully created new user"
       });
     });
   }
