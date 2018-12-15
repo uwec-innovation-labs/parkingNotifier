@@ -56,7 +56,7 @@ exports.addUser = async function addUser(req, res) {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         phoneNumber: req.body.phoneNumber,
-        username: req.body.username,
+        username: req.body.username.toLowerCase(),
         subscribed: true
       });
 
