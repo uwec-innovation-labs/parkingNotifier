@@ -20,7 +20,7 @@ let userSchema = mongoose.Schema({
   },
   groupID: {
     type: String,
-    required: true,
+    required: false,
     select: true
   },
   username: {
