@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import InputMask from "react-input-mask";
 import AppNavbar from "./AppNavbar";
 import {
   Container,
@@ -14,6 +13,8 @@ import {
   Alert
 } from "reactstrap";
 
+var PhoneNumber = require("awesome-phonenumber");
+
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -24,10 +25,10 @@ class Register extends Component {
       phone: "",
       email: "",
       emailValid: true,
-      phoneValid: false,
+      phoneValid: true,
       formValid: true,
-      message: "This needs to be a valid UWEC email address.",
-      submitSuccess: false
+      submitSuccess: false,
+      message: "This needs to be a valid UWEC email address."
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -36,7 +37,6 @@ class Register extends Component {
     fetch("http://api.parkingnotifier.com/stats")
       .then(res => res.json())
       .then(result => {
-        console.log(result);
         this.setState({
           count: result.count
         });
@@ -45,12 +45,11 @@ class Register extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.setState({
-      formValid: true
-    });
-    console.log("SUBMIT");
-    console.log(this.state);
-    this.registerUser();
+    var pn = new PhoneNumber(this.state.phone, "US");
+    if (this.state.emailValid && pn.isValid()) {
+      this.setState({ formValid: true, phone: pn.getNumber() });
+      this.registerUser();
+    }
   };
 
   registerUser() {
@@ -68,7 +67,6 @@ class Register extends Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         if (!data.success) {
           this.setState({
             formValid: false,
@@ -93,44 +91,28 @@ class Register extends Component {
       case "email":
         this.validateEmail(value);
         break;
+      case "phone":
+        this.validatePhone(value);
+        break;
       default:
         break;
     }
   };
 
+  validatePhone = value => {
+    var pn = new PhoneNumber(this.state.phone, "US");
+    if (!pn.isValid()) {
+      this.setState({ phoneValid: false });
+    } else {
+      this.setState({ phoneValid: true });
+    }
+  };
+
   validateEmail = value => {
     if (value.length > 0 && /@uwec.edu\s*$/.test(value)) {
-      console.log("It's a valid email");
       this.setState({ emailValid: true });
-      return (
-        <Input
-          type="text"
-          name="fname"
-          id="frmNameA"
-          placeholder="First"
-          required
-          autoComplete="given-name"
-          value={this.state.fname}
-          onChange={event => this.handleInput(event)}
-          valid
-        />
-      );
     } else {
-      console.log("It's invalid email");
       this.setState({ emailValid: false });
-      return (
-        <Input
-          type="text"
-          name="fname"
-          id="frmNameA"
-          placeholder="First"
-          required
-          autoComplete="given-name"
-          value={this.state.fname}
-          onChange={event => this.handleInput(event)}
-          invalid
-        />
-      );
     }
   };
 
@@ -162,13 +144,9 @@ class Register extends Component {
             {this.state.submitSuccess ? (
               <Container>
                 <Alert color="success">
-                  <h4 className="alert-heading">
+                  <h6 className="alert-heading">
                     You're registered! We'll take the rest form here.
-                  </h4>
-                  <p>
-                    You'll receive a text when alternate side parking goes into
-                    effect.
-                  </p>
+                  </h6>
                 </Alert>
               </Container>
             ) : (
@@ -214,8 +192,7 @@ class Register extends Component {
                 </Row>
                 <FormGroup>
                   <Label>Phone Number</Label>
-                  <InputMask
-                    mask="999-999-9999"
+                  <Input
                     required
                     type="tel"
                     className="form-control"
@@ -223,7 +200,9 @@ class Register extends Component {
                     name="phone"
                     value={this.state.phone}
                     onChange={event => this.handleInput(event)}
+                    invalid={!!!this.state.phoneValid}
                   />
+                  <FormFeedback>Must be a valid phone number</FormFeedback>
                 </FormGroup>
                 <FormGroup>
                   <Label>UWEC Email</Label>

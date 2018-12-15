@@ -18,11 +18,6 @@ let userSchema = mongoose.Schema({
     required: true,
     select: true
   },
-  groupID: {
-    type: String,
-    required: false,
-    select: true
-  },
   username: {
     //email
     type: String,

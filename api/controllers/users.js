@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
 var User = require("../models/user");
-const axios = require("axios");
 
 mongoose.model("User");
 
@@ -23,8 +22,7 @@ exports.getUser = (req, res) => {
   });
 };
 
-exports.addUser = async function addUser(req, res) {
-  console.log(req.body);
+exports.addUser = (req, res) => {
   if (
     !req.body.firstName ||
     !req.body.lastName ||
@@ -65,10 +63,7 @@ exports.addUser = async function addUser(req, res) {
           message: "Successfully created new user"
         });
       });
-    } catch (err) {
-      console.error(err);
-      process.exit(1);
-    }
+    });
   }
 };
 
@@ -98,7 +93,7 @@ exports.deleteUser = (req, res) => {
       res.status(400);
       res.json({
         success: false,
-        message: "User with that username does not exist"
+        message: "User with that email does not exist"
       });
     }
   });
