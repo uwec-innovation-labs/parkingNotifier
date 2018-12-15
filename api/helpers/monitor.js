@@ -1,10 +1,10 @@
 module.exports = app => {
   const axios = require("axios");
   const cheerio = require("cheerio");
-  const express = require("express");
-  const mongoose = require("mongoose");
   const Status = require("../models/status");
   const cityURL = "http://www.ci.eau-claire.wi.us/";
+  const notifyHelper = require("./notify");
+  const date = require("date-and-time");
 
   axios.get(cityURL).then(response => {
     var success = false;
@@ -36,7 +36,7 @@ module.exports = app => {
       var altParkingInEffect = checkForAlternateParking(newsItems);
 
       //creating entry date
-      var date = new Date();
+      var currentDate = new Date();
 
       //creating new status document
       let newStatus;
@@ -45,31 +45,34 @@ module.exports = app => {
       if (altParkingInEffect) {
         newStatus = {
           alternateParking: true,
-          timestamp: getStartDate(date).toLocaleString("en-US", {
+          timestamp: getStartDate(currentDate).toLocaleString("en-US", {
             timeZone: "America/Chicago"
           }),
-          streetSide: getStreetSide(date),
-          expirationDate: getExpirationDate(date).toLocaleString("en-US", {
-            timeZone: "America/Chicago"
-          })
+          streetSide: getStreetSide(currentDate),
+          expirationDate: getExpirationDate(currentDate).toLocaleString(
+            "en-US",
+            {
+              timeZone: "America/Chicago"
+            }
+          )
         };
-
-        new Status(newStatus)
-          .save()
-          .then(console.log("Status save successful"))
-          .catch(err => console.log(err));
-
-        //send out the twillio messsage
-        //call the notify.js methods
       }
+
+      new Status(newStatus)
+        .save()
+        .then(console.log("Status save successful"))
+        .catch(err => console.log(err));
+
+      //send out the twillio messsage
+      notifyHelper(app);
     }
   });
 
   //pulls the date given to status.timestamp and determines the parking for the day
-  getStreetSide = date => {
+  getStreetSide = currentDate => {
     //finds local time, and parses string for date
     //date format in system [month/day/year time]
-    var local = date.toLocaleString();
+    var local = currentDate.toLocaleString();
     var day = local.match(/.*\/(.*)\/.*/);
 
     if (day[1] % 2 === 0) {
@@ -80,19 +83,18 @@ module.exports = app => {
   };
 
   //sets the date to the next day from the starting date.
-  getStartDate = date => {
+  getStartDate = currentDate => {
     var startDate = new Date();
-    startDate.setDate(date.getDate() + 1);
-    startDate.setHours(0, 1, 0, 0);
+    startDate = date.addDays(currentDate, 1);
+    startDate.setHours(0, 0, 0, 0);
     return startDate;
   };
 
   //adds 72 hours to the starting date
-
-  getExpirationDate = date => {
+  getExpirationDate = currentDate => {
     var expirationDate = new Date();
-    expirationDate.setDate(date.getDate() + 3);
-    expirationDate.setHours(expirationDate.getHours() + 1);
+    expirationDate = date.addDays(currentDate, 4);
+    expirationDate.setHours(0, 0, 0, 0);
     return expirationDate;
   };
 
