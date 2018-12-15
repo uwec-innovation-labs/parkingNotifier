@@ -1,23 +1,17 @@
 module.exports = app => {
-  const getenv = require("getenv");
-  const twilio = require("twilio");
-  const mongoose = require("mongoose");
-  const request = require("request");
+  const twilio = require("twilio")(
+    process.env.TWILIO_USERNAME,
+    process.env.TWILIO_TOKEN
+  );
   const date = require("date-and-time");
   const User = require("../models/user");
-  const Numbers = require("../models/numbers");
 
   // import environment variables from .env file
   require("dotenv").config({ path: "../.env" });
 
-  const client = new twilio(
-    process.env.TWILIO_USERNAME,
-    process.env.TWILIO_TOKEN
-  );
+  const service = twilio.notify.services(process.env.TWILIO_NOTIFY_SERVICE_SID);
 
-  findUsers();
-
-  function callNumbers(userList, fromNumbers) {
+  function callNumbers(userList) {
     console.log("called callNumbers");
     var i = 1;
 
@@ -31,33 +25,30 @@ module.exports = app => {
     var formattedEndDate = date.format(endDate, "MM/DD/YY");
 
     // message that will be sent to all users
-    var body = `Alternate Side Parking Notification: Alternate side parking will be in effect from 
-     ${formattedStartDate} until ${formattedEndDate} at 5:00pm. Parking is enforced between midnight and 5:00pm each day.`;
+    var body = `Alternate side parking is in effect from ${formattedStartDate} until ${formattedEndDate} at 5pm. Parking is enforced between midnight and 5pm each day. Details: parkingnotifier.com`;
 
     //console.log(body); //testing purposes.
-
-    userList.forEach(u => {
-      //var groupId = u.groupId;
-      //var fromNumber = fromNumbers[groupId];
-      console.log(u); //list of the users
-      //var fromNumber = "+17155983494";
-      var message = client.messages
-        .create({
-          body: body,
-          from: fromNumber,
-          to: u.phoneNumber
-        })
-        .then((i = i + 1))
-        .then(console.log("Message sent successfully"))
-        .catch(e => {
-          if (e.code == 21211) {
-            console.error("The number " + u.phoneNumber + " is invalid");
-          } else {
-            console.error(e.message);
-          }
+    for (i = 0; i < 1; i++) {
+      var bindings = userList.map(user => {
+        return JSON.stringify({
+          binding_type: "sms",
+          address: user.phoneNumber
         });
-      //.done();
-    });
+      });
+
+      notification = service.notifications
+        .create({
+          toBinding: bindings,
+          body: body
+        })
+        .then(() => {
+          console.log(bindings);
+          console.log(notification);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
   }
 
   function findUsers() {
@@ -69,25 +60,10 @@ module.exports = app => {
     }).then(users => {
       users.forEach(user => {
         userList.push(user);
-        //console.log("number added: " + user.phoneNumber);
-        //console.log(userList);
       });
-      //getFromNumbers(userList);
       callNumbers(userList, []);
     });
   }
 
-  function getFromNumbers(userList) {
-    var fromNumbers = [];
-    Numbers.find((err, n) => {
-      if (err) return console.error(err);
-      return n;
-    }).then(n => {
-      n.forEach(num => {
-        fromNumbers.push(num);
-        console.log("Got from number " + num);
-      });
-      callNumbers(userList, fromNumbers);
-    });
-  }
+  findUsers();
 };
