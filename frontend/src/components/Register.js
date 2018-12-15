@@ -53,6 +53,7 @@ class Register extends Component {
   };
 
   registerUser() {
+    var pn = new PhoneNumber(this.state.phone, "US");
     fetch("http://api.parkingnotifier.com/users", {
       method: "POST",
       headers: {
@@ -62,7 +63,7 @@ class Register extends Component {
         firstName: this.state.fname,
         lastName: this.state.lname,
         username: this.state.email,
-        phoneNumber: this.state.phone
+        phoneNumber: pn.getNumber()
       })
     })
       .then(res => res.json())
@@ -145,7 +146,7 @@ class Register extends Component {
               <Container>
                 <Alert color="success">
                   <h6 className="alert-heading">
-                    You're registered! We'll take the rest form here.
+                    You're registered! We'll take the rest from here.
                   </h6>
                 </Alert>
               </Container>
