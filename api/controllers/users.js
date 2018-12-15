@@ -51,15 +51,13 @@ exports.addUser = async function addUser(req, res) {
     try {
       //get the next number
       //should add a check if there is no next number
-      var nreq = await axios.get(`http://localhost:9000/numbers/next`);
 
       var newUser = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         phoneNumber: req.body.phoneNumber,
         username: req.body.username,
-        subscribed: true,
-        groupID: nreq.data.groupID
+        subscribed: true
       });
 
       // attempt to save the user
