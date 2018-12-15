@@ -3,6 +3,7 @@ module.exports = app => {
 
   app
     .route("/users")
+    .get(userController.getAllUsers)
     .post(userController.addUser)
     .delete(userController.deleteUser);
 

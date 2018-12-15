@@ -1,7 +1,17 @@
 var mongoose = require("mongoose");
 var User = require("../models/user");
+var PhoneNumber = require("awesome-phonenumber");
 
 mongoose.model("User");
+
+exports.getAllUsers = (req, res) => {
+  User.find((err, user) => {
+    if (err) {
+      console.log(err);
+    }
+    res.status(200).send(user);
+  });
+};
 
 exports.getUser = (req, res) => {
   // check to see that the user included
@@ -40,10 +50,20 @@ exports.addUser = (req, res) => {
     return;
   } else {
     console.log("BODY: " + req.body.firstName);
+    var pn = new PhoneNumber(req.body.phoneNumber, "US");
+    if (!pn.isValid()) {
+      res.status(400);
+      res.json({
+        success: false,
+        message: "Incorrect phone number"
+      });
+      return;
+    }
+    console.log(pn.getNumber("e164"));
     var newUser = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      phoneNumber: req.body.phoneNumber,
+      phoneNumber: pn.getNumber("e164"),
       username: req.body.username.toLowerCase(),
       subscribed: true
     });
