@@ -1,8 +1,6 @@
 module.exports = app => {
   const axios = require("axios");
   const cheerio = require("cheerio");
-  const express = require("express");
-  const mongoose = require("mongoose");
   const Status = require("../models/status");
   const cityURL = "http://www.ci.eau-claire.wi.us/";
   const notifyHelper = require("./notify");

@@ -1,8 +1,5 @@
 module.exports = app => {
-  const getenv = require("getenv");
   const twilio = require("twilio");
-  const mongoose = require("mongoose");
-  const request = require("request");
   const date = require("date-and-time");
   const User = require("../models/user");
   const Numbers = require("../models/numbers");
