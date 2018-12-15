@@ -3,14 +3,11 @@ module.exports = app => {
 
   app
     .route("/users")
+    .get(userController.getAllUsers)
     .post(userController.addUser)
     .delete(userController.deleteUser);
 
-  app
-    .route("/users/:username")
-    .get(userController.getUser);
+  app.route("/users/:username").get(userController.getUser);
 
-  app
-    .route("/users/unsubscribe")
-    .post(userController.deleteUser);
+  app.route("/users/unsubscribe").post(userController.deleteUser);
 };
