@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import About from "./components/About";
 import Unsubscribe from "./components/unsubscribe";
+import ConfirmEmail from "./components/ConfirmEmail";
 
 class Routes extends Component {
   render() {
@@ -13,6 +14,7 @@ class Routes extends Component {
         <Route path="/" exact component={Home} />
         <Route path="/register" exact component={Register} />
         <Route path="/unsubscribe" exact component={Unsubscribe} />
+        <Route path="/confirmation/:code" exact component={ConfirmEmail} />
         <Route path="/about" exact component={About} />
       </Switch>
     );
