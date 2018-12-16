@@ -1,5 +1,7 @@
 var mongoose = require("mongoose");
+var Crypto = require("crypto-js");
 var User = require("../models/user");
+var emailController = require("../helpers/email");
 var PhoneNumber = require("awesome-phonenumber");
 
 mongoose.model("User");
@@ -27,7 +29,6 @@ exports.getUser = (req, res) => {
     if (err) {
       console.err(err);
     }
-    console.log(user);
     res.status(200).send(user);
   });
 };
@@ -39,7 +40,6 @@ exports.addUser = (req, res) => {
     !req.body.phoneNumber ||
     !req.body.username
   ) {
-    console.log("BODY!:" + req.body.firstName);
     res.status(400);
     res.json({
       success: false,
@@ -49,7 +49,6 @@ exports.addUser = (req, res) => {
     });
     return;
   } else {
-    console.log("BODY: " + req.body.firstName);
     var pn = new PhoneNumber(req.body.phoneNumber, "US");
     if (!pn.isValid()) {
       res.status(400);
@@ -59,27 +58,72 @@ exports.addUser = (req, res) => {
       });
       return;
     }
-    console.log(pn.getNumber("e164"));
+    var confirmCode = Crypto.SHA256(
+      req.body.username.toLowerCase() +
+        Math.random()
+          .toString(36)
+          .replace("0.", "")
+    ).toString();
     var newUser = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       phoneNumber: pn.getNumber("e164"),
       username: req.body.username.toLowerCase(),
-      subscribed: true
+      confirmCode: confirmCode,
+      subscribed: false
     });
     console.log("User:" + newUser);
     // attempt to save the user
     newUser.save(err => {
       if (err) {
-        console.log(err);
         return res.json({ success: false, message: err });
       }
+      emailController.sendEmail(req.body.username.toLowerCase(), confirmCode);
       res.json({
         success: true,
         message: "Successfully created new user"
       });
     });
   }
+};
+
+exports.confirmEmail = (req, res) => {
+  if (!req.params.confirmCode) {
+    res.status(400);
+    res.json({
+      success: false,
+      message: "No confirm code included"
+    });
+    return;
+  }
+
+  User.count(
+    { confirmCode: req.params.confirmCode, subscribed: false },
+    (err, count) => {
+      if (count > 0) {
+        User.findOneAndUpdate(
+          { confirmCode: req.params.confirmCode },
+          { subscribed: true },
+          (err, user) => {
+            if (err) res.send(err);
+            res.status(200);
+            res.json({
+              success: true,
+              message:
+                "Your email is now confirmed. You will receive notifications."
+            });
+          }
+        );
+      } else {
+        res.status(200);
+        res.json({
+          success: false,
+          message:
+            "Either you're already subscribed or the confirmation code is incorrect."
+        });
+      }
+    }
+  );
 };
 
 exports.deleteUser = (req, res) => {
