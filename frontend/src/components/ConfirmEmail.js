@@ -8,10 +8,6 @@ class ConfirmEmail extends Component {
   }
 
   componentDidMount = () => {
-    this.subscribe();
-  };
-
-  subscribe = () => {
     console.log("Making the call");
     fetch("http://localhost:80/confirmation/" + this.props.match.params.code, {
       method: "POST"
