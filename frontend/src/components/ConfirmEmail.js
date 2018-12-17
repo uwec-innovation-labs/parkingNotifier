@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Container, Alert } from "reactstrap";
 import AppNavbar from "./AppNavbar";
 
 class ConfirmEmail extends Component {
@@ -8,7 +9,6 @@ class ConfirmEmail extends Component {
   }
 
   componentDidMount = () => {
-    console.log("Making the call");
     fetch("http://localhost:80/confirmation/" + this.props.match.params.code, {
       method: "POST"
     })
@@ -17,12 +17,17 @@ class ConfirmEmail extends Component {
         if (!data.success) {
           this.setState({
             confirmed: false,
-            message: "Incorrect code or you've already confirmed your code"
+            message: "It looks like you've already confirmed your code",
+            color: "info"
           });
         } else {
-          this.setState({ confirmed: true });
+          this.setState({
+            confirmed: true,
+            message:
+              "Your email is confirmed. You are now subscribed to the Parking Notifier",
+            color: "success"
+          });
         }
-        console.log(this.state);
       });
   };
 
@@ -30,8 +35,10 @@ class ConfirmEmail extends Component {
     return (
       <div>
         <AppNavbar />
-        <h1>Confirmation Code: </h1>
-        <p>{this.props.match.params.code}</p>
+        <div className="container navbar-offset" />
+        <Container>
+          <Alert color={this.state.color}>{this.state.message}</Alert>
+        </Container>
       </div>
     );
   }

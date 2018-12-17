@@ -54,7 +54,7 @@ class Register extends Component {
 
   registerUser() {
     var pn = new PhoneNumber(this.state.phone, "US");
-    fetch("http://api.parkingnotifier.com/users", {
+    fetch("http://localhost:80/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
