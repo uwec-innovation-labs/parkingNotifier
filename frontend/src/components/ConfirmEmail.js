@@ -9,9 +9,13 @@ class ConfirmEmail extends Component {
   }
 
   componentDidMount = () => {
-    fetch("http://localhost:80/confirmation/" + this.props.match.params.code, {
-      method: "POST"
-    })
+    fetch(
+      "http://api.parkingnotifier.com/confirmation/" +
+        this.props.match.params.code,
+      {
+        method: "POST"
+      }
+    )
       .then(res => res.json())
       .then(data => {
         if (!data.success) {
