@@ -145,9 +145,10 @@ class Register extends Component {
             {this.state.submitSuccess ? (
               <Container>
                 <Alert color="success">
-                  <h6 className="alert-heading">
-                    You're registered! We'll take the rest from here.
-                  </h6>
+                  <h5 className="alert-heading">
+                    We've sent you a confirmation email. Click the link in the
+                    email to complete the registration process.
+                  </h5>
                 </Alert>
               </Container>
             ) : (
