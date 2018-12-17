@@ -47,7 +47,7 @@ class Register extends Component {
     event.preventDefault();
     var pn = new PhoneNumber(this.state.phone, "US");
     if (this.state.emailValid && pn.isValid()) {
-      this.setState({ formValid: true, phone: pn.getNumber() });
+      this.setState({ formValid: true });
       this.registerUser();
     }
   };

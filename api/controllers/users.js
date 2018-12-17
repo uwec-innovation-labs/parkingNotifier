@@ -58,12 +58,13 @@ exports.addUser = (req, res) => {
       });
       return;
     }
-    if (/@uwec.edu\s*$/.test(req.body.username)) {
+    if (!/@uwec.edu\s*$/.test(req.body.username)) {
       res.status(400);
       res.json({
         success: false,
         message: "Must be a UWEC email."
       });
+      return;
     }
 
     var confirmCode = Crypto.SHA256(
