@@ -15,7 +15,7 @@ exports.sendEmail = (email, verificationCode) => {
         /* required */
         Html: {
           Charset: "UTF-8",
-          Data: `<a href="parkingnotifier.com/${verificationCode}">Confirm Email</a>`
+          Data: `<a href="parkingnotifier.com/confirmation/${verificationCode}">Confirm Email</a>`
         },
         Text: {
           Charset: "UTF-8",
