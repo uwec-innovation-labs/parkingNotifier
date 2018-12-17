@@ -327,7 +327,7 @@ exports.sendEmail = (fname, email, verificationCode) => {
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
                                     <tr>
-                                      <td> <a href="http://parkingnotifier.s3-website-us-west-2.amazonaws.com/confirmation/${verificationCode}" target="_blank">Confirm Email</a> </td>
+                                      <td> <a href="http://parkingnotifier.com/confirmation/${verificationCode}" target="_blank">Confirm Email</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>
