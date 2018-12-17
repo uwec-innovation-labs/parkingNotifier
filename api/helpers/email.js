@@ -6,26 +6,18 @@ AWS.config.update({ region: "us-east-1" });
 exports.sendEmail = (email, verificationCode) => {
   // Create sendEmail params
   var params = {
-    Destination: {
-      ToAddresses: [email]
-    },
+    Destination: { ToAddresses: [email] },
     Message: {
       /* required */
       Body: {
         /* required */
         Html: {
           Charset: "UTF-8",
-          Data: `<a href="parkingnotifier.com/confirmation/${verificationCode}">Confirm Email</a>`
+          Data: `<a href="http://parkingnotifier.s3-website-us-west-2.amazonaws.com/confirmation/${verificationCode}">Confirm Email</a>`
         },
-        Text: {
-          Charset: "UTF-8",
-          Data: "TEXT_FORMAT_BODY"
-        }
+        Text: { Charset: "UTF-8", Data: "TEXT_FORMAT_BODY" }
       },
-      Subject: {
-        Charset: "UTF-8",
-        Data: "Parking Notifier - Confirm Email"
-      }
+      Subject: { Charset: "UTF-8", Data: "Parking Notifier - Confirm Email" }
     },
     Source: "noreply@parkingnotifier.com" /* required */
   };
