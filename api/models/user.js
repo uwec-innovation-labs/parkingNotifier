@@ -24,8 +24,13 @@ let userSchema = mongoose.Schema({
     required: true,
     unique: true
   },
+  confirmCode: {
+    type: String,
+    required: true
+  },
   subscribed: {
     type: Boolean,
+    default: false,
     required: true
   }
 });

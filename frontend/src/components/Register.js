@@ -54,7 +54,7 @@ class Register extends Component {
 
   registerUser() {
     var pn = new PhoneNumber(this.state.phone, "US");
-    fetch("http://api.parkingnotifier.com/users", {
+    fetch("http://localhost:80/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -145,9 +145,10 @@ class Register extends Component {
             {this.state.submitSuccess ? (
               <Container>
                 <Alert color="success">
-                  <h6 className="alert-heading">
-                    You're registered! We'll take the rest from here.
-                  </h6>
+                  <h5 className="alert-heading">
+                    We've sent you a confirmation email. Click the link in the
+                    email to complete the registration process.
+                  </h5>
                 </Alert>
               </Container>
             ) : (

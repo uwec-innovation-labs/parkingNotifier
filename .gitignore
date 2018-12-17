@@ -65,3 +65,6 @@ config.js
 
 # macOS crap
 .DS_Store
+
+# build folders
+build/
