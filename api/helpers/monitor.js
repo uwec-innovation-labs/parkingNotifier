@@ -56,15 +56,14 @@ module.exports = app => {
             }
           )
         };
+        new Status(newStatus)
+          .save()
+          .then(console.log("Status save successful"))
+          .catch(err => console.log(err));
+
+        //send out the twillio messsage
+        notifyHelper(app);
       }
-
-      new Status(newStatus)
-        .save()
-        .then(console.log("Status save successful"))
-        .catch(err => console.log(err));
-
-      //send out the twillio messsage
-      notifyHelper(app);
     }
   });
 
