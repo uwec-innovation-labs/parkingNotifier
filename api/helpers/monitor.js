@@ -62,7 +62,8 @@ module.exports = app => {
           .catch(err => console.log(err));
 
         //send out the twillio messsage
-        notifyHelper(app);
+        // this being commented out makes this a manual process. Suitable for RELEASE 1.0. To be updated when tested
+        //notifyHelper(app);
       }
     }
   });
