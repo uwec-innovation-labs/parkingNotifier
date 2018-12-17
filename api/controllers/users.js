@@ -58,6 +58,14 @@ exports.addUser = (req, res) => {
       });
       return;
     }
+    if (/@uwec.edu\s*$/.test(req.body.username)) {
+      res.status(400);
+      res.json({
+        success: false,
+        message: "Must be a UWEC email."
+      });
+    }
+
     var confirmCode = Crypto.SHA256(
       req.body.username.toLowerCase() +
         Math.random()
@@ -78,7 +86,11 @@ exports.addUser = (req, res) => {
       if (err) {
         return res.json({ success: false, message: err });
       }
-      emailController.sendEmail(req.body.username.toLowerCase(), confirmCode);
+      emailController.sendEmail(
+        req.body.firstName,
+        req.body.username.toLowerCase(),
+        confirmCode
+      );
       res.json({
         success: true,
         message: "Successfully created new user"
