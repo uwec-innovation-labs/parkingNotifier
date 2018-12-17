@@ -5,5 +5,3 @@ cd ./api/scripts/seeder
 npm install
 
 npm start
-
-

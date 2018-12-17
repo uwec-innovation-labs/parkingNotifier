@@ -11,6 +11,9 @@ RUN npm install
 
 RUN npm install -g  nodemon
 
+RUN apk add --no-cache tzdata
+ENV TZ America/Chicago
+
 COPY . .
 
 CMD [ "npm", "run", "dev"]

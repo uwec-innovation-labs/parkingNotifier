@@ -1,7 +1,7 @@
 <h1 align="center">
 Parking Notifier
 
-[![Build Status](https://travis-ci.com/UWEC-ITC/parkingNotifier.svg?branch=dev)](https://travis-ci.com/UWEC-ITC/parkingNotifier)
+[![Build Status](https://travis-ci.com/clearwater-labs/parkingNotifier.svg?branch=dev)](https://travis-ci.com/clearwater-labs/parkingNotifier)
 
 </h1>
 
@@ -24,4 +24,6 @@ These rules are in effect for a full **72 hours (3 days)** after the snow emerge
 
 A detailed overview and guide for engineering can be found [here](docs/technical-details.md).
 
-<div align="center"><sup><sub align="center">Hosted and funded by <a href="http://www.uwec.edu/StudentSenate/commissions/itc/">UWEC Information Technology Commission</a></sub></sup></div>
+## Demo
+
+Current development environment: http://parkingnotifier.s3-website-us-west-2.amazonaws.com/

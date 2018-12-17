@@ -1,69 +1,205 @@
-  .container form {
-    margin: 0 auto;
-    max-width: 355px;
-    text-align: left;
-    margin-bottom: 50px;
+.container form {
+  display: inline;
+  margin: 0 auto;
+  max-width: 355px;
+  text-align: left;
+  margin-bottom: 50px;
+}
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto", sans-serif;
+}
+
+.text-example-img {
+  width: 80%;
+  margin-top: 20px;
+  max-width: 500px;
+  transition: all ease-in-out 750ms;
+  box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
+  animation-name: float;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0px, 0px);
+    box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
   }
-
-  #firstName {
-    margin-right: 3px;
+  50% {
+    transform: translate(0px, -10px);
+    box-shadow: 0px 27px 20px -10px rgba(0, 0, 0, 0.2);
   }
-
-  #lastName {
-    margin-left: 3px;
+  100% {
+    transform: translate(0px, 0px);
+    box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
   }
+}
 
-  #firstAndLastName {
-    display: flex;
-    flex-direction: row;
-
+@media (max-width: 629px) {
+  #exampleContainer {
+    display: none;
   }
+}
 
-  .container {
-    text-align: center;
-    background-color: inherit;
-  }
+.clearwater_logo_register {
+  max-width: 200px;
+}
 
-  .content {
+.col align-self-center {
+  padding: 0px;
+}
+
+p.register {
+  max-width: 75%;
+}
+
+.button {
+  display: inline-block;
+  background: #47a5d5;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 20px 30px;
+  border-radius: 5px;
+  box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: all ease-in-out 300ms;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+#icons {
+  margin: 5px 5px;
+}
+
+.icons {
+  bottom: 0;
+}
+
+.button:hover {
+  box-shadow: 0px 27px 20px -20px rgba(0, 0, 0, 0.2);
+  transform: translate(0px, -10px);
+}
+
+.card {
+  box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
+  transition: all ease-in-out 750ms;
+  max-width: 500px;
+  margin: 30px auto;
+  width: 60%;
+}
+
+.card:hover {
+  box-shadow: 0px 27px 20px -20px rgba(0, 0, 0, 0.2);
+  transform: translate(0px, -10px);
+}
+.card-deck {
+  margin: 20px auto;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.card-title {
+  font-family: "Roboto", sans-serif;
+}
+
+.card-text {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.95em;
+}
+
+#firstName {
+  margin-right: 3px;
+}
+
+#lastName {
+  margin-left: 3px;
+}
+
+#firstAndLastName {
+  display: flex;
+  flex-direction: row;
+}
+
+.content {
   text-align: center;
-  }
+}
 
-  .img-responsive {
-    margin: 30px;
-    width: 100%;
-    max-width: 100px;
-  }
+.img-responsive {
+  margin: 50px auto;
+  width: 30%;
+  min-width: 300px;
+  max-width: 600px;
+}
 
-  .h3 {
-    margin-bottom: 10px;
-  }
+.h3 {
+  margin-bottom: 10px;
+}
 
+#unsubscribeBtn {
+  max-width: 50%;
+  margin: 0 auto;
+  margin-top: 30px;
+}
 
-  p {
-    margin: 0 auto;
-    max-width: 600px;
-    text-overflow: ellipsis;
-    margin-bottom: 10px;
-  }
+#cwlLogo_register {
+  max-width: 200px;
+}
 
-  body {
-    background-color: #f8f9fa;
-    height: 100%;
-  }
+p {
+  margin: 30px auto;
+  max-width: 600px;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
+  text-align: left;
+  font-family: "Open Sans", sans-serif;
+}
 
-  .users {
-    display: inline-block;
-    border: solid 1px #007bff;
-    border-radius: 10px;
-    width: 15%;
-    margin: 10px 10px;
-  }
+body {
+  background-color: #f8f9fa;
+  height: 100%;
+}
 
-  ul {
-    list-style: none;
-  }
+.users {
+  display: inline-block;
+  border: solid 1px #007bff;
+  border-radius: 10px;
+  width: 15%;
+  margin: 10px 10px;
+}
 
-  li {
-    float: left
-  }
+form {
+  text-align: left;
+  margin: 2% auto;
+  width: 70%;
+  max-width: 400px;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  float: left;
+}
+
+.navbar-offset {
+  margin-top: 60px;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+.statCard {
+  margin-top: 20px;
+  color: #6e6e6e;
+  font-weight: 300;
+  font-family: "Roboto", sans-serif;
+}

@@ -3,8 +3,10 @@ module.exports = app => {
 
   app
     .route("/users")
-    .get(userController.listUsers)
-    .post(userController.addUser);
+    .post(userController.addUser)
+    .delete(userController.deleteUser);
 
-  app.route("/users/:username").get(userController.getUser);
+  app.route("/confirmation/:confirmCode").post(userController.confirmEmail);
+
+  app.route("/users/unsubscribe").post(userController.deleteUser);
 };

@@ -3,8 +3,8 @@ var User = require("../models/user");
 
 mongoose.model("User");
 
-exports.countUsers = (req, res) => {
-  User.countDocuments({}, (err, count) => {
+exports.getStats = (req, res) => {
+  User.count({ subscribed: true }, (err, count) => {
     res.status(200);
     res.json({
       count: count
