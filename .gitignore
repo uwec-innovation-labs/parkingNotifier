@@ -67,4 +67,4 @@ config.js
 .DS_Store
 
 # build folders
-build
+build/
