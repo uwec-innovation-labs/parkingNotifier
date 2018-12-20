@@ -37,17 +37,7 @@ mongoose
     console.error(err);
   });
 
-app.use(
-  cors({
-    origin: myorigin.tld,
-    allowedHeaders: [
-      "Accept-Version",
-      "Authorization",
-      "Credentials",
-      "Content-Type"
-    ]
-  })
-);
+app.use(cors());
 
 // request logging
 app.use(morgan("tiny"));
