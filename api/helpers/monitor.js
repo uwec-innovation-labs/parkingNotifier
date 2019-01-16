@@ -100,7 +100,7 @@ module.exports = app => {
 
   checkForAlternateParking = newsItems => {
     newsItems.forEach(element => {
-      if (element.title.includes("Alternate Side Parking in Effect")) {
+      if (element.title.includes("Alternate Side Parking")) {
         var postDate = element.description.match(/(\d*\/\d*\/\d*)/); //regular expression search for a date
         postDate = postDate[1]; //sets to the first instance
         return getIsNewPost(postDate); //Alternate Side Parking listed in latest news. Checking if it is brand new.
