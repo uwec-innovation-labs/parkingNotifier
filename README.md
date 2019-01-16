@@ -3,6 +3,8 @@ Parking Notifier
 
 [![Build Status](https://travis-ci.com/clearwater-labs/parkingNotifier.svg?branch=dev)](https://travis-ci.com/clearwater-labs/parkingNotifier)
 
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/clearwater-labs/parkingNotifier.svg?columns=all)](https://waffle.io/clearwater-labs/parkingNotifier)
+
 </h1>
 
 The Parking Notifier API alerts UW-Eau Claire students when there is a snow emergency and alternate side parking is in effect. This API has endpoints that are public facing so that community members of Eau Claire can also utilize the monitoring that is built into this system.
