@@ -19,8 +19,8 @@
   },
   "homepage": "https://github.com/UWEC-ITC/parkingNotifier-API#readme",
   "dependencies": {
-    "awesome-phonenumber": "^2.3.1",
-    "aws-sdk": "^2.377.0",
+    "awesome-phonenumber": "^2.3.3",
+    "aws-sdk": "^2.388.0",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
@@ -31,19 +31,20 @@
     "dotenv": "^4.0.0",
     "express": "^4.16.3",
     "getenv": "^0.7.0",
-    "mongodb": "^3.1.6",
-    "mongoose": "^5.3.1",
+    "mongodb": "^3.1.11",
+    "mongoose": "^5.4.4",
     "mongoose-unique-validator": "^2.0.2",
     "morgan": "^1.9.1",
-    "nodemailer": "^4.7.0",
-    "twilio": "^3.22.0"
+    "redoc": "^2.0.0-alpha.41",
+    "swagger-express-jsdoc": "^1.0.3",
+    "twilio": "^3.27.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "chai-http": "^4.2.0",
+    "chai-http": "^4.2.1",
     "mocha": "^5.2.0",
-    "nodemon": "^1.18.4",
+    "nodemon": "^1.18.9",
     "nyc": "^13.1.0",
-    "supertest": "^3.3.0"
+    "supertest": "^3.4.1"
   }
 }

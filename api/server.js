@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const CronJob = require("cron").CronJob;
 var cors = require("cors");
+var swaggerJSDoc = require('swagger-jsdoc')
 
 var userRoutes = require("./routes/users");
 var statRoutes = require("./routes/stats");
@@ -53,7 +54,12 @@ app.use(bodyParser.json());
 userRoutes(app);
 statRoutes(app);
 statusRoutes(app);
+var swaggerSpec = swaggerJSDoc(require('./swaggerConfig').options)
 
+app.get('/api-docs.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
+  res.send(swaggerSpec)
+})
 /***** ERROR PAGES *****/
 app.use((req, res) => {
   res.status(404);
