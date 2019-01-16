@@ -15,6 +15,15 @@ exports.getAllUsers = (req, res) => {
   });
 };
 
+exports.getSubscribedUsers = (req, res) => {
+  User.find({ subscribed: true }, (err, user) => {
+    if (err) {
+      console.log(err);
+    }
+    res.status(200).send(user);
+  });
+};
+
 exports.getUser = (req, res) => {
   // check to see that the user included
   if (!req.params.username) {
