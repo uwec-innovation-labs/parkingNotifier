@@ -1,12 +1,12 @@
 paths:
-  /stats:                # path of the user from your endpoint
-    get:                 # endpoint request type (post request)
-      tags:               # Tag property
-        - Stats            # Value of the tag
+  /stats: # path of the user from your endpoint
+    get: # endpoint request type (post request)
+      tags: # Tag property
+        - Stats # Value of the tag
       summary: get metadata about the stats of the users
       produces:
-      - application/json
-      responses:          # server responses
+        - application/json
+      responses: # server responses
         200:
           description: An object with the number of users
           content:
@@ -16,6 +16,14 @@ paths:
                 properties:
                   count:
                     type: integer
-                    description: Number of users
-                example: 
-                  count: 112
+                    description: Number of total users
+                  confirmed:
+                    type: integer
+                    description: Number of users who have subscribed and receive updates
+                  unconfirmed:
+                    type: integer
+                    description: Number of users who have signed up but not confirmed email
+                example:
+                  count: 140
+                  confirmed: 112
+                  unconfirmed: 28
