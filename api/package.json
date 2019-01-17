@@ -33,6 +33,7 @@
     "getenv": "^0.7.0",
     "mongodb": "^3.1.11",
     "mongoose": "^5.4.4",
+    "jsonwebtoken": "^8.4.0",
     "mongoose-unique-validator": "^2.0.2",
     "morgan": "^1.9.1",
     "redoc": "^2.0.0-alpha.41",
