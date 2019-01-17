@@ -8,4 +8,4 @@ paths:
       - application/json
       responses:          # server responses
         200:
-          description: An object with the current statuss
+          description: An object with the current status

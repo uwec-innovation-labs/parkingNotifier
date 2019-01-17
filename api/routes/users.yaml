@@ -9,6 +9,35 @@ paths:
       responses:          # server responses
         201:
           description: An object with user details
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    firstName:
+                      type: string
+                      description: User's first name
+                    lastName:
+                      type: string
+                      description: Users's last name
+                    email:
+                      type: string
+                      description: User's email
+                    phoneNumber:
+                      type: string
+                      description: User's phone number in international format
+                example:
+                  - firstName: Alex
+                    lastName: Stout
+                    email: Alex_Stout@example.com
+                    phoneNumber: "+15555555555"
+                  - firstName: Grey
+                    lastName: Larson
+                    email: Grey_Larson@example.com
+                    phoneNumber: "+15555555555"
+                   
         403:
           description: Invalid authentication level
     post:                 # endpoint request type (post request)
@@ -25,8 +54,43 @@ paths:
         schema:           # Schema definition
           $ref: '#/definitions/register' 
       responses:          # server responses
+        200:
+          description: An object with user details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+                    description: If the creation was a success
+                  message:
+                    type: string
+                    description: Short message of status
+                example:
+                  success: true
+                  message: Successfully created new user
+
+                  
+                   
+/confirmation/{confirmCode}:                # path of the user from your endpoint
+    post:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - User            # Value of the tag
+      summary: confirm user with confirmation code
+      paramaters:
+        - in: path
+          name: confirmCode
+          schema:
+            type: string
+          required: true
+          description: Confirmation code emailed to the user's email address
+      produces:
+      - application/json
+      responses:          # server responses
         201:
           description: An object with user details
+
 definitions:        # Schema defination for request body
   register:
     type: object
@@ -39,3 +103,8 @@ definitions:        # Schema defination for request body
         type: string
       phoneNumber:
         type: string
+    example:
+      firstName: Alex
+      lastName: Stout
+      username: exampleEmail@uwec.edu
+      phoneNumber: "+15555555555"
