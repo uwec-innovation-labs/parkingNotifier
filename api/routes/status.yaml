@@ -1,0 +1,11 @@
+paths:
+  /status:                # path of the user from your endpoint
+    get:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Status            # Value of the tag
+      summary: Get a status of the alternate side parking
+      produces:
+      - application/json
+      responses:          # server responses
+        200:
+          description: An object with the current status
