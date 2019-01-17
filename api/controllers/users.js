@@ -85,7 +85,7 @@ exports.addUser = (req, res) => {
     // attempt to save the user
     newUser.save(err => {
       if (err) {
-        return res.json({ success: false, message: err });
+        return res.status(400).json({ success: false, message: "User with this email already exists." });
       }
       emailController.sendEmail(
         req.body.firstName,
@@ -128,7 +128,7 @@ exports.confirmEmail = (req, res) => {
           }
         );
       } else {
-        res.status(200);
+        res.status(400);
         res.json({
           success: false,
           message:

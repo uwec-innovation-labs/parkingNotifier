@@ -1,5 +1,6 @@
 exports.options = {
     swaggerDefinition: {
+        openapi: "3.0.0",
         info: {
             title: "Parking Notifier API",
             version: "1.0.0",

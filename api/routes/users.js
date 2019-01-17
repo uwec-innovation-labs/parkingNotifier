@@ -7,6 +7,4 @@ module.exports = app => {
     .delete(userController.deleteUser);
 
   app.route("/confirmation/:confirmCode").post(userController.confirmEmail);
-
-  app.route("/users/unsubscribe").post(userController.deleteUser);
 };
