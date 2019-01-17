@@ -10,8 +10,6 @@ module.exports = app => {
 
   app.route("/confirmation/:confirmCode").post(userController.confirmEmail);
 
-  app.route("/users/unsubscribe").post(userController.deleteUser);
-
   app
     .route("/users/subscribed")
     .get(checkToken, userController.getSubscribedUsers);
