@@ -56,10 +56,10 @@ module.exports = app => {
             }
           )
         };
-        // new Status(newStatus)
-        //   .save()
-        //   .then(console.log("Status save successful"))
-        //   .catch(err => console.log(err));
+        new Status(newStatus)
+          .save()
+          .then(console.log("Status save successful"))
+          .catch(err => console.log(err));
 
         //send out the twillio messsage
         // this being commented out makes this a manual process. Suitable for RELEASE 1.0. To be updated when tested
