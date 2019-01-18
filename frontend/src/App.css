@@ -94,6 +94,11 @@ p.register {
   margin: 30px auto;
   width: 60%;
 }
+@media (max-width: 550px) {
+  .card {
+    width: 90%;
+  }
+}
 
 .card:hover {
   box-shadow: 0px 27px 20px -20px rgba(0, 0, 0, 0.2);
