@@ -146,8 +146,9 @@ class Register extends Component {
               <Container>
                 <Alert color="success">
                   <h5 className="alert-heading">
-                    We've sent a confirmation email to ${this.state.email}. Click the link in the
-                    email to complete the registration process.
+                    We've sent a confirmation email to ${this.state.email}.
+                    Click the link in the email to complete the registration
+                    process.
                   </h5>
                 </Alert>
               </Container>
@@ -228,7 +229,7 @@ class Register extends Component {
           </div>
           <div id="exampleContainer" className="col align-self-center">
             <img
-              src={require("../media/demo_text.jpg")}
+              src={require("../media/demo_text_2.png")}
               className="text-example-img"
               alt="Text Message Example"
             />
