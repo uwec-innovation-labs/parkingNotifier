@@ -146,7 +146,7 @@ class Register extends Component {
               <Container>
                 <Alert color="success">
                   <h5 className="alert-heading">
-                    We've sent a confirmation email to ${this.state.email}.
+                    We've sent a confirmation email to {this.state.email}.
                     Click the link in the email to complete the registration
                     process.
                   </h5>
