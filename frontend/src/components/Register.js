@@ -229,7 +229,6 @@ class Register extends Component {
           </div>
           <div id="exampleContainer" className="col align-self-center">
             <img
-              //src={require("../media/demo_text.jpg")}
               src={require("../media/demo_text_2.png")}
               className="text-example-img"
               alt="Text Message Example"
