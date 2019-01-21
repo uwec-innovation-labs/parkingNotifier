@@ -36,7 +36,7 @@
     "jsonwebtoken": "^8.4.0",
     "mongoose-unique-validator": "^2.0.2",
     "morgan": "^1.9.1",
-    "redoc": "^2.0.0-alpha.41",
+    "redoc": "^2.0.0-rc.1",
     "swagger-express-jsdoc": "^1.0.3",
     "twilio": "^3.27.1"
   },
