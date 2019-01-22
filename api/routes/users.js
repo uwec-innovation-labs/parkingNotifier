@@ -16,10 +16,7 @@ module.exports = app => {
 };
 
 const checkToken = (req, res, next) => {
-  console.log(req.headers.token);
-  const localToken = req.headers.token;
-
-  if (localToken == process.env.JWT_SECRET) {
+  if (req.headers.token && req.headers.token === process.env.JWT_SECRET) {
     next();
   } else {
     //If localToken is undefined return Forbidden (403)
