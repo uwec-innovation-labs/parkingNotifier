@@ -51,7 +51,6 @@ class Register extends Component {
     var pn = new PhoneNumber(this.state.phone, "US");
     if (this.state.emailValid && pn.isValid()) {
       this.setState({ formValid: true });
-      console.log("updated the image");
       this.registerUser();
     }
   };
