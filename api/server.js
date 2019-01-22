@@ -19,7 +19,7 @@ require("dotenv").config();
 
 // create an instance of express
 const app = express();
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 9000;
 
 // connect to the database
 console.log("Trying to connect");
@@ -66,6 +66,7 @@ app.get('/api-docs.json', (req, res) => {
 app.get('/docs', (req, res) => {
   fs.createReadStream(path.join(__dirname, 'redoc.html')).pipe(res)
 })
+
 /***** ERROR PAGES *****/
 app.use((req, res) => {
   res.status(404);
