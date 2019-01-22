@@ -1,14 +1,12 @@
 module.exports = app => {
   const axios = require("axios");
   const cheerio = require("cheerio");
-  const Status = require("../models/status");
+  const ParkingStatus = require("../models/parkingStatus");
   const cityURL = "http://www.ci.eau-claire.wi.us/";
   const notifyHelper = require("./notify");
   const date = require("date-and-time");
 
   axios.get(cityURL).then(response => {
-    var success = false;
-
     if (response.status === 200) {
       // reads, loads, and parses html into readable form
       // current version scrapes for top navigation bar
@@ -37,50 +35,49 @@ module.exports = app => {
 
       //creating entry date
       var currentDate = new Date();
+      console.log(
+        currentDate.toLocaleString("en-US", {
+          timeZone: "America/Chicago"
+        })
+      );
 
       //creating new status document
-      let newStatus;
+      let newParkingStatus;
 
       //checks if alternate parking banner exists
       if (altParkingInEffect) {
-        newStatus = {
-          alternateParking: true,
-          timestamp: getStartDate(currentDate).toLocaleString("en-US", {
+        newParkingStatus = {
+          inEffect: true,
+          start: getStartDate(currentDate).toLocaleString("en-US", {
             timeZone: "America/Chicago"
           }),
-          streetSide: getStreetSide(currentDate),
-          expirationDate: getExpirationDate(currentDate).toLocaleString(
-            "en-US",
-            {
-              timeZone: "America/Chicago"
-            }
-          )
+          end: getExpirationDate(currentDate).toLocaleString("en-US", {
+            timeZone: "America/Chicago"
+          })
         };
-        new Status(newStatus)
+        new ParkingStatus(newParkingStatus)
           .save()
-          .then(console.log("Status save successful"))
+          .then(console.log("ParkingStatus save successful"))
           .catch(err => console.log(err));
 
-        //send out the twillio messsage
-        // this being commented out makes this a manual process. Suitable for RELEASE 1.0. To be updated when tested
-        //notifyHelper(app);
+        if (isNewPost(newsItems)) {
+          //send out the twillio messsage
+          // this being commented out makes this a manual process. Suitable for RELEASE 1.0. To be updated when tested
+          //notifyHelper(app);
+        }
+      } else {
+        newParkingStatus = {
+          inEffect: false,
+          start: null,
+          end: null
+        };
+        new ParkingStatus(newParkingStatus)
+          .save()
+          .then(console.log("ParkingStatus save successful"))
+          .catch(err => console.log(err));
       }
     }
   });
-
-  //pulls the date given to status.timestamp and determines the parking for the day
-  getStreetSide = currentDate => {
-    //finds local time, and parses string for date
-    //date format in system [month/day/year time]
-    var local = currentDate.toLocaleString();
-    var day = local.match(/.*\/(.*)\/.*/);
-
-    if (day[1] % 2 === 0) {
-      return "Even";
-    } else {
-      return "Odd";
-    }
-  };
 
   //sets the date to the next day from the starting date.
   getStartDate = currentDate => {
@@ -90,37 +87,64 @@ module.exports = app => {
     return startDate;
   };
 
-  //adds 72 hours to the starting date
+  //alternate side parking is enforced from 12am-5pm each day
+  //expiration is set to 5pm on the third day
   getExpirationDate = currentDate => {
     var expirationDate = new Date();
-    expirationDate = date.addDays(currentDate, 4);
-    expirationDate.setHours(0, 0, 0, 0);
+    expirationDate = date.addDays(currentDate, 3);
+    expirationDate.setHours(17, 0, 0, 0);
     return expirationDate;
   };
 
+  //checks if there is an alternate side parking posting
   checkForAlternateParking = newsItems => {
     newsItems.forEach(element => {
       if (element.title.toLowerCase().includes("alternate side parking")) {
         var postDate = element.description.match(/(\d*\/\d*\/\d*)/); //regular expression search for a date
         postDate = postDate[1]; //sets to the first instance
-        return getIsNewPost(postDate); //Alternate Side Parking listed in latest news. Checking if it is brand new.
+        return !!!isStalePost(postDate); //Alternate Side Parking listed in latest news. Checking if it is brand new.
       }
     });
     return false; //Alternate Side Parking not listed in latest news
   };
 
-  getIsNewPost = dayPosted => {
+  //precautionary check to ensure alternate side parking is still in effect and the posting isn't old
+  isStalePost = dayPosted => {
     var todayDate = new Date();
     var today = todayDate.getDate();
     var posted = dayPosted.substring(
       dayPosted.indexOf("/") + 1,
       dayPosted.lastIndexOf("/")
     );
-    var difference = today + 1 - posted; //checks if the the posting date matches todays date + 1
+    var difference = today + 1 - posted;
 
-    if (difference == 0) {
+    //checks if the the posting date is more than three days old
+    if (difference > 3) {
       return true; //the post is new and a text should be sent out
     }
     return false;
+  };
+
+  //checks to see if alternate side parking notice is new and users should be notified
+  isNewPost = newsItems => {
+    newsItems.forEach(element => {
+      if (element.title.toLowerCase().includes("alternate side parking")) {
+        var dayPosted = element.description.match(/(\d*\/\d*\/\d*)/); //regular expression search for a date
+        dayPosted = dayPosted[1]; //sets to the first instance
+
+        var todayDate = new Date();
+        var today = todayDate.getDate();
+        var posted = dayPosted.substring(
+          dayPosted.indexOf("/") + 1,
+          dayPosted.lastIndexOf("/")
+        );
+        var difference = today + 1 - posted; //checks if the the posting date matches todays date + 1
+
+        if (difference == 0) {
+          return true; //the post is new and a text should be sent out
+        }
+      }
+    });
+    return false; //posting is not new, no need to notify
   };
 };

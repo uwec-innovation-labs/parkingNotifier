@@ -5,13 +5,13 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const CronJob = require("cron").CronJob;
 var cors = require("cors");
-var swaggerJSDoc = require('swagger-jsdoc')
-var fs = require('fs')
-var path = require('path')
+var swaggerJSDoc = require("swagger-jsdoc");
+var fs = require("fs");
+var path = require("path");
 
 var userRoutes = require("./routes/users");
 var statRoutes = require("./routes/stats");
-var statusRoutes = require("./routes/status");
+var parkingStatusRoutes = require("./routes/parkingStatus");
 var monitorHelper = require("./helpers/monitor");
 
 // import environment variables from .env file
@@ -55,17 +55,17 @@ app.use(bodyParser.json());
 
 userRoutes(app);
 statRoutes(app);
-statusRoutes(app);
-var swaggerSpec = swaggerJSDoc(require('./swaggerConfig').options)
+parkingStatusRoutes(app);
+var swaggerSpec = swaggerJSDoc(require("./swaggerConfig").options);
 
-app.get('/api-docs.json', (req, res) => {
-  res.setHeader('Content-Type', 'application/json')
-  res.send(swaggerSpec)
-})
+app.get("/api-docs.json", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerSpec);
+});
 
-app.get('/docs', (req, res) => {
-  fs.createReadStream(path.join(__dirname, 'redoc.html')).pipe(res)
-})
+app.get("/docs", (req, res) => {
+  fs.createReadStream(path.join(__dirname, "redoc.html")).pipe(res);
+});
 
 /***** ERROR PAGES *****/
 app.use((req, res) => {

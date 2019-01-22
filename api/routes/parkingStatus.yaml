@@ -1,0 +1,29 @@
+paths:
+  /status: # path of the user from your endpoint
+    get: # endpoint request type (post request)
+      tags: # Tag property
+        - Status # Value of the tag
+      summary: Get a status of the alternate side parking
+      produces:
+        - application/json
+      responses: # server responses
+        200:
+          description: An object with the current status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inEffect:
+                    type: boolean
+                    description: Describes whether alternate side parking is in effect
+                  start:
+                    type: string
+                    description: Starting date and time of alternate side parking
+                  end:
+                    type: string
+                    description: Ending date and time of alternate side parking sequence
+                example:
+                  inEffect: true
+                  start: 12/22/2018, 12:00:00 AM
+                  end: 12/24/2018, 5:00:00 PM

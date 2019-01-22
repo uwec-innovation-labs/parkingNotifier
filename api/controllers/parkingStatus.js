@@ -1,10 +1,10 @@
 var mongoose = require("mongoose");
-var Status = require("../models/status");
+var ParkingStatus = require("../models/parkingStatus");
 
-mongoose.model("Status");
+mongoose.model("ParkingStatus");
 
 exports.getStatus = (req, res) => {
-  Status.find((err, parkingStatus) => {
+  ParkingStatus.find((err, parkingStatus) => {
     if (err) return console.error(err);
     res.status(200).send(parkingStatus);
   });

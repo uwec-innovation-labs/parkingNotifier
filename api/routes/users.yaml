@@ -1,13 +1,13 @@
 paths:
-  /users:                # path of the user from your endpoint
-    get:                 # endpoint request type (post request)
-      tags:               # Tag property
-        - User        # Value of the tag
+  /users: # path of the user from your endpoint
+    get: # endpoint request type (post request)
+      tags: # Tag property
+        - User # Value of the tag
       summary: get a list of all users
       produces:
-      - application/json
-      responses:          # server responses
-        201:
+        - application/json
+      responses: # server responses
+        200:
           description: An object with user details
           content:
             application/json:
@@ -36,15 +36,15 @@ paths:
                   - firstName: Grey
                     lastName: Larson
                     email: Grey_Larson@example.com
-                    phoneNumber: "+15555555555"       
+                    phoneNumber: "+15555555555"
         403:
           description: Invalid authentication level
-    post:                 # endpoint request type (post request)
-      tags:               # Tag property
-        - User            # Value of the tag
+    post: # endpoint request type (post request)
+      tags: # Tag property
+        - User # Value of the tag
       summary: creates a new user
       produces:
-      - application/json
+        - application/json
       requestBody:
         content:
           application/json:
@@ -64,15 +64,15 @@ paths:
                 lastName: Stout
                 username: exampleEmail@uwec.edu
                 phoneNumber: "+15555555555"
-      responses:          # server responses
-        200:
+      responses: # server responses
+        201:
           description: Successfully created user
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success: 
+                  success:
                     type: boolean
                     description: If the creation was a success
                   message:
@@ -88,7 +88,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  success: 
+                  success:
                     type: boolean
                     description: If the creation was a success
                   message:
@@ -97,12 +97,12 @@ paths:
                 example:
                   success: false
                   message: User with this email already exists.
-    delete:                 # endpoint request type (post request)
-      tags:               # Tag property
-        - User            # Value of the tag
+    delete: # endpoint request type (post request)
+      tags: # Tag property
+        - User # Value of the tag
       summary: deletes a user
       produces:
-      - application/json
+        - application/json
       requestBody:
         content:
           application/json:
@@ -113,7 +113,7 @@ paths:
                   type: string
               example:
                 email: alex_stout@example.com
-      responses:          # server responses
+      responses: # server responses
         200:
           description: An object with user details
           content:
@@ -121,7 +121,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  success: 
+                  success:
                     type: boolean
                     description: If the creation was a success
                   message:
@@ -137,7 +137,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  success: 
+                  success:
                     type: boolean
                     description: If the creation was a success
                   message:
@@ -146,57 +146,56 @@ paths:
                 example:
                   success: true
                   message: User with that email does not exists
-                                   
-/confirmation/{confirmCode}:                # path of the user from your endpoint
-    post:                 # endpoint request type (post request)
-      tags:               # Tag property
-        - User            # Value of the tag
-      summary: confirm user with confirmation code
-      paramaters:
-        - in: path
-          name: confirmCode
-          schema:
-            type: string
-          required: true
-          description: Confirmation code emailed to the user's email address
-      produces:
+
+/confirmation/{confirmCode}: # path of the user from your endpoint
+  post: # endpoint request type (post request)
+    tags: # Tag property
+      - User # Value of the tag
+    summary: confirm user with confirmation code
+    paramaters:
+      - in: path
+        name: confirmCode
+        schema:
+          type: string
+        required: true
+        description: Confirmation code emailed to the user's email address
+    produces:
       - application/json
-      responses:          # server responses
-        201:
-          description: Unsuccessfully confirmed user
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success: 
-                    type: boolean
-                    description: If the creation was a success
-                  message:
-                    type: string
-                    description: Short message of status
-                example:
-                  success: true
-                  message: Your email is now confirmed. You will receive notifications.
-        400:
-          description: Unsuccessfully confirmed user
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success: 
-                    type: boolean
-                    description: If the creation was a success
-                  message:
-                    type: string
-                    description: Short message of status
-                example:
-                  success: false
-                  message: Either you're already subscribed or the confirmation code is incorrect.
+    responses: # server responses
+      201:
+        description: Unsuccessfully confirmed user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  description: If the creation was a success
+                message:
+                  type: string
+                  description: Short message of status
+              example:
+                success: true
+                message: Your email is now confirmed. You will receive notifications.
+      400:
+        description: Unsuccessfully confirmed user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  description: If the creation was a success
+                message:
+                  type: string
+                  description: Short message of status
+              example:
+                success: false
+                message: Either you're already subscribed or the confirmation code is incorrect.
 
-
-definitions:        # Schema defination for request body
+definitions: # Schema defination for request body
   register:
     type: object
     properties:
