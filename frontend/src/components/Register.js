@@ -230,17 +230,21 @@ class Register extends Component {
               </Form>
             )}
           </div>
-          <div
-            id="exampleContainer"
-            className="col align-self-center"
-            style={imgStyle}
-          >
-            <img
-              src={require("../media/demo_text_2.png")}
-              className="text-example-img"
-              alt="Text Message Example"
-            />
-          </div>
+          {this.state.submitSuccess ? (
+            <div />
+          ) : (
+            <div
+              id="exampleContainer"
+              className="col align-self-center"
+              style={imgStyle}
+            >
+              <img
+                src={require("../media/demo_text_2.png")}
+                className="text-example-img"
+                alt="Text Message Example"
+              />
+            </div>
+          )}
         </div>
       </div>
     );
