@@ -14,6 +14,9 @@ import {
 } from "reactstrap";
 
 var PhoneNumber = require("awesome-phonenumber");
+var imgStyle = {
+  display: "inline"
+};
 
 class Register extends Component {
   constructor(props) {
@@ -48,6 +51,7 @@ class Register extends Component {
     var pn = new PhoneNumber(this.state.phone, "US");
     if (this.state.emailValid && pn.isValid()) {
       this.setState({ formValid: true });
+      console.log("updated the image");
       this.registerUser();
     }
   };
@@ -146,9 +150,8 @@ class Register extends Component {
               <Container>
                 <Alert color="success">
                   <h5 className="alert-heading">
-                    We've sent a confirmation email to {this.state.email}.
-                    Click the link in the email to complete the registration
-                    process.
+                    We've sent a confirmation email to {this.state.email}. Click
+                    the link in the email to complete the registration process.
                   </h5>
                 </Alert>
               </Container>
@@ -227,7 +230,11 @@ class Register extends Component {
               </Form>
             )}
           </div>
-          <div id="exampleContainer" className="col align-self-center">
+          <div
+            id="exampleContainer"
+            className="col align-self-center"
+            style={imgStyle}
+          >
             <img
               src={require("../media/demo_text_2.png")}
               className="text-example-img"
