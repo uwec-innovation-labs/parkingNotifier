@@ -150,7 +150,7 @@ paths:
 /confirmation/{confirmCode}:                # path of the user from your endpoint
     post:                 # endpoint request type (post request)
       tags:               # Tag property
-        - Confirmation            # Value of the tag
+        - User            # Value of the tag
       summary: confirm user with confirmation code
       paramaters:
         - in: path
