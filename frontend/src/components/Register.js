@@ -22,7 +22,7 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0,
+      confirmed: 0,
       fname: "",
       lname: "",
       phone: "",
@@ -41,7 +41,7 @@ class Register extends Component {
       .then(res => res.json())
       .then(result => {
         this.setState({
-          count: result.count
+          confirmed: result.confirmed
         });
       });
   }
@@ -139,7 +139,7 @@ class Register extends Component {
               <div className="statCard">
                 <h4>
                   Join{" "}
-                  {this.state.count
+                  {this.state.confirmed
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
                   others receiving text alerts.
