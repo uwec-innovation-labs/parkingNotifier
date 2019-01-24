@@ -12,6 +12,10 @@ let parkingStatusSchema = mongoose.Schema({
   end: {
     type: String,
     require: false
+  },
+  timestamp: {
+    type: Date,
+    require: true
   }
 });
 

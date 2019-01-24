@@ -30,39 +30,38 @@ axios.get(cityURL).then(response => {
       });
     });
 
-    //checking if html contains alternate parking listing
+    //checking if html contains alternate parking listing by scanning "latest news" items from EC website
     var altParkingInEffect = checkForAlternateParking(newsItems);
 
-    //creating entry date
+    //creating entry date based on today's date
     var currentDate = new Date();
 
-    var dateTest = stringToDate("12/1/2016");
-    console.log(
-      dateTest.toLocaleString("en-US", { timeZone: "America/Chicago" })
-    );
-
-    //creating new status document
+    //creating new parkingStatus document
     let newParkingStatus;
 
     //checks if alternate parking banner exists
     if (altParkingInEffect) {
-      var postingDate = getPostingDate(newsItems);
-      console.log(postingDate);
       newParkingStatus = {
         inEffect: true,
-        start: getStartDate(postingDate).toLocaleString("en-US", {
+        start: getStartDate(postDate).toLocaleString("en-US", {
           timeZone: "America/Chicago"
         }),
-        end: getExpirationDate(postingDate).toLocaleString("en-US", {
+        end: getExpirationDate(postDate).toLocaleString("en-US", {
+          timeZone: "America/Chicago"
+        }),
+        timestamp: new Date().toLocaleString("en-US", {
           timeZone: "America/Chicago"
         })
       };
+      console.log(JSON.stringify(newParkingStatus));
       new ParkingStatus(newParkingStatus)
         .save()
         .then(console.log("ParkingStatus save successful"))
         .catch(err => console.log(err));
 
-      if (isNewPost(newsItems)) {
+      // if (isNewPost(newsItems)) {
+      if (isStalePost("1/20/2019")) {
+        console.log("Is Stale Post!");
         //send out the twillio messsage
         // this being commented out makes this a manual process. Suitable for RELEASE 1.0. To be updated when tested
         //notifyHelper(app);
@@ -71,8 +70,12 @@ axios.get(cityURL).then(response => {
       newParkingStatus = {
         inEffect: false,
         start: null,
-        end: null
+        end: null,
+        timestamp: new Date().toLocaleString("en-US", {
+          timeZone: "America/Chicago"
+        })
       };
+      console.log(JSON.stringify(newParkingStatus));
       new ParkingStatus(newParkingStatus)
         .save()
         .then(console.log("ParkingStatus save successful"))
@@ -81,81 +84,76 @@ axios.get(cityURL).then(response => {
   }
 });
 //sets the date to the next day from the starting date.
-getStartDate = currentDate => {
+getStartDate = postDate => {
   var startDate = new Date();
-  startDate = date.addDays(currentDate, 1);
+  startDate = postDate;
   startDate.setHours(0, 0, 0, 0);
   return startDate;
 };
 
 //alternate side parking is enforced from 12am-5pm each day
 //expiration is set to 5pm on the third day
-getExpirationDate = currentDate => {
+getExpirationDate = postDate => {
   var expirationDate = new Date();
-  expirationDate = date.addDays(currentDate, 3);
+  expirationDate = date.addDays(postDate, 2);
   expirationDate.setHours(17, 0, 0, 0);
   return expirationDate;
 };
-getPostingDate = newsItems => {
-  newsItems.forEach(element => {
-    if (element.title.toLowerCase().includes("alternate side parking")) {
-      var postDate = element.description.match(/(\d*\/\d*\/\d*)/); //regular expression search for a date
-      postDate = postDate[1]; //sets to the first instance
-      return postDate; //Alternate Side Parking listed in latest news. Checking if it is brand new.
-    }
-  });
-};
+// getPostingDate = newsItems => {
+//   newsItems.forEach(element => {
+//     if (element.title.toLowerCase().includes("alternate side parking")) {
+//       var postDate = element.description.match(/(\d*\/\d*\/\d*)/); //regular expression search for a date
+//       postDate = postDate[1]; //sets to the first instance
+//       return postDate; //Alternate Side Parking listed in latest news. Checking if it is brand new.
+//     }
+//   });
+// };
 //checks if there is an alternate side parking posting
 checkForAlternateParking = newsItems => {
   newsItems.forEach(element => {
     if (element.title.toLowerCase().includes("alternate side parking")) {
       var postDate = element.description.match(/(\d*\/\d*\/\d*)/); //regular expression search for a date
       postDate = postDate[1]; //sets to the first instance
-      return !!!isStalePost(postDate); //Alternate Side Parking listed in latest news. Checking if it is brand new.
+      return !!!isStalePost(postDate); //Alternate Side Parking listed in latest news. Checking if it is current.
     }
   });
   return false; //Alternate Side Parking not listed in latest news
 };
 
 //precautionary check to ensure alternate side parking is still in effect and the posting isn't old
-isStalePost = dayPosted => {
+isStalePost = postDate => {
   var today = new Date();
-  //var today = todayDate.getDate();
-  var posted = stringToDate(dayPosted);
-  var difference = date.subtract(posted, today + 1);
-
-  //checks if the the posting date is more than three days old
+  var posted = stringToDate(postDate);
+  var difference = date.subtract(today, posted).toDays(); //checks if the the posting date is more than three days old
+  console.log(difference);
   if (difference > 3) {
-    return true; //the post is new and a text should be sent out
+    return true; //the posting is stale and should not be logged
   }
-  return false;
-};
-
-stringToDate = dateString => {
-  return new Date(
-    dateString.substring(dateString.lastIndexOf("/") + 1, dateString.length),
-    dateString.substring(0, dateString.indexOf("/")) - 1,
-    dateString.substring(
-      dateString.indexOf("/") + 1,
-      dateString.lastIndexOf("/")
-    )
-  );
+  return false; //the posting is still current
 };
 
 //checks to see if alternate side parking notice is new and users should be notified
 isNewPost = postDate => {
-  newsItems.forEach(element => {
-    var today = todayDate.getDate();
-    var posted = postDate.substring(
-      dayPosted.indexOf("/") + 1,
-      dayPosted.lastIndexOf("/")
-    );
-    var difference = today + 1 - posted; //checks if the the posting date matches todays date + 1
-
-    if (difference == 0) {
-      return true; //the post is new and a text should be sent out
-    }
-  });
+  var today = new Date();
+  var posted = stringToDate(postDate);
+  let difference = date.subtract(posted, date.addDays(today, 1)).toDays(); //checks if the the posting date matches todays date + 1
+  if (difference == 0) {
+    return true; //the post is new and a text should be sent out
+  }
   return false; //posting is not new, no need to notify
 };
+
+// //takes in a string and creates a new date. String formatting shuld be (MM/DD/YYYY)
+// stringToDate = dateAsString => {
+//   // Date object creation requires (YYYY/MM/DD)
+//   var dateString = dateAsString.toLocaleString();
+//   return new Date(
+//     dateString.substring(dateString.lastIndexOf("/") + 1, dateString.length),
+//     dateString.substring(0, dateString.indexOf("/")) - 1,
+//     dateString.substring(
+//       dateString.indexOf("/") + 1,
+//       dateString.lastIndexOf("/")
+//     )
+//   );
+// };
 //};
