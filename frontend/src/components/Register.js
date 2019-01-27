@@ -14,12 +14,15 @@ import {
 } from "reactstrap";
 
 var PhoneNumber = require("awesome-phonenumber");
+var imgStyle = {
+  display: "inline"
+};
 
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0,
+      confirmed: 0,
       fname: "",
       lname: "",
       phone: "",
@@ -38,7 +41,7 @@ class Register extends Component {
       .then(res => res.json())
       .then(result => {
         this.setState({
-          count: result.count
+          confirmed: result.confirmed
         });
       });
   }
@@ -135,7 +138,7 @@ class Register extends Component {
               <div className="statCard">
                 <h4>
                   Join{" "}
-                  {this.state.count
+                  {this.state.confirmed
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
                   others receiving text alerts.
@@ -146,9 +149,8 @@ class Register extends Component {
               <Container>
                 <Alert color="success">
                   <h5 className="alert-heading">
-                    We've sent a confirmation email to {this.state.email}.
-                    Click the link in the email to complete the registration
-                    process.
+                    We've sent a confirmation email to {this.state.email}. Click
+                    the link in the email to complete the registration process.
                   </h5>
                 </Alert>
               </Container>
@@ -227,13 +229,21 @@ class Register extends Component {
               </Form>
             )}
           </div>
-          <div id="exampleContainer" className="col align-self-center">
-            <img
-              src={require("../media/demo_text_2.png")}
-              className="text-example-img"
-              alt="Text Message Example"
-            />
-          </div>
+          {this.state.submitSuccess ? (
+            <div />
+          ) : (
+            <div
+              id="exampleContainer"
+              className="col align-self-center"
+              style={imgStyle}
+            >
+              <img
+                src={require("../media/demo_text_2.png")}
+                className="text-example-img"
+                alt="Text Message Example"
+              />
+            </div>
+          )}
         </div>
       </div>
     );
