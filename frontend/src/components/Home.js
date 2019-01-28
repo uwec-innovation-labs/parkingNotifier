@@ -5,7 +5,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0
+      confirmed: 0
     };
   }
 
@@ -15,7 +15,7 @@ class Home extends Component {
       .then(result => {
         console.log(result);
         this.setState({
-          count: result.count
+          confirmed: result.confirmed
         });
       });
   }
@@ -81,7 +81,7 @@ class Home extends Component {
           <a href="/register">
             <div className="button">
               Join{" "}
-              {this.state.count
+              {this.state.confirmed
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
               others
