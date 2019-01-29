@@ -75,13 +75,13 @@ module.exports = app => {
           .then(console.log("ParkingStatus save successful"))
           .catch(err => console.log(err));
 
-        // if (isNewPost(newsItems)) {
-        if (isStalePost("1/20/2019")) {
-          console.log("Is Stale Post!");
-          //send out the twillio messsage
-          // this being commented out makes this a manual process. Suitable for RELEASE 1.0. To be updated when tested
-          //notifyHelper(app);
-        }
+        //if (isNewPost(newsItems)) {
+        //if (isStalePost("1/20/201")) {
+        //console.log("Is Stale Post!");
+        //send out the twillio messsage
+        // this being commented out makes this a manual process. Suitable for RELEASE 1.0. To be updated when tested
+        //notifyHelper(app);
+        //}
       } else {
         newParkingStatus = {
           inEffect: false,
