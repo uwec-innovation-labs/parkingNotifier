@@ -91,7 +91,7 @@ app.use((error, req, res, next) => {
 
 new CronJob(
   "0 18 * * * ", //runs at 6pm everyday
-  //"*/10 * * * * *", //runs every 10 seconds (testing purposes only)
+  //"*/15 * * * * *", //runs every 10 seconds (testing purposes only)
   () => {
     console.log(
       "[" +

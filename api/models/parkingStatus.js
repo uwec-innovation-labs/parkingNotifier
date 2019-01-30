@@ -3,19 +3,23 @@ let mongoose = require("mongoose");
 let parkingStatusSchema = mongoose.Schema({
   inEffect: {
     type: Boolean,
-    required: true
+    required: true,
+    select: true
   },
   start: {
-    type: String,
-    required: false
+    type: Date,
+    required: false,
+    select: true
   },
   end: {
-    type: String,
-    require: false
+    type: Date,
+    require: false,
+    select: true
   },
   timestamp: {
     type: Date,
-    require: true
+    require: true,
+    select: true
   }
 });
 

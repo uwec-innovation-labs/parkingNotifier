@@ -5,6 +5,9 @@ module.exports = app => {
   const cityURL = "http://www.ci.eau-claire.wi.us/";
   const notifyHelper = require("./notify");
   const date = require("date-and-time");
+  const mongoose = require("mongoose");
+
+  mongoose.model("ParkingStatus");
 
   axios.get(cityURL).then(response => {
     if (response.status === 200) {
@@ -30,153 +33,150 @@ module.exports = app => {
         });
       });
 
-      //checking if html contains alternate parking listing by scanning "latest news" items from EC website
-      var altParkingInEffect = checkForAlternateParking(newsItems);
+      ParkingStatus.findOne()
+        .sort({ timestamp: -1 })
+        .exec((err, oldStatus) => {
+          if (err) return console.error(err);
 
-      //creating entry date based on today's date
-      var currentDate = new Date();
+          //creating new parkingStatus document
+          let newParkingStatus;
 
-      //creating new parkingStatus document
-      let newParkingStatus;
+          if (oldStatus == null) {
+            // saving a dummy record to populate database
+            // will run after database is cleared
+            newParkingStatus = {
+              inEffect: false,
+              start: null,
+              end: null,
+              timestamp: new Date()
+            };
+            new ParkingStatus(newParkingStatus)
+              .save()
+              .then(console.log("Dummy False ParkingStatus save successful"))
+              .catch(err => console.log(err));
+          }
 
-      //checks if alternate parking banner exists
-      if (altParkingInEffect) {
-        //never can be both true
-        let isNew = isNewPost();
-        let isStale = isStalePost();
+          //checking if html contains alternate parking listing by scanning "latest news" items from EC website
+          var altParkingInEffect = checkForAlternateParking(
+            newsItems,
+            oldStatus
+          );
 
-        if (isNew && !!!isStale) {
-          newParkingStatus = {
-            inEffect: true,
-            start: getStartDate(),
-            end: getEndDate(),
-            timestamp: new Date().toLocaleString("en-US", {
-              timeZone: "America/Chicago"
-            })
-          };
-        } else if (!!!isNew && !!!isStale) {
-          newParkingStatus = {
-            inEffect: true,
-            start: getStartDate(postDate).toLocaleString("en-US", {
-              timeZone: "America/Chicago"
-            }),
-            end: getEndDate(postDate).toLocaleString("en-US", {
-              timeZone: "America/Chicago"
-            }),
-            timestamp: new Date().toLocaleString("en-US", {
-              timeZone: "America/Chicago"
-            })
-          };
-        } else if (!!!isNew && isStale) {
-        }
-        console.log(JSON.stringify(newParkingStatus));
-        new ParkingStatus(newParkingStatus)
-          .save()
-          .then(console.log("ParkingStatus save successful"))
-          .catch(err => console.log(err));
+          if (altParkingInEffect) {
+            //check if the post is new today
+            let isNew = isNewPost(oldStatus);
 
-        //if (isNewPost(newsItems)) {
-        //if (isStalePost("1/20/201")) {
-        //console.log("Is Stale Post!");
-        //send out the twillio messsage
-        // this being commented out makes this a manual process. Suitable for RELEASE 1.0. To be updated when tested
-        //notifyHelper(app);
-        //}
-      } else {
-        newParkingStatus = {
-          inEffect: false,
-          start: null,
-          end: null,
-          timestamp: new Date().toLocaleString("en-US", {
-            timeZone: "America/Chicago"
-          })
-        };
-        console.log(JSON.stringify(newParkingStatus));
-        new ParkingStatus(newParkingStatus)
-          .save()
-          .then(console.log("ParkingStatus save successful"))
-          .catch(err => console.log(err));
-      }
+            if (isNew) {
+              newParkingStatus = {
+                inEffect: true,
+                start: getStartDate(isNew, oldStatus),
+                end: getEndDate(isNew, oldStatus),
+                timestamp: new Date()
+              };
+            } else {
+              newParkingStatus = {
+                inEffect: true,
+                start: getStartDate(isNew, oldStatus),
+                end: getEndDate(isNew, oldStatus),
+                timestamp: new Date()
+              };
+            }
+            new ParkingStatus(newParkingStatus)
+              .save()
+              .then(console.log("ParkingStatus save successful"))
+              .catch(err => console.log(err));
+
+            if (isNew) {
+              console.log(
+                "New Posting: Notify.js should be called and messages should be sent now"
+              );
+              //send out the twillio messsage
+              // this being commented out makes this a manual process. Suitable for RELEASE 1.0. To be updated when tested
+              //notifyHelper(app);
+            }
+          } else {
+            newParkingStatus = {
+              inEffect: false,
+              start: null,
+              end: null,
+              timestamp: new Date()
+            };
+            new ParkingStatus(newParkingStatus)
+              .save()
+              .then(console.log("ParkingStatus save successful"))
+              .catch(err => console.log(err));
+          }
+        });
     }
   });
   //returns start date for alternate side parking
-  getStartDate = isNew => {
+  getStartDate = (isNew, oldStatus) => {
     if (isNew) {
-      return new Date().setHours(0, 0, 0, 0).toLocaleString("en-US", {
-        timeZone: "America/Chicago"
-      });
+      let today = new Date();
+      let startDate = date.addDays(today, 1).setHours(0, 0, 0, 0);
+      return startDate;
     } else {
-      //get date from yesterday
-      return true; //TEMP -> return start date from yesterday
+      //get start date from yesterday
+      return oldStatus.start;
     }
   };
 
   //returns end date for alternate side parking
-  getEndDate = isNew => {
+  getEndDate = (isNew, oldStatus) => {
     if (isNew) {
-      today = new Date();
-      endDate = date
-        .addDays(today, 2)
-        .setHours(17, 0, 0, 0)
-        .toLocaleString("en-US", {
-          timeZone: "America/Chicago"
-        });
+      let today = new Date();
+      let endDate = date.addDays(today, 3).setHours(17, 0, 0, 0);
       return endDate;
     } else {
-      //get date from yesterday
-      return true; //TEMP -> return start date from yesterday
+      //get end date from yesterday
+      return oldStatus.end;
     }
   };
 
   //checks if there is an alternate side parking posting
-  checkForAlternateParking = newsItems => {
+  checkForAlternateParking = (newsItems, oldStatus) => {
+    var result = false;
     newsItems.forEach(element => {
-      if (element.title.toLowerCase().includes("alternate side parking")) {
-        return true; // found Alternate Side Parking listing
+      if (
+        element.title.toLowerCase().includes("alternate side parking") ||
+        element.title.toLowerCase().includes("snow event")
+      ) {
+        if (!!!isStalePost(oldStatus)) {
+          //checking if status is stale
+          result = true; // found Alternate Side Parking listing and it is not old
+        }
       }
     });
-    return false; //Alternate Side Parking not listed in latest news
+    return result;
   };
 
   //precautionary check to ensure alternate side parking is still in effect and the posting isn't old
-  isStalePost = () => {
+  isStalePost = oldStatus => {
     //check previous log item
-    if (/*inEffect is false*/ false) {
+    if (!oldStatus.inEffect) {
+      // if yesterday is false the post can't be stale
       return false;
     } else {
-      if (/*ends date comes after now*/ true) {
-        return true;
+      if (date.subtract(oldStatus.end, new Date()).toSeconds() < 0) {
+        return true; // returned a negative value meaning the end date has passed
       } else {
-        return false;
+        return false; // returned a positive value meaning the end date has not passed
       }
     }
   };
 
   //checks to see if alternate side parking notice is new and users should be notified
-  isNewPost = () => {
+  isNewPost = oldStatus => {
     //check previous log item
-    if (/*inEffect is false*/ false) {
+    if (!oldStatus.inEffect) {
+      // if yesterday is false, the post must be new
       return true;
     } else {
-      if (/*ends date comes after now*/ true) {
-        return false;
+      if (date.subtract(oldStatus.end, new Date()).toSeconds() < 0) {
+        return true; // returned a positive value meaning the end date has passed on old post
       } else {
-        return true;
+        return false; // returned a negative value meaning the old status is still active
       }
     }
   };
-
-  // //takes in a string and creates a new date. String formatting shuld be (MM/DD/YYYY)
-  // stringToDate = dateAsString => {
-  //   // Date object creation requires (YYYY/MM/DD)
-  //   var dateString = dateAsString.toLocaleString();
-  //   return new Date(
-  //     dateString.substring(dateString.lastIndexOf("/") + 1, dateString.length),
-  //     dateString.substring(0, dateString.indexOf("/")) - 1,
-  //     dateString.substring(
-  //       dateString.indexOf("/") + 1,
-  //       dateString.lastIndexOf("/")
-  //     )
-  //   );
-  // };
 };

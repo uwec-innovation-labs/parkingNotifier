@@ -9,3 +9,14 @@ exports.getStatus = (req, res) => {
     res.status(200).send(parkingStatus);
   });
 };
+
+exports.deleteStatus = (req, res, next) => {
+  ParkingStatus.deleteMany({}, (err, parkingStatus) => {
+    if (err) res.send(err);
+    res.json({
+      success: true,
+      message: "Successfully cleared parkingStatusDatabase",
+      parkingStatus: parkingStatus
+    });
+  });
+};
