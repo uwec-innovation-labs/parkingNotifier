@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/UWEC-ITC/parkingNotifier-API#readme",
   "dependencies": {
-    "awesome-phonenumber": "^2.3.3",
+    "awesome-phonenumber": "^2.4.0",
     "aws-sdk": "^2.391.0",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
@@ -36,7 +36,7 @@
     "mongoose": "^5.4.5",
     "mongoose-unique-validator": "^2.0.2",
     "morgan": "^1.9.1",
-    "redoc": "^2.0.0-rc.1",
+    "redoc": "^2.0.0-rc.2",
     "swagger-express-jsdoc": "^1.0.3",
     "twilio": "^3.27.1"
   },
