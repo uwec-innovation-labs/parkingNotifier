@@ -109,6 +109,7 @@ module.exports = app => {
         });
     }
   });
+
   //returns start date for alternate side parking
   getStartDate = (isNew, oldStatus) => {
     if (isNew) {
@@ -141,28 +142,10 @@ module.exports = app => {
         element.title.toLowerCase().includes("alternate side parking") ||
         element.title.toLowerCase().includes("snow event")
       ) {
-        if (!!!isStalePost(oldStatus)) {
-          //checking if status is stale
-          result = true; // found Alternate Side Parking listing and it is not old
-        }
+        result = true; // found Alternate Side Parking listing and it is not old
       }
     });
     return result;
-  };
-
-  //precautionary check to ensure alternate side parking is still in effect and the posting isn't old
-  isStalePost = oldStatus => {
-    //check previous log item
-    if (!oldStatus.inEffect) {
-      // if yesterday is false the post can't be stale
-      return false;
-    } else {
-      if (date.subtract(oldStatus.end, new Date()).toSeconds() < 0) {
-        return true; // returned a negative value meaning the end date has passed
-      } else {
-        return false; // returned a positive value meaning the end date has not passed
-      }
-    }
   };
 
   //checks to see if alternate side parking notice is new and users should be notified
