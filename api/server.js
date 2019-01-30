@@ -27,9 +27,8 @@ mongoose
   .connect(
     "mongodb://" + process.env.DB_HOST,
     {
-      auth: { authdb: "admin" },
-      user: process.env.MONGO_USER,
-      pass: process.env.MONGO_PASSWORD,
+      user: process.env.DB_USER,
+      pass: process.env.DB_PASSWORD,
       useNewUrlParser: true
     }
   )
