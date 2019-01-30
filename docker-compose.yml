@@ -1,15 +1,15 @@
 version: "3"
 services:
   db:
-    container_name: parking-db
+    container_name: practice-db
     image: "bitnami/mongodb:latest"
     restart: always
     ports:
       - "27017:27017"
     environment:
-      - MONGODB_USERNAME=proto
+      - MONGODB_USERNAME=tester
       - MONGODB_PASSWORD=password123
-      - MONGODB_DATABASE=parkingnotifier
+      - MONGODB_DATABASE=practice
       - MONGODB_EXTRA_FLAGS=--quiet
   api:
     image: parkingnotifier/api

@@ -22,11 +22,14 @@ const app = express();
 var port = process.env.PORT || 9000;
 
 // connect to the database
-console.log("Trying to connect");
+console.log("Trying to connect to " + process.env.DB_HOST);
 mongoose
   .connect(
     "mongodb://" + process.env.DB_HOST,
     {
+      auth: { authdb: "admin" },
+      user: process.env.MONGO_USER,
+      pass: process.env.MONGO_PASSWORD,
       useNewUrlParser: true
     }
   )
