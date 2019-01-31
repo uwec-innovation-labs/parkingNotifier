@@ -21,7 +21,8 @@ class ConfirmEmail extends Component {
         if (!data.success) {
           this.setState({
             confirmed: false,
-            message: "It looks like you've already confirmed your code",
+            message:
+              "Sorry! It looks like you have already confirmed your email or the confirmation link you just used was old. Please check your inbox for a more recent confirmation email",
             color: "info"
           });
         } else {
