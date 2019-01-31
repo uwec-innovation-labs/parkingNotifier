@@ -1,4 +1,3 @@
-var jwt = require("jsonwebtoken");
 module.exports = app => {
   var userController = require("../controllers/users");
 
