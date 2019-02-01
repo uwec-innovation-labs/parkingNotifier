@@ -18,12 +18,16 @@ paths:
                     type: boolean
                     description: Describes whether alternate side parking is in effect
                   start:
-                    type: string
+                    type: date
                     description: Starting date and time of alternate side parking
                   end:
-                    type: string
+                    type: date
                     description: Ending date and time of alternate side parking sequence
+                  timestamp:
+                    type: date
+                    description: Timestamp of when the webscrape occured
                 example:
                   inEffect: true
-                  start: 12/22/2018, 12:00:00 AM
-                  end: 12/24/2018, 5:00:00 PM
+                  start: 2019-01-30T06:00:00.000Z
+                  end: 2019-02-01T23:00:00.000Z
+                  timestamp: 2019-01-30T18:56:01.283Z
