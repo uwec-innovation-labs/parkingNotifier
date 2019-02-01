@@ -54,7 +54,8 @@ module.exports = app => {
   function findUsers() {
     console.log("Called findUsers");
     var userList = [];
-    User.find((err, users) => {
+    // get all users that are subscribed
+    User.find({subscribed: true}, (err, users) => {
       if (err) return console.error(err);
       return users;
     }).then(users => {

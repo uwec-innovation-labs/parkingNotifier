@@ -4,10 +4,14 @@ var User = require("../models/user");
 mongoose.model("User");
 
 exports.getStats = (req, res) => {
-  User.count({ subscribed: true }, (err, count) => {
+  User.count((err, total) => {
     res.status(200);
-    res.json({
-      count: count
+    User.count({ subscribed: true }, (err, confirmed) => {
+      res.json({
+        count: total,
+        confirmed: confirmed,
+        unconfirmed: total - confirmed
+      });
     });
   });
 };

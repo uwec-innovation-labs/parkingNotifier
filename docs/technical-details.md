@@ -24,10 +24,6 @@ Breaking backward compatibility bumps the major (and resets the minor and patch)
 New additions, including new icons, without breaking backward compatibility bumps the minor (and resets the patch).
 Bug fixes, changes to brand logos, and misc changes bumps the patch.
 
-## Task Tracking
-
-Visit [here](https://trello.com/b/2UBXPQ4H/parking-notifier) to see the current status of tasks and backlog.
-
 ## Docker Info
 
 Docker is used to containerize the project. More info about Docker can be found here: https://docs.docker.com/get-started/#docker-concepts
