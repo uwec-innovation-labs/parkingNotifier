@@ -11,7 +11,6 @@ var userRoutes = require("./routes/users");
 var statRoutes = require("./routes/stats");
 var statusRoutes = require("./routes/status");
 var monitorHelper = require("./helpers/monitor");
-var notify = require('./helpers/notify')
 
 // import environment variables from .env file
 require("dotenv").config();
@@ -60,7 +59,6 @@ statusRoutes(app);
 var swaggerSpec = swaggerJSDoc(require('./swaggerConfig').options)
 
 app.get('/api-docs.json', (req, res) => {
-  notify()
   res.setHeader('Content-Type', 'application/json')
   res.send(swaggerSpec)
 })
