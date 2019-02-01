@@ -20,8 +20,8 @@ deploy:
   - provider: s3
     access_key_id: "$AWS_KEY_ID"
     secret_access_key: "$AWS_KEY_SECRET"
-    bucket: parkingnotifier
-    region: us-west-2
+    bucket: dev.parkingnotifier
+    region: us-east-1
     local_dir: build
     skip_cleanup: true
     acl: public_read
