@@ -5,15 +5,16 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      confirmed: 0
+      confirmed: 0,
+      message: ""
     };
   }
 
   componentDidMount() {
     fetch("http://api.parkingnotifier.com/stats")
       .then(res => {
-        if (res.ok) {
-          return res.JSON();
+        if (res == null) {
+          return res.json();
         } else {
           throw new Error(
             "Something went wrong. Fetch returned null value, check if API is down"
@@ -23,13 +24,20 @@ class Home extends Component {
       .then(result => {
         console.log(result);
         this.setState({
-          confirmed: result.confirmed
+          confirmed: result.confirmed,
+          message:
+            "Join " +
+            this.state.confirmed
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+            " Others"
         });
       })
       .catch(err => {
         console.log(err);
         this.setState({
-          confirmed: 0
+          confirmed: 0,
+          message: "Join Now"
         });
       });
   }
@@ -93,13 +101,7 @@ class Home extends Component {
             </ul>
           </div>
           <a href="/register">
-            <div className="button">
-              Join{" "}
-              {this.state.confirmed
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-              others
-            </div>
+            <div className="button">{this.state.message}</div>
           </a>
         </div>
       </div>

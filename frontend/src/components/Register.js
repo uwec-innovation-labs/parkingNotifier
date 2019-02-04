@@ -23,6 +23,7 @@ class Register extends Component {
     super(props);
     this.state = {
       confirmed: 0,
+      joinMessage: "",
       fname: "",
       lname: "",
       phone: "",
@@ -39,8 +40,8 @@ class Register extends Component {
   componentDidMount() {
     fetch("http://api.parkingnotifier.com/stats")
       .then(res => {
-        if (res.ok) {
-          return res.JSON();
+        if (res == null) {
+          return res.json();
         } else {
           throw new Error(
             "Something went wrong. Fetch returned null value, check if API is down"
@@ -49,13 +50,20 @@ class Register extends Component {
       })
       .then(result => {
         this.setState({
-          confirmed: result.confirmed
+          confirmed: result.confirmed,
+          joinMessage:
+            "Join " +
+            this.state.confirmed
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+            " others receiving text alerts. "
         });
       })
       .catch(err => {
         console.log(err);
         this.setState({
-          confirmed: 0
+          confirmed: 0,
+          joinMessage: "Join everyone else receiving text alerts."
         });
       });
   }
@@ -150,13 +158,7 @@ class Register extends Component {
                 will end (3 days after the start of the rules).
               </h6>
               <div className="statCard">
-                <h4>
-                  Join{" "}
-                  {this.state.confirmed
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-                  others receiving text alerts.
-                </h4>
+                <h4>{this.state.joinMessage}</h4>
               </div>
             </Container>
             {this.state.submitSuccess ? (
