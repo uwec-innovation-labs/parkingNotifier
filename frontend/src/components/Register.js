@@ -38,10 +38,24 @@ class Register extends Component {
 
   componentDidMount() {
     fetch("http://api.parkingnotifier.com/stats")
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) {
+          return res.JSON();
+        } else {
+          throw new Error(
+            "Something went wrong. Fetch returned null value, check if API is down"
+          );
+        }
+      })
       .then(result => {
         this.setState({
           confirmed: result.confirmed
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          confirmed: 0
         });
       });
   }
