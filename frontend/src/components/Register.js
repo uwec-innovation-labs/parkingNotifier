@@ -40,7 +40,7 @@ class Register extends Component {
   componentDidMount() {
     fetch("http://api.parkingnotifier.com/stats")
       .then(res => {
-        if (res == null) {
+        if (res !== null) {
           return res.json();
         } else {
           throw new Error(
