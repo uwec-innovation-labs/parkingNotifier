@@ -50,7 +50,9 @@ class Register extends Component {
       })
       .then(result => {
         this.setState({
-          confirmed: result.confirmed,
+          confirmed: result.confirmed
+        });
+        this.setState({
           joinMessage:
             "Join " +
             this.state.confirmed
@@ -62,7 +64,6 @@ class Register extends Component {
       .catch(err => {
         console.log(err);
         this.setState({
-          confirmed: 0,
           joinMessage: "Join everyone else receiving text alerts.",
           offline: true
         });
