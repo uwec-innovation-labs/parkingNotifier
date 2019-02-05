@@ -21,7 +21,6 @@ class Register extends Component {
     super(props);
     this.state = {
       confirmed: 0,
-      joinMessage: "",
       errorMessage: "",
       offline: false,
       fname: "",
@@ -52,19 +51,10 @@ class Register extends Component {
         this.setState({
           confirmed: result.confirmed
         });
-        this.setState({
-          joinMessage:
-            "Join " +
-            this.state.confirmed
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-            " others receiving text alerts. "
-        });
       })
       .catch(err => {
         console.log(err);
         this.setState({
-          joinMessage: "Join everyone else receiving text alerts.",
           offline: true
         });
       });
@@ -160,9 +150,19 @@ class Register extends Component {
                 tell you which side of the street to park on and when the rules
                 will end (3 days after the start of the rules).
               </h6>
-              <div className="statCard">
-                <h4>{this.state.joinMessage}</h4>
-              </div>
+              {this.state.offline ? (
+                ""
+              ) : (
+                <div className="statCard">
+                  <h4>
+                    Join{" "}
+                    {this.state.confirmed
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                    others receiving text alerts.
+                  </h4>
+                </div>
+              )}
             </Container>
             {this.state.offline ? (
               ""
