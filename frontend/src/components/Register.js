@@ -12,17 +12,18 @@ import {
   FormFeedback,
   Alert
 } from "reactstrap";
+import DownAlert from "./DownAlert";
 
 var PhoneNumber = require("awesome-phonenumber");
-var imgStyle = {
-  display: "inline"
-};
 
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
       confirmed: 0,
+      joinMessage: "",
+      errorMessage: "",
+      offline: false,
       fname: "",
       lname: "",
       phone: "",
@@ -38,10 +39,32 @@ class Register extends Component {
 
   componentDidMount() {
     fetch("http://api.parkingnotifier.com/stats")
-      .then(res => res.json())
+      .then(res => {
+        if (res == null) {
+          return res.json();
+        } else {
+          throw new Error(
+            "Something went wrong. Fetch returned null value, check if API is down"
+          );
+        }
+      })
       .then(result => {
         this.setState({
-          confirmed: result.confirmed
+          confirmed: result.confirmed,
+          joinMessage:
+            "Join " +
+            this.state.confirmed
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+            " others receiving text alerts. "
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          confirmed: 0,
+          joinMessage: "Join everyone else receiving text alerts.",
+          offline: true
         });
       });
   }
@@ -125,6 +148,7 @@ class Register extends Component {
       <div>
         <AppNavbar />
         <div className="container navbar-offset" />
+        <DownAlert offline={this.state.offline} />
         <div className="row">
           <div className="col align-self-center">
             <Container>
@@ -136,107 +160,104 @@ class Register extends Component {
                 will end (3 days after the start of the rules).
               </h6>
               <div className="statCard">
-                <h4>
-                  Join{" "}
-                  {this.state.confirmed
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-                  others receiving text alerts.
-                </h4>
+                <h4>{this.state.joinMessage}</h4>
               </div>
             </Container>
-            {this.state.submitSuccess ? (
-              <Container>
-                <Alert color="success">
-                  <h5 className="alert-heading">
-                    We've sent a confirmation email to {this.state.email}. Click
-                    the link in the email to complete the registration process.
-                  </h5>
-                </Alert>
-              </Container>
+            {this.state.offline ? (
+              ""
             ) : (
-              <Form onSubmit={this.handleSubmit}>
-                {this.state.formValid ? (
-                  ""
+              <div>
+                {this.state.submitSuccess ? (
+                  <Container>
+                    <Alert color="success">
+                      <h5 className="alert-heading">
+                        We've sent a confirmation email to {this.state.email}.
+                        Click the link in the email to complete the registration
+                        process.
+                      </h5>
+                    </Alert>
+                  </Container>
                 ) : (
-                  <Alert className="text-center" color="danger">
-                    {this.state.message}
-                  </Alert>
-                )}
+                  <Form onSubmit={this.handleSubmit}>
+                    {this.state.formValid ? (
+                      ""
+                    ) : (
+                      <Alert className="text-center" color="danger">
+                        {this.state.message}
+                      </Alert>
+                    )}
 
-                <Label htmlFor="frmNameA">Name</Label>
-                <Row>
-                  <Col md={6}>
+                    <Label htmlFor="frmNameA">Name</Label>
+                    <Row>
+                      <Col md={6}>
+                        <FormGroup>
+                          <Input
+                            type="text"
+                            name="fname"
+                            id="frmNameA"
+                            placeholder="First"
+                            required
+                            autoComplete="given-name"
+                            value={this.state.fname}
+                            onChange={event => this.handleInput(event)}
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup>
+                          <Input
+                            id="lName"
+                            name="lname"
+                            type="text"
+                            placeholder="Last"
+                            required
+                            autoComplete="family-name"
+                            value={this.state.lname}
+                            onChange={event => this.handleInput(event)}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
                     <FormGroup>
+                      <Label>Phone Number</Label>
                       <Input
-                        type="text"
-                        name="fname"
-                        id="frmNameA"
-                        placeholder="First"
                         required
-                        autoComplete="given-name"
-                        value={this.state.fname}
+                        type="tel"
+                        className="form-control"
+                        id="phoneNumber"
+                        name="phone"
+                        value={this.state.phone}
                         onChange={event => this.handleInput(event)}
+                        invalid={!!!this.state.phoneValid}
                       />
+                      <FormFeedback>Must be a valid phone number</FormFeedback>
                     </FormGroup>
-                  </Col>
-                  <Col md={6}>
                     <FormGroup>
+                      <Label>UWEC Email</Label>
                       <Input
-                        id="lName"
-                        name="lname"
-                        type="text"
-                        placeholder="Last"
+                        name="email"
+                        type="email"
                         required
-                        autoComplete="family-name"
-                        value={this.state.lname}
+                        placeholder="username@uwec.edu"
+                        autoComplete="email"
+                        value={this.state.email}
                         onChange={event => this.handleInput(event)}
+                        invalid={!!!this.state.emailValid}
                       />
+                      <FormFeedback>Must be a valid UWEC email.</FormFeedback>
                     </FormGroup>
-                  </Col>
-                </Row>
-                <FormGroup>
-                  <Label>Phone Number</Label>
-                  <Input
-                    required
-                    type="tel"
-                    className="form-control"
-                    id="phoneNumber"
-                    name="phone"
-                    value={this.state.phone}
-                    onChange={event => this.handleInput(event)}
-                    invalid={!!!this.state.phoneValid}
-                  />
-                  <FormFeedback>Must be a valid phone number</FormFeedback>
-                </FormGroup>
-                <FormGroup>
-                  <Label>UWEC Email</Label>
-                  <Input
-                    name="email"
-                    type="email"
-                    required
-                    placeholder="username@uwec.edu"
-                    autoComplete="email"
-                    value={this.state.email}
-                    onChange={event => this.handleInput(event)}
-                    invalid={!!!this.state.emailValid}
-                  />
-                  <FormFeedback>Must be a valid UWEC email.</FormFeedback>
-                </FormGroup>
-                <Button outline block color="primary" type="submit">
-                  Register
-                </Button>
-              </Form>
+                    <Button outline block color="primary" type="submit">
+                      Register
+                    </Button>
+                  </Form>
+                )}
+              </div>
             )}
           </div>
           {this.state.submitSuccess ? (
             <div />
           ) : (
-            <div
-              id="exampleContainer"
-              className="col align-self-center"
-              style={imgStyle}
-            >
+            <div id="exampleContainer" className="col align-self-center">
               <img
                 src={require("../media/demo_text_2.png")}
                 className="text-example-img"

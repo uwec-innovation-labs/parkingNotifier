@@ -1,21 +1,46 @@
 import React, { Component } from "react";
 import AppNavbar from "./AppNavbar";
+import DownAlert from "./DownAlert";
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      confirmed: 0
+      confirmed: 0,
+      message: "",
+      offline: false
     };
   }
 
   componentDidMount() {
     fetch("http://api.parkingnotifier.com/stats")
-      .then(res => res.json())
+      .then(res => {
+        if (res == null) {
+          return res.json();
+        } else {
+          throw new Error(
+            "Something went wrong. Fetch returned null value, check if API is down"
+          );
+        }
+      })
       .then(result => {
         console.log(result);
         this.setState({
-          confirmed: result.confirmed
+          confirmed: result.confirmed,
+          message:
+            "Join " +
+            this.state.confirmed
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+            " Others"
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          confirmed: 0,
+          message: "Join Now",
+          offline: true
         });
       });
   }
@@ -25,6 +50,7 @@ class Home extends Component {
       <div className="App">
         <AppNavbar />
         <div className="content navbar-offset">
+          <DownAlert offline={this.state.offline} />
           <img
             src={require("../media/clearwater_logo.png")}
             className="img-responsive"
@@ -32,6 +58,7 @@ class Home extends Component {
             alt="cwlLogo"
           />
         </div>
+
         <div className="container">
           <h1> Parking Notifier </h1>
           <h4>The Alternate Side Parking Messaging Service</h4>
@@ -78,15 +105,13 @@ class Home extends Component {
               </li>
             </ul>
           </div>
-          <a href="/register">
-            <div className="button">
-              Join{" "}
-              {this.state.confirmed
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-              others
-            </div>
-          </a>
+          {this.state.offline ? (
+            ""
+          ) : (
+            <a href="/register">
+              <div className="button">{this.state.message}</div>
+            </a>
+          )}
         </div>
       </div>
     );
