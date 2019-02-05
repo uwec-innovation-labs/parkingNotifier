@@ -7,7 +7,6 @@ class Home extends Component {
     super(props);
     this.state = {
       confirmed: 0,
-      message: "",
       offline: false
     };
   }
@@ -26,20 +25,12 @@ class Home extends Component {
       .then(result => {
         console.log(result);
         this.setState({
-          confirmed: result.confirmed,
-          message:
-            "Join " +
-            this.state.confirmed
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-            " Others"
+          confirmed: result.confirmed
         });
       })
       .catch(err => {
         console.log(err);
         this.setState({
-          confirmed: 0,
-          message: "Join Now",
           offline: true
         });
       });
@@ -109,7 +100,13 @@ class Home extends Component {
             ""
           ) : (
             <a href="/register">
-              <div className="button">{this.state.message}</div>
+              <div className="button">
+                Join{" "}
+                {this.state.confirmed
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                Others
+              </div>
             </a>
           )}
         </div>
