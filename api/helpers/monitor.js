@@ -52,8 +52,14 @@ module.exports = app => {
             };
             new ParkingStatus(newParkingStatus)
               .save()
-              .then(console.log("Dummy False ParkingStatus save successful"))
+              .then(
+                console.log(
+                  JSON.stringify(newParkingStatus) +
+                    "\nDummy False ParkingStatus save successful"
+                )
+              )
               .catch(err => console.log(err));
+            oldStatus = newParkingStatus;
           }
 
           //checking if html contains alternate parking listing by scanning "latest news" items from EC website
