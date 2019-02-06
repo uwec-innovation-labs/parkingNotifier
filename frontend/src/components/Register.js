@@ -38,7 +38,7 @@ class Register extends Component {
   }
 
   componentDidMount() {
-    fetch("http://api.parkingnotifier.com/stats")
+    fetch("https://api.parkingnotifier.com/stats")
       .then(res => {
         if (res !== null) {
           return res.json();
@@ -80,7 +80,7 @@ class Register extends Component {
 
   registerUser() {
     var pn = new PhoneNumber(this.state.phone, "US");
-    fetch("http://api.parkingnotifier.com/users", {
+    fetch("https://api.parkingnotifier.com/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
