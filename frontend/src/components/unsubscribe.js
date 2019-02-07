@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import AppNavbar from "./AppNavbar";
 import DownAlert from "./DownAlert";
+import { getAPI } from "./helpers/api";
 
 class Unsubscribe extends Component {
   constructor(props) {
@@ -27,10 +28,11 @@ class Unsubscribe extends Component {
   }
 
   componentDidMount() {
-    fetch("https://api.parkingnotifier.com/stats")
+    getAPI()
+      .get("/stats")
       .then(res => {
         if (res !== null) {
-          return res.json();
+          return res.data;
         } else {
           throw new Error(
             "Something went wrong. Fetch returned null value, check if API is down"
@@ -40,14 +42,12 @@ class Unsubscribe extends Component {
       .then(result => {
         console.log(result);
         this.setState({
-          confirmed: result.confirmed,
           offline: false
         });
       })
       .catch(err => {
         console.log(err);
         this.setState({
-          confirmed: 0,
           offline: true
         });
       });
@@ -62,31 +62,32 @@ class Unsubscribe extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log("EMAIL" + this.state.emailValid);
     if (!this.state.emailValid) {
       console.log("incorrect email");
       return;
     }
-    fetch("https://api.parkingnotifier.com/users", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: this.state.email
+    getAPI()
+      .delete("/users", {
+        data: {
+          email: this.state.email
+        },
+        headers: {
+          "Content-Type": "application/json"
+        }
       })
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        if (!data.success) {
+      .then(res => {
+        console.log(res.data);
+        if (!res.data.success) {
           this.setState({
             formValid: false,
             message: "Looks like you're not registered yet."
           });
         } else {
-          this.setState({ success: data.success });
+          this.setState({ success: res.data.success });
         }
+      })
+      .catch(err => {
+        console.log(err);
       });
     this.setState({
       formValid: true
