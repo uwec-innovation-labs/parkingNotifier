@@ -87,7 +87,10 @@ class Unsubscribe extends Component {
         }
       })
       .catch(err => {
-        console.log(err);
+        this.setState({
+          formValid: false,
+          message: "Looks like you're not registered yet."
+        });
       });
     this.setState({
       formValid: true
