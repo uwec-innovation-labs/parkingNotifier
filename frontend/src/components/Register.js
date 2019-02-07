@@ -13,6 +13,7 @@ import {
   Alert
 } from "reactstrap";
 import DownAlert from "./DownAlert";
+import { getAPI } from "./helpers/api";
 
 var PhoneNumber = require("awesome-phonenumber");
 
@@ -37,10 +38,11 @@ class Register extends Component {
   }
 
   componentDidMount() {
-    fetch("https://api.parkingnotifier.com/stats")
+    getAPI()
+      .get("/stats")
       .then(res => {
         if (res !== null) {
-          return res.json();
+          return res.data;
         } else {
           throw new Error(
             "Something went wrong. Fetch returned null value, check if API is down"
@@ -71,28 +73,30 @@ class Register extends Component {
 
   registerUser() {
     var pn = new PhoneNumber(this.state.phone, "US");
-    fetch("https://api.parkingnotifier.com/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        firstName: this.state.fname,
-        lastName: this.state.lname,
-        username: this.state.email,
-        phoneNumber: pn.getNumber()
-      })
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (!data.success) {
-          this.setState({
-            formValid: false,
-            message: "This email has already been taken."
-          });
-        } else {
-          this.setState({ submitSuccess: true });
+    getAPI()
+      .post(
+        "/users",
+        {
+          firstName: this.state.fname,
+          lastName: this.state.lname,
+          username: this.state.email,
+          phoneNumber: pn.getNumber()
+        },
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
         }
+      )
+      .then(res => {
+        console.log(res);
+        this.setState({ submitSuccess: true });
+      })
+      .catch(err => {
+        this.setState({
+          formValid: false,
+          message: "This email has already been taken."
+        });
       });
   }
 

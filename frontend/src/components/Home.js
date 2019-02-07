@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AppNavbar from "./AppNavbar";
 import DownAlert from "./DownAlert";
+import { getAPI } from "./helpers/api";
 
 class Home extends Component {
   constructor(props) {
@@ -12,10 +13,11 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    fetch("https://api.parkingnotifier.com/stats")
+    getAPI()
+      .get("/stats")
       .then(res => {
         if (res !== null) {
-          return res.json();
+          return res.data;
         } else {
           throw new Error(
             "Something went wrong. Fetch returned null value, check if API is down"
