@@ -1,5 +1,5 @@
 module.exports = app => {
-  const twilio = require("twilio")(
+  const client = require("twilio")(
     process.env.TWILIO_USERNAME,
     process.env.TWILIO_TOKEN
   );
@@ -9,12 +9,7 @@ module.exports = app => {
   // import environment variables from .env file
   require("dotenv").config({ path: "../.env" });
 
-  const service = twilio.notify.services(process.env.TWILIO_NOTIFY_SERVICE_SID);
-
   function callNumbers(userList) {
-    console.log("called callNumbers");
-    var i = 1;
-
     //calculate the start and end date
     var startDate = new Date();
     startDate.setDate(startDate.getDate() + 1);
@@ -27,44 +22,31 @@ module.exports = app => {
     // message that will be sent to all users
     var body = `Alternate side parking is in effect from ${formattedStartDate} until ${formattedEndDate} at 5pm. Parking is enforced between midnight and 5pm each day. Details: parkingnotifier.com`;
 
-    //console.log(body); //testing purposes.
-    for (i = 0; i < 1; i++) {
-      var bindings = userList.map(user => {
-        return JSON.stringify({
-          binding_type: "sms",
-          address: user.phoneNumber
-        });
-      });
-
-      notification = service.notifications
+    userList.map(user => {
+      client.messages
         .create({
-          toBinding: bindings,
-          body: body
+          body,
+          messagingServiceSid: process.env.TWILIO_MESSAGING_SERVICE_SID,
+          to: user.phoneNumber
         })
-        .then(() => {
-          console.log(bindings);
-          console.log(notification);
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    }
+        .then(message => console.log(JSON.stringify(message, null, 2)))
+        .done();
+    });
   }
 
   function findUsers() {
     console.log("Called findUsers");
     var userList = [];
     // get all users that are subscribed
-    User.find({subscribed: true}, (err, users) => {
+    User.find({ subscribed: true }, (err, users) => {
       if (err) return console.error(err);
       return users;
     }).then(users => {
       users.forEach(user => {
         userList.push(user);
       });
-      callNumbers(userList, []);
+      callNumbers(userList);
     });
   }
-
   findUsers();
 };
