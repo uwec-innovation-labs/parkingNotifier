@@ -24,14 +24,11 @@ var port = process.env.PORT || 9000;
 // connect to the database
 console.log("Trying to connect to " + process.env.DB_HOST);
 mongoose
-  .connect(
-    "mongodb://" + process.env.DB_HOST,
-    {
-      user: process.env.DB_USER,
-      pass: process.env.DB_PASS,
-      useNewUrlParser: true
-    }
-  )
+  .connect("mongodb://" + process.env.DB_HOST, {
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASS,
+    useNewUrlParser: true
+  })
   .then(() => {
     console.log("Connected to database");
   })
