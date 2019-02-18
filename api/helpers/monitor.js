@@ -78,7 +78,12 @@ module.exports = app => {
 
             new ParkingStatus(newParkingStatus)
               .save()
-              .then(console.log("ParkingStatus save successful"))
+              .then(
+                console.log(
+                  JSON.stringify(newParkingStatus) +
+                    "ParkingStatus save successful"
+                )
+              )
               .catch(err => console.log(err));
 
             if (isNew) {
@@ -98,7 +103,12 @@ module.exports = app => {
             };
             new ParkingStatus(newParkingStatus)
               .save()
-              .then(console.log("ParkingStatus save successful"))
+              .then(
+                console.log(
+                  JSON.stringify(newParkingStatus) +
+                    "ParkingStatus save successful"
+                )
+              )
               .catch(err => console.log(err));
           }
         });
