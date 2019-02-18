@@ -87,7 +87,7 @@ app.use((error, req, res, next) => {
 });
 
 new CronJob(
-  "16 10 * * * ", //runs at 5:30pm everyday
+  "30 17 * * * ", //runs at 5:30pm everyday
   //"*/15 * * * * *", //runs every 15 seconds (testing purposes only)
   () => {
     console.log(
