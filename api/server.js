@@ -24,14 +24,11 @@ var port = process.env.PORT || 9000;
 // connect to the database
 console.log("Trying to connect to " + process.env.DB_HOST);
 mongoose
-  .connect(
-    "mongodb://" + process.env.DB_HOST,
-    {
-      user: process.env.DB_USER,
-      pass: process.env.DB_PASS,
-      useNewUrlParser: true
-    }
-  )
+  .connect("mongodb://" + process.env.DB_HOST, {
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASS,
+    useNewUrlParser: true
+  })
   .then(() => {
     console.log("Connected to database");
   })
@@ -90,8 +87,8 @@ app.use((error, req, res, next) => {
 });
 
 new CronJob(
-  "0 18 * * * ", //runs at 6pm everyday
-  //"*/15 * * * * *", //runs every 10 seconds (testing purposes only)
+  "30 17 * * * ", //runs at 5:30pm everyday
+  //"*/15 * * * * *", //runs every 15 seconds (testing purposes only)
   () => {
     console.log(
       "[" +

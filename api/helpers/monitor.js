@@ -63,33 +63,27 @@ module.exports = app => {
           }
 
           //checking if html contains alternate parking listing by scanning "latest news" items from EC website
-          var altParkingInEffect = checkForAlternateParking(
-            newsItems,
-            oldStatus
-          );
+          var altParkingInEffect = checkForAlternateParking(newsItems);
 
           if (altParkingInEffect) {
             //check if the post is new today
             let isNew = isNewPost(oldStatus);
 
-            if (isNew) {
-              newParkingStatus = {
-                inEffect: true,
-                start: getStartDate(isNew, oldStatus),
-                end: getEndDate(isNew, oldStatus),
-                timestamp: new Date()
-              };
-            } else {
-              newParkingStatus = {
-                inEffect: true,
-                start: getStartDate(isNew, oldStatus),
-                end: getEndDate(isNew, oldStatus),
-                timestamp: new Date()
-              };
-            }
+            newParkingStatus = {
+              inEffect: true,
+              start: getStartDate(isNew, oldStatus),
+              end: getEndDate(isNew, oldStatus),
+              timestamp: new Date()
+            };
+
             new ParkingStatus(newParkingStatus)
               .save()
-              .then(console.log("ParkingStatus save successful"))
+              .then(
+                console.log(
+                  JSON.stringify(newParkingStatus) +
+                    "ParkingStatus save successful"
+                )
+              )
               .catch(err => console.log(err));
 
             if (isNew) {
@@ -109,7 +103,12 @@ module.exports = app => {
             };
             new ParkingStatus(newParkingStatus)
               .save()
-              .then(console.log("ParkingStatus save successful"))
+              .then(
+                console.log(
+                  JSON.stringify(newParkingStatus) +
+                    "ParkingStatus save successful"
+                )
+              )
               .catch(err => console.log(err));
           }
         });
@@ -141,7 +140,7 @@ module.exports = app => {
   };
 
   //checks if there is an alternate side parking posting
-  checkForAlternateParking = (newsItems, oldStatus) => {
+  checkForAlternateParking = newsItems => {
     var result = false;
     newsItems.forEach(element => {
       if (
