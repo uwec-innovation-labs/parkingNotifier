@@ -2,7 +2,7 @@ module.exports = app => {
   const axios = require("axios");
   const cheerio = require("cheerio");
   const ParkingStatus = require("../models/parkingStatus");
-  const cityURL = "http://www.ci.eau-claire.wi.us/";
+  const cityURL = "https://www.eauclairewi.gov/";
   const notifyHelper = require("./notify");
   const date = require("date-and-time");
   const mongoose = require("mongoose");
@@ -18,17 +18,17 @@ module.exports = app => {
       const $ = cheerio.load(html);
       let newsItems = [];
 
-      var latestNews = $("li", ".home_news").each((i, elm) => {
+      $("li", ".home_news").each((i, elm) => {
         newsItems.push({
           title: $(elm)
-            .children()
-            .eq(1)
-            .first()
+            .children(".news-item")
+            .children(".item_info")
+            .children(".box_item_title")
             .text(),
           description: $(elm)
-            .children()
-            .eq(2)
-            .first()
+            .children(".news-item")
+            .children(".item_info")
+            .children(".box_item_summary")
             .text()
         });
       });
