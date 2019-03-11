@@ -6,12 +6,12 @@ let userSchema = mongoose.Schema({
   firstName: {
     type: String,
     required: true,
-    select: false
+    select: true
   },
   lastName: {
     type: String,
     required: true,
-    select: false
+    select: true
   },
   phoneNumber: {
     type: String,

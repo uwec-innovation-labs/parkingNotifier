@@ -1,9 +1,13 @@
 module.exports = app => {
   var userController = require("../controllers/users");
+  var passport = require("passport");
 
   app
     .route("/users")
-    .get(checkToken, userController.getAllUsers)
+    .get(
+      passport.authenticate("jwt", { session: false }),
+      userController.getAllUsers
+    )
     .post(userController.addUser)
     .delete(userController.deleteUser);
 
@@ -11,14 +15,8 @@ module.exports = app => {
 
   app
     .route("/users/subscribed")
-    .get(checkToken, userController.getSubscribedUsers);
-};
-
-const checkToken = (req, res, next) => {
-  if (req.headers.token && req.headers.token === process.env.JWT_SECRET) {
-    next();
-  } else {
-    //If localToken is undefined return Forbidden (403)
-    res.sendStatus(403);
-  }
+    .get(
+      passport.authenticate("jwt", { session: false }),
+      userController.getSubscribedUsers
+    );
 };
