@@ -14,6 +14,7 @@ var userRoutes = require("./routes/users");
 var statRoutes = require("./routes/stats");
 var superuserRoutes = require("./routes/dashboard/superusers");
 var parkingStatusRoutes = require("./routes/parkingStatus");
+var notifyRoutes = require("./routes/dashboard/notify");
 var monitorHelper = require("./helpers/monitor");
 
 // import environment variables from .env file
@@ -63,6 +64,7 @@ require("./config/passport")(passport);
 // Dashboard Routes
 app.use("/dashboard/superusers", superuserRoutes);
 
+notifyRoutes(app);
 userRoutes(app);
 statRoutes(app);
 parkingStatusRoutes(app);
