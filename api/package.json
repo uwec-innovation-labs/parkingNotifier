@@ -39,7 +39,7 @@
     "mongoose": "^5.4.12",
     "mongoose-unique-validator": "^2.0.2",
     "morgan": "^1.9.1",
-    "redoc": "^2.0.0-rc.2",
+    "redoc": "^2.0.0-rc.4",
     "swagger-express-jsdoc": "^1.0.3",
     "twilio": "^3.29.1"
   },
