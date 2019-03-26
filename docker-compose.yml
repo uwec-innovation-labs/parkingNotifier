@@ -11,27 +11,27 @@ services:
       - MONGODB_PASSWORD=password123
       - MONGODB_DATABASE=practice
       - MONGODB_EXTRA_FLAGS=--quiet
-  # api:
-  #   image: parkingnotifier/api
-  #   container_name: parking-api
-  #   build:
-  #     context: ./api
-  #   volumes:
-  #     - ./api:/parkingNotifier/api
-  #     - /parkingNotifier/api/node_modules
-  #   ports:
-  #     - "9000:9000"
-  #   depends_on:
-  #     - db
-  # frontend:
-  #   image: parkingnotifier/frontend
-  #   container_name: parking-frontend
-  #   build:
-  #     context: ./frontend
-  #   volumes:
-  #     - ./frontend:/parkingNotifier/frontend
-  #     - /parkingNotifier/frontend/node_modules
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     - NODE_ENV=development
+  api:
+    image: parkingnotifier/api
+    container_name: parking-api
+    build:
+      context: ./api
+    volumes:
+      - ./api:/parkingNotifier/api
+      - /parkingNotifier/api/node_modules
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
+  frontend:
+    image: parkingnotifier/frontend
+    container_name: parking-frontend
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend:/parkingNotifier/frontend
+      - /parkingNotifier/frontend/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
