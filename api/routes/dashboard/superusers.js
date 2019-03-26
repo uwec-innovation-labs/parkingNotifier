@@ -11,10 +11,22 @@ const validateLoginInput = require("../../validation/login");
 // Load Superuser model
 const Superuser = require("../../models/Superuser");
 
+const checkKey = (req, res, next) => {
+  if (
+    req.headers.key &&
+    req.headers.key === process.env.SUPERUSER_REGISTER_SECRET
+  ) {
+    next();
+  } else {
+    //If localToken is undefined return Forbidden (403)
+    res.sendStatus(403);
+  }
+};
+
 // @route POST dashboard/superusers/register
 // @desc Register superuser
 // @access Public
-router.post("/register", (req, res) => {
+router.post("/register", checkKey, (req, res) => {
   // Form validation
 
   const { errors, isValid } = validateRegisterInput(req.body);
