@@ -7,12 +7,14 @@ var PhoneNumber = require("awesome-phonenumber");
 mongoose.model("User");
 
 exports.getAllUsers = (req, res) => {
-  User.find((err, user) => {
-    if (err) {
-      console.log(err);
-    }
-    res.status(200).send(user);
-  });
+  User.find()
+    .select("+firstName +lastName")
+    .exec((err, user) => {
+      if (err) {
+        console.log(err);
+      }
+      res.status(200).send(user);
+    });
 };
 
 exports.getSubscribedUsers = (req, res) => {
@@ -94,7 +96,10 @@ exports.addUser = (req, res) => {
     // attempt to save the user
     newUser.save(err => {
       if (err) {
-        return res.status(400).json({ success: false, message: "User with this email already exists." });
+        return res.status(400).json({
+          success: false,
+          message: "User with this email already exists."
+        });
       }
       emailController.sendEmail(
         req.body.firstName,

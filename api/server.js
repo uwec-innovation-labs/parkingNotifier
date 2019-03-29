@@ -8,10 +8,13 @@ var cors = require("cors");
 var swaggerJSDoc = require("swagger-jsdoc");
 var fs = require("fs");
 var path = require("path");
+var passport = require("passport");
 
 var userRoutes = require("./routes/users");
 var statRoutes = require("./routes/stats");
+var superuserRoutes = require("./routes/dashboard/superusers");
 var parkingStatusRoutes = require("./routes/parkingStatus");
+var notifyRoutes = require("./routes/dashboard/notify");
 var monitorHelper = require("./helpers/monitor");
 
 // import environment variables from .env file
@@ -52,10 +55,20 @@ app.use(
 );
 app.use(bodyParser.json());
 
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+require("./config/passport")(passport);
+
+// Dashboard Routes
+app.use("/dashboard/superusers", superuserRoutes);
+
+notifyRoutes(app);
 userRoutes(app);
 statRoutes(app);
 parkingStatusRoutes(app);
-var swaggerSpec = swaggerJSDoc(require("./swaggerConfig").options);
+//var swaggerSpec = swaggerJSDoc(require("./swaggerConfig").options);
 
 app.get("/api-docs.json", (req, res) => {
   res.setHeader("Content-Type", "application/json");
