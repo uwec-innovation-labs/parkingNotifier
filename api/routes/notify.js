@@ -1,5 +1,5 @@
 module.exports = app => {
-  var notifyController = require("../../controllers/notify");
+  var notifyController = require("../controllers/notify");
   var passport = require("passport");
 
   app
