@@ -12,9 +12,9 @@ var passport = require("passport");
 
 var userRoutes = require("./routes/users");
 var statRoutes = require("./routes/stats");
-var superuserRoutes = require("./routes/dashboard/superusers");
+var superuserRoutes = require("./routes/superusers");
 var parkingStatusRoutes = require("./routes/parkingStatus");
-var notifyRoutes = require("./routes/dashboard/notify");
+var notifyRoutes = require("./routes/notify");
 var monitorHelper = require("./helpers/monitor");
 
 // import environment variables from .env file
@@ -68,7 +68,9 @@ notifyRoutes(app);
 userRoutes(app);
 statRoutes(app);
 parkingStatusRoutes(app);
-//var swaggerSpec = swaggerJSDoc(require("./swaggerConfig").options);
+
+// load in the swagger config to generate the docs
+var swaggerSpec = swaggerJSDoc(require("./swaggerConfig").options);
 
 app.get("/api-docs.json", (req, res) => {
   res.setHeader("Content-Type", "application/json");
@@ -84,8 +86,7 @@ app.use((req, res) => {
   res.status(404);
   res.json({
     status: "failed",
-    message: "This resource does not exist",
-    apiDocumentation: "https://github.com/UWEC-ITC/parkingNotifier-API"
+    message: "This resource does not exist"
   });
 });
 
@@ -94,8 +95,7 @@ app.use((error, req, res, next) => {
   console.log(error);
   res.json({
     status: "failed",
-    message: "Server error",
-    apiDocumentation: "https://github.com/UWEC-ITC/parkingNotifier-API"
+    message: "Server error"
   });
 });
 
