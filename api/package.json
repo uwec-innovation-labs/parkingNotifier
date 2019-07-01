@@ -46,7 +46,7 @@
     "redoc": "^2.0.0-rc.8-1",
     "swagger-express-jsdoc": "^1.0.3",
     "twilio": "^3.30.0",
-    "validator": "^10.11.0"
+    "validator": "^11.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
